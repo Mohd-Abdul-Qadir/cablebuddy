@@ -1,107 +1,128 @@
-import { Helmet } from 'react-helmet-async';
-// @mui
-import { styled } from '@mui/material/styles';
-import { Link, Container, Typography, Divider, Stack, Button } from '@mui/material';
-// hooks
-import useResponsive from '../hooks/useResponsive';
-// components
-import Logo from '../components/logo';
-import Iconify from '../components/iconify';
-// sections
-import { LoginForm } from '../sections/auth/login';
+import { useNavigate } from 'react-router-dom'
+import { TabContext, TabList, TabPanel } from '@mui/lab'
+import { Box, Button, Checkbox, FormControl, FormControlLabel, MenuItem, Stack, Select, Tab, Tabs, TextField, ThemeProvider, createTheme } from '@mui/material'
+import React, { useState } from 'react'
+// import CBlogo from '/assets/images/CBlogo.png'
+import Image from '../components/Image'
 
-// ----------------------------------------------------------------------
 
-const StyledRoot = styled('div')(({ theme }) => ({
-  [theme.breakpoints.up('md')]: {
-    display: 'flex',
+const theme = createTheme({
+  components: {
+    MuiTabs: {
+      styleOverrides: {
+        indicator: {
+          backgroundColor: '#F7941D',
+        },
+      },
+    },
+    MuiTextField: {
+      styleOverrides: {
+        root: {
+          paddingTop: '0px',
+          paddingBottom: '0px'
+        },
+      },
+    },
   },
-}));
+});
 
-const StyledSection = styled('div')(({ theme }) => ({
-  width: '100%',
-  maxWidth: 480,
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'center',
-  boxShadow: theme.customShadows.card,
-  backgroundColor: theme.palette.background.default,
-}));
 
-const StyledContent = styled('div')(({ theme }) => ({
-  maxWidth: 480,
-  margin: 'auto',
-  minHeight: '100vh',
-  display: 'flex',
-  justifyContent: 'center',
-  flexDirection: 'column',
-  padding: theme.spacing(12, 0),
-}));
+const LoginSignup = () => {
+  const [value, setValue] = useState('2');
+  const [cable, setCable] = useState('cable');
+  const [age, setAge] = React.useState('');
 
-// ----------------------------------------------------------------------
+  const handleSelect = (event) => {
+    setAge(event.target.value);
+  };
 
-export default function LoginPage() {
-  const mdUp = useResponsive('up', 'md');
+  const handleChange = (event, newValue) => {
+    setValue(newValue)
+  }
+  const handleCableChange = (event) => {
+    setCable(event.target.value)
+  }
+
+  const navigate = useNavigate();
+
+  const handleLogin = () => {
+    navigate('/dashboard')
+  }
 
   return (
-    <>
-      <Helmet>
-        <title> Login | Minimal UI </title>
-      </Helmet>
-
-      <StyledRoot>
-        <Logo
-          sx={{
-            position: 'fixed',
-            top: { xs: 16, sm: 24, md: 40 },
-            left: { xs: 16, sm: 24, md: 40 },
-          }}
-        />
-
-        {mdUp && (
-          <StyledSection>
-            <Typography variant="h3" sx={{ px: 5, mt: 10, mb: 5 }}>
-              Hi, Welcome Back
-            </Typography>
-            <img src="/assets/illustrations/illustration_login.png" alt="login" />
-          </StyledSection>
-        )}
-
-        <Container maxWidth="sm">
-          <StyledContent>
-            <Typography variant="h4" gutterBottom>
-              Sign in to Minimal
-            </Typography>
-
-            <Typography variant="body2" sx={{ mb: 5 }}>
-              Don’t have an account? {''}
-              <Link variant="subtitle2">Get started</Link>
-            </Typography>
-
-            <Stack direction="row" spacing={2}>
-              <Button fullWidth size="large" color="inherit" variant="outlined">
-                <Iconify icon="eva:google-fill" color="#DF3E30" width={22} height={22} />
-              </Button>
-
-              <Button fullWidth size="large" color="inherit" variant="outlined">
-                <Iconify icon="eva:facebook-fill" color="#1877F2" width={22} height={22} />
-              </Button>
-
-              <Button fullWidth size="large" color="inherit" variant="outlined">
-                <Iconify icon="eva:twitter-fill" color="#1C9CEA" width={22} height={22} />
-              </Button>
-            </Stack>
-
-            <Divider sx={{ my: 3 }}>
-              <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                OR
-              </Typography>
-            </Divider>
-
-            <LoginForm />
-          </StyledContent>
-        </Container>
-      </StyledRoot>
-    </>
-  );
+    <ThemeProvider theme={theme}>
+      <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', background: 'linear-gradient(#0C3547 62.68%, rgba(12, 53, 71, 0.83) 98.96%)', width: '100%', minHeight: '100vh', px: '4%', boxSizing: 'border-box' }}>
+        <Box sx={{ bgcolor: 'white', borderRadius: '12px', width: { xs: '100%', sm: '45%', md: '35%' }, height: 'fit-content' }}>
+          <TabContext value={value}>
+            <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+              <TabList aria-label='Tabs' onChange={handleChange} textColor='primary' sx={{
+                '& .MuiTab-textColorPrimary': {
+                  color: 'black', fontWeight: '500', fontSize: { xs: '16px', lg: '18px', xl: '20px' },
+                  '&.Mui-selected': { color: 'black' }
+                }
+              }}>
+                <Tab label='Login' value='1' sx={{ width: '50%' }} />
+                <Tab label='Signup' value='2' sx={{ width: '50%' }} />
+              </TabList>
+            </Box>
+            {/* .........................login...................... */}
+            <TabPanel value='1'>
+              <Stack sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '24px' }}>
+                <Image src='/assets/images/CBlogo.png' alt='CBLogo' sx={{ width: '30%' }} />
+                <FormControl fullWidth sx={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                  <TextField placeholder='Mobile Number' sx={{ bgcolor: '#F8F8F8' }} />
+                  <TextField placeholder='Password' type='password' sx={{ bgcolor: '#F8F8F8' }} />
+                  <FormControlLabel control={<Checkbox defaultChecked />} label="Remember Password" sx={{
+                    width: 'fit-content', my: '0px', color: '#A5A4A4', '& .MuiCheckbox-root': { py: 0 },
+                    '& .Mui-checked': {
+                      color: '#F7941D' // Change the color of the checkbox when checked
+                    },
+                  }} />
+                  <Button variant='outlined' onClick={handleLogin} sx={{ fontWeight: '500', fontSize: '16px', py: '10px', borderRadius: '8px', width: '70%', mx: 'auto', my: '10px', bgcolor: '#F7941D', color: '#0C3547', border: 'none', '&:hover': { bgcolor: '#F7941D', color: '#0C3547', border: 'none' } }}>LOGIN</Button>
+                </FormControl>
+              </Stack>
+            </TabPanel>
+            {/* .....................signup..................... */}
+            <TabPanel value='2'>
+              <Stack sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '24px' }}>
+                <Image src='/assets/images/CBlogo.png' alt='CBLogo' sx={{ width: '30%' }} />
+                <FormControl fullWidth sx={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                  <Select
+                    value={age}
+                    onChange={handleSelect}
+                    displayEmpty
+                    inputProps={{ 'aria-label': 'Without label' }}
+                    sx={{
+                      backgroundColor: '#F8F8F8',
+                      color: '#A5A4A4',
+                      borderColor: '#ccc',
+                      ':active': {
+                        borderColor: 'red' // Set border color to red when clicked
+                      }
+                    }}
+                  >
+                    <MenuItem value="">Please Select Type</MenuItem>
+                    <MenuItem value={10}>Cable</MenuItem>
+                    <MenuItem value={20}>Twenty</MenuItem>
+                    <MenuItem value={30}>Thirty</MenuItem>
+                  </Select>
+                  <TextField placeholder='Mobile Number' sx={{ bgcolor: '#F8F8F8' }} />
+                  <TextField placeholder='Password' type='password' sx={{ bgcolor: '#F8F8F8' }} />
+                  <FormControlLabel control={<Checkbox defaultChecked />} label="Remember Password" sx={{
+                    width: 'fit-content', my: '0px', color: '#A5A4A4', '& .MuiCheckbox-root': { py: 0 },
+                    '& .Mui-checked': {
+                      color: '#F7941D' // Change the color of the checkbox when checked
+                    },
+                  }} />
+                  <Button variant='outlined' onClick={handleLogin} sx={{ fontWeight: '500', fontSize: '16px', py: '10px', borderRadius: '8px', width: '70%', mx: 'auto', my: '10px', bgcolor: '#F7941D', color: '#0C3547', border: 'none', '&:hover': { bgcolor: '#F7941D', color: '#0C3547', border: 'none' } }}>SignUp</Button>
+                </FormControl>
+              </Stack>
+            </TabPanel>
+          </TabContext>
+        </Box >
+      </Box >
+    </ThemeProvider>
+  )
 }
+
+export default LoginSignup
