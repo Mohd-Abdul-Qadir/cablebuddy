@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 // @mui
 import { alpha } from '@mui/material/styles';
 import { Box, Divider, Typography, Stack, MenuItem, Avatar, IconButton, Popover } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
 
 // mocks_
 import account from '../../../_mock/account';
@@ -14,7 +13,6 @@ const MENU_OPTIONS = [
   {
     label: 'Home',
     icon: 'eva:home-fill',
-
   },
   {
     label: 'Profile',
@@ -43,8 +41,6 @@ export default function AccountPopover() {
     localStorage.removeItem('accessToken');
     navigate('/login');
   };
-
-  const navigate = useNavigate();
 
   const handleProfileClick = () => {
     navigate('profile');
