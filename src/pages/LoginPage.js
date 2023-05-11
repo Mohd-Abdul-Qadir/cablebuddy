@@ -2,7 +2,6 @@ import { useNavigate } from 'react-router-dom'
 import { TabContext, TabList, TabPanel } from '@mui/lab'
 import { Box, Button, Checkbox, FormControl, FormControlLabel, MenuItem, Stack, Select, Tab, Tabs, TextField, ThemeProvider, createTheme } from '@mui/material'
 import React, { useState } from 'react'
-// import CBlogo from '/assets/images/CBlogo.png'
 import Image from '../components/Image'
 
 

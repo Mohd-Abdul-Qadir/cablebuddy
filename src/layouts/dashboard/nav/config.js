@@ -1,4 +1,14 @@
 // component
+import HomeIcon from '@mui/icons-material/Home';
+import Groups2Icon from '@mui/icons-material/Groups2';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import SupportAgentIcon from '@mui/icons-material/SupportAgent';
+import BusinessIcon from '@mui/icons-material/Business';
+import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
+import AssessmentIcon from '@mui/icons-material/Assessment';
+import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
+import ContactMailIcon from '@mui/icons-material/ContactMail';
+import PaidIcon from '@mui/icons-material/Paid';
 import SvgColor from '../../../components/svg-color';
 
 // ----------------------------------------------------------------------
@@ -7,35 +17,60 @@ const icon = (name) => <SvgColor src={`/assets/icons/navbar/${name}.svg`} sx={{ 
 
 const navConfig = [
   {
-    title: 'dashboard',
+    title: 'Home',
     path: '/dashboard/app',
-    icon: icon('ic_analytics'),
+    icon: <HomeIcon />,
   },
   {
-    title: 'user',
+    title: 'Customers',
     path: '/dashboard/user',
-    icon: icon('ic_user'),
+    icon: <Groups2Icon />,
   },
   {
-    title: 'product',
+    title: 'Products',
     path: '/dashboard/products',
-    icon: icon('ic_cart'),
+    icon: <ShoppingCartIcon />,
   },
   {
-    title: 'blog',
+    title: 'Agents/Supervisor',
     path: '/dashboard/blog',
-    icon: icon('ic_blog'),
+    icon: <SupportAgentIcon />,
   },
   {
-    title: 'login',
+    title: 'Companys',
     path: '/login',
-    icon: icon('ic_lock'),
+    icon: <BusinessIcon />,
   },
   {
-    title: 'Not found',
-    path: '/404',
-    icon: icon('ic_disabled'),
+    title: 'Collection',
+    path: '/login',
+    icon: <AccountBalanceWalletIcon />,
   },
+  {
+    title: 'Reports',
+    path: '/login',
+    icon: <AssessmentIcon />,
+  },
+  {
+    title: 'Complaints',
+    path: '/login',
+    icon: <QuestionAnswerIcon />,
+  },
+  {
+    title: 'SMS~Wallet',
+    path: '/login',
+    icon: <ContactMailIcon />,
+  },
+  {
+    title: 'Expenses',
+    path: '/login',
+    icon: <PaidIcon />,
+  },
+  // {
+  //   title: 'Not found',
+  //   path: '/404',
+  //   icon: icon('ic_disabled'),
+  // },
 ];
 
 export default navConfig;
