@@ -4,11 +4,14 @@ import DashboardLayout from './layouts/dashboard';
 import SimpleLayout from './layouts/simple';
 //
 import BlogPage from './pages/BlogPage';
-import UserPage from './pages/UserPage';
+import UserPage from './pages/CustomersPage';
 import LoginPage from './pages/LoginPage';
 import Page404 from './pages/Page404';
 import ProductsPage from './pages/ProductsPage';
 import DashboardAppPage from './pages/DashboardAppPage';
+import AddCustomers from './pages/AddCustomers';
+import CustomerDetails from './pages/CustomerDetails';
+import ProfilePage from './pages/ProfilePage';
 
 // ----------------------------------------------------------------------
 
@@ -21,8 +24,11 @@ export default function Router() {
         { element: <Navigate to="/dashboard/app" />, index: true },
         { path: 'app', element: <DashboardAppPage /> },
         { path: 'user', element: <UserPage /> },
+        { path: 'add-customer', element: <AddCustomers /> },
+        { path: 'customer-details', element: <CustomerDetails /> },
         { path: 'products', element: <ProductsPage /> },
         { path: 'blog', element: <BlogPage /> },
+        { path: 'profile', element: <ProfilePage /> }
       ],
     },
     {
@@ -41,6 +47,7 @@ export default function Router() {
       path: '*',
       element: <Navigate to="/404" replace />,
     },
+
   ]);
 
   return routes;

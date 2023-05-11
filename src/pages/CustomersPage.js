@@ -1,26 +1,14 @@
 import { Helmet } from 'react-helmet-async';
 import { filter } from 'lodash';
 import { sentenceCase } from 'change-case';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom'
+import PersonAddAltOutlinedIcon from '@mui/icons-material/PersonAddAltOutlined';
+import SystemUpdateAltOutlinedIcon from '@mui/icons-material/SystemUpdateAltOutlined';
 // @mui
 import {
-  Card,
-  Table,
-  Stack,
-  Paper,
-  Avatar,
-  Button,
-  Popover,
-  Checkbox,
-  TableRow,
-  MenuItem,
-  TableBody,
-  TableCell,
-  Container,
-  Typography,
-  IconButton,
-  TableContainer,
-  TablePagination,
+  Card, Table, Stack, Paper, Avatar, Button, Popover, Checkbox, TableRow, MenuItem, TableBody, TableCell,
+  Container, Typography, IconButton, TableContainer, TablePagination, Box
 } from '@mui/material';
 // components
 import Label from '../components/label';
@@ -34,11 +22,15 @@ import USERLIST from '../_mock/user';
 // ----------------------------------------------------------------------
 
 const TABLE_HEAD = [
+  { id: 'scode', label: 'S.Code', alignRight: false },
   { id: 'name', label: 'Name', alignRight: false },
-  { id: 'company', label: 'Company', alignRight: false },
-  { id: 'role', label: 'Role', alignRight: false },
-  { id: 'isVerified', label: 'Verified', alignRight: false },
+  { id: 'hardware', label: 'Hardware', alignRight: false },
+  { id: 'balance', label: 'Balance', alignRight: false },
+  { id: 'area', label: 'Area', alignRight: false },
+  { id: 'lastbillamount', label: 'Last Bill Amount', alignRight: false },
+  { id: 'expired', label: 'Expired', alignRight: false },
   { id: 'status', label: 'Status', alignRight: false },
+  { id: '' },
   { id: '' },
 ];
 
@@ -73,20 +65,18 @@ function applySortFilter(array, comparator, query) {
   return stabilizedThis.map((el) => el[0]);
 }
 
-export default function UserPage() {
+
+// ........................................................Main_Function.......................................................//
+
+export default function CustomersPage() {
   const [open, setOpen] = useState(null);
-
   const [page, setPage] = useState(0);
-
   const [order, setOrder] = useState('asc');
-
   const [selected, setSelected] = useState([]);
-
   const [orderBy, setOrderBy] = useState('name');
-
   const [filterName, setFilterName] = useState('');
-
   const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [customers, setCustomers] = useState([]);
 
   const handleOpenMenu = (event) => {
     setOpen(event.currentTarget);
@@ -146,6 +136,24 @@ export default function UserPage() {
 
   const isNotFound = !filteredUsers.length && !!filterName;
 
+  const navigate = useNavigate();
+
+  const handleAddCustomer = () => {
+    navigate('/dashboard/add-customer')
+  }
+
+  const handleCustomerDetails = () => {
+    navigate('/dashboard/customer-details')
+  }
+
+  useEffect(() => {
+    fetch('http://localhost:4001/api/customers')
+      .then((response) => response.json())
+      .then((data) => setCustomers(data))
+      .catch((error) => console.error(error));
+  }, []);
+  console.log(customers, "customers")
+
   return (
     <>
       <Helmet>
@@ -153,14 +161,15 @@ export default function UserPage() {
       </Helmet>
 
       <Container>
-        <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
-          <Typography variant="h4" gutterBottom>
-            User
-          </Typography>
-          <Button variant="contained" startIcon={<Iconify icon="eva:plus-fill" />}>
-            New User
-          </Button>
-        </Stack>
+        <Box sx={{ mb: '1rem' }}>
+          <Typography sx={{ color: '#0C3547', fontWeight: '400', fontSize: '48px' }}>Customers</Typography>
+          <Box sx={{ display: 'flex', gap: '1rem' }}>
+            <Button variant='outlined' onClick={() => { handleAddCustomer() }} startIcon={<PersonAddAltOutlinedIcon />}
+              sx={{ textTransform: 'capitalize', color: '#0C3547', border: '1px solid #0C3547' }}>Add New Customers</Button>
+            <Button variant='outlined' startIcon={<SystemUpdateAltOutlinedIcon />}
+              sx={{ textTransform: 'capitalize', color: '#0C3547', border: '1px solid #0C3547' }}>Import Customers</Button>
+          </Box>
+        </Box>
 
         <Card>
           <UserListToolbar numSelected={selected.length} filterName={filterName} onFilterName={handleFilterByName} />
@@ -178,26 +187,24 @@ export default function UserPage() {
                   onSelectAllClick={handleSelectAllClick}
                 />
                 <TableBody>
-                  {filteredUsers.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
-                    const { id, name, role, status, company, avatarUrl, isVerified } = row;
-                    const selectedUser = selected.indexOf(name) !== -1;
-
+                  {customers.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
+                
                     return (
-                      <TableRow hover key={id} tabIndex={-1} role="checkbox" selected={selectedUser}>
+                      <TableRow hover key={row.scode} tabIndex={-1} role="checkbox">
                         <TableCell padding="checkbox">
-                          <Checkbox checked={selectedUser} onChange={(event) => handleClick(event, name)} />
+                          <Checkbox  />
                         </TableCell>
 
                         <TableCell component="th" scope="row" padding="none">
                           <Stack direction="row" alignItems="center" spacing={2}>
-                            <Avatar alt={name} src={avatarUrl} />
                             <Typography variant="subtitle2" noWrap>
-                              {name}
+                              {/* {row.name} */}
+                           {"1"}
                             </Typography>
                           </Stack>
                         </TableCell>
 
-                        <TableCell align="left">{company}</TableCell>
+                        {/* <TableCell align="left">{company}</TableCell>
 
                         <TableCell align="left">{role}</TableCell>
 
@@ -205,6 +212,13 @@ export default function UserPage() {
 
                         <TableCell align="left">
                           <Label color={(status === 'banned' && 'error') || 'success'}>{sentenceCase(status)}</Label>
+                        </TableCell> */}
+                        <TableCell>
+                          {row.name}
+                        </TableCell>
+
+                        <TableCell>
+                          <Button variant='outlined' onClick={handleCustomerDetails}>Detail</Button>
                         </TableCell>
 
                         <TableCell align="right">
