@@ -9,6 +9,9 @@ import LoginPage from './pages/LoginPage';
 import Page404 from './pages/Page404';
 import ProductsPage from './pages/ProductsPage';
 import DashboardAppPage from './pages/DashboardAppPage';
+import AddProduct from './pages/AddProduct';
+import Details from './pages/Details';
+import AgentDetails from './pages/AgentDetails';
 
 // ----------------------------------------------------------------------
 
@@ -18,11 +21,14 @@ export default function Router() {
       path: '/dashboard',
       element: <DashboardLayout />,
       children: [
-        { element: <Navigate to="/dashboard/app" />, index: true },
+        // { element: <Navigate to="/" />, index: true },
         { path: 'app', element: <DashboardAppPage /> },
         { path: 'user', element: <UserPage /> },
         { path: 'products', element: <ProductsPage /> },
+        { path: 'add-product', element: <AddProduct /> },
+        { path: 'details/:id', element: <Details /> },
         { path: 'blog', element: <BlogPage /> },
+        { path: 'agent-details', element: <AgentDetails /> },
       ],
     },
     {
@@ -32,7 +38,7 @@ export default function Router() {
     {
       element: <SimpleLayout />,
       children: [
-        { element: <Navigate to="/dashboard/app" />, index: true },
+        { element: <Navigate to="/login" />, index: true },
         { path: '404', element: <Page404 /> },
         { path: '*', element: <Navigate to="/404" /> },
       ],
