@@ -12,11 +12,12 @@ import DashboardAppPage from './pages/DashboardAppPage';
 import AddCustomers from './pages/AddCustomers';
 import CustomerDetails from './pages/CustomerDetails';
 import ProfilePage from './pages/ProfilePage';
+import AddProduct from './pages/AddProduct';
+import Details from './pages/Details';
+import AgentDetails from './pages/AgentDetails';
 import Collection from './pages/Collection';
-import CompaniesContent from './components/Companies/CompaniesContent';
 import Companies from './pages/Companies';
 import Reports from './pages/Reports';
-
 // ----------------------------------------------------------------------
 
 export default function Router() {
@@ -25,17 +26,20 @@ export default function Router() {
       path: '/dashboard',
       element: <DashboardLayout />,
       children: [
-        { element: <Navigate to="/dashboard/app" />, index: true },
+        // { element: <Navigate to="/" />, index: true },
         { path: 'app', element: <DashboardAppPage /> },
         { path: 'user', element: <UserPage /> },
         { path: 'add-customer', element: <AddCustomers /> },
         { path: 'customer-details', element: <CustomerDetails /> },
         { path: 'products', element: <ProductsPage /> },
+        { path: 'add-product', element: <AddProduct /> },
+        { path: 'details/:id', element: <Details /> },
         { path: 'blog', element: <BlogPage /> },
         { path: 'profile', element: <ProfilePage /> },
         { path: 'collection', element: <Collection /> },
         { path: 'companies', element: <Companies /> },
-        { path: 'reports', element: <Reports /> }
+        { path: 'reports', element: <Reports /> },
+        { path: 'agent-details/:id', element: <AgentDetails /> },
       ],
     },
     {
@@ -45,7 +49,7 @@ export default function Router() {
     {
       element: <SimpleLayout />,
       children: [
-        { element: <Navigate to="/dashboard/app" />, index: true },
+        { element: <Navigate to="/login" />, index: true },
         { path: '404', element: <Page404 /> },
         { path: '*', element: <Navigate to="/404" /> },
       ],
@@ -54,7 +58,6 @@ export default function Router() {
       path: '*',
       element: <Navigate to="/404" replace />,
     },
-
   ]);
 
   return routes;
