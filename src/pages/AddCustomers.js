@@ -9,6 +9,8 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
 import moment from "moment";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const BillingArea = [
@@ -171,6 +173,7 @@ const AddCustomers = () => {
         const res = await fetch('http://localhost:4001/api/add-customer', {
             method: "POST",
             headers: { "Content-Type": "application/json" },
+            headers:{'x-access-token':`${localStorage.getItem("accessToken")}`},
             body: JSON.stringify({
                 name, billingName, billingArea, billingNo, mobileNo1, mobileNo2, email, securityDeposit, address, gstNo, customerCode, remark, stbName, stbNumber, cardNumber, membershipNo, startDate, openingBalanceRadio, openingBalanceAmount, additionalChargeDiscount, additionalChargeRadio, billDurationRadio, billDurationSelect, billTypeRadio, gstTypeRadio
             })
@@ -179,12 +182,10 @@ const AddCustomers = () => {
         const data = await res.json();
 
         if (data.status === 422 || !data) {
-            window.alert('Invalid');
-            console.log('InValid');
+            toast.error(`Not Add`);
         }
         else {
-            window.alert("Successfull")
-            console.log("Successful")
+            toast.success('Add successful!');
         }
     }
 
@@ -584,6 +585,18 @@ const AddCustomers = () => {
                     sx={{ fontSize: '17px', mx: 'auto', px: '20px', width: '12%', height: '50px' }}>
                     Add
                 </Button>
+                <ToastContainer
+            position="top-right"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="dark"
+          />
             </Stack>
         </Box >
     )

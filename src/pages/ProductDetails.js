@@ -15,7 +15,7 @@ const ProductDetails = (props) => {
   const [name, setName] = useState('');
   const [price, setPrice] = useState('');
   // const [select, setSelect] = useState('');
-  const [gst, setGst] = useState('');
+  const [gst, setGst] = useState('18');
   const [product, setProduct] = useState('');
   const [additional, setAdditional] = useState('');
   const [hsn, setHsn] = useState('');
@@ -81,9 +81,10 @@ const ProductDetails = (props) => {
       })
         .then((res) => res.json())
         .then((data) => {
+          toast.success('Product updated successfully');
           setMessage(data.message);
           props.onUpdate();
-          toast.success(data.message);
+        
         })
         .catch((error) => console.error(error));
     }
@@ -108,8 +109,9 @@ const ProductDetails = (props) => {
       .then((data) => {
         if (data.message === 'Product deleted successfully') {
           // const updatedProducts = products.filter((props) => props.id !== id);
-          // setProducts(updatedProducts);
+          
           toast.success('Product deleted successfully');
+          // setProducts(updatedProducts);
         } else {
           toast.error('Error deleting product');
         }
@@ -221,9 +223,9 @@ const ProductDetails = (props) => {
                 // onChange={handleGst}
                 label="GST Rate"
                 variant="outlined"
-                value={18}
+                defaultValue="18"
                 sx={{ bgcolor: '#F8F8F8', width: '50%' }}
-                autoComplete="off"
+              
               />
 
               <Select
@@ -298,21 +300,12 @@ const ProductDetails = (props) => {
             >
               Update
             </Button>
-            <ToastContainer
-              position="top-right"
-              autoClose={5000}
-              hideProgressBar={false}
-              newestOnTop={false}
-              closeOnClick
-              rtl={false}
-              pauseOnFocusLoss
-              draggable
-              pauseOnHover
-              theme="dark"
-            />
+           
+            
           </div>
         </Box>
       </div>
+      <ToastContainer />
     </>
   );
 };

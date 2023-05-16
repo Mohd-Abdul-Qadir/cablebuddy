@@ -10,6 +10,7 @@ import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import Typography from '@mui/material/Typography';
 import SupportAgentIcon from '@mui/icons-material/SupportAgent';
+import TelegramIcon from '@mui/icons-material/Telegram';
 import {
   Box,
   Checkbox,
@@ -23,7 +24,10 @@ import {
   Select,
   TextField,
 } from '@mui/material';
+import EditIcon from '@mui/icons-material/Edit';
 import AddIcon from '@mui/icons-material/Add';
+// import Textarea from '@mui/joy/Textarea';
+
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -68,7 +72,7 @@ BootstrapDialogTitle.propTypes = {
   onClose: PropTypes.func.isRequired,
 };
 
-export default function AddAgent() {
+export default function RecordCollection() {
   const [open, setOpen] = React.useState(false);
   const [name, setName] = React.useState('');
   const [number, setNumber] = React.useState('');
@@ -122,15 +126,15 @@ export default function AddAgent() {
       <Button
         variant="outlined"
         onClick={handleClickOpen}
-        startIcon={<SupportAgentIcon />}
+        startIcon={<EditIcon />}
         sx={{ textTransform: 'capitalize', color: '#0C3547', border: '1px solid #0C3547' }}
         // onClick={() => navigate('/dashboard/add-product')}
       >
-        Add New Agent
+        Profile
       </Button>
       <BootstrapDialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>
         <BootstrapDialogTitle id="customized-dialog-title" onClose={handleClose}>
-          Add Agent
+          Update Profile
         </BootstrapDialogTitle>
         <DialogContent dividers>
           <FormControl
@@ -141,7 +145,6 @@ export default function AddAgent() {
             }}
           >
             <TextField
-              required
               id="outlined-basic"
               fullWidth
               label="Name"
@@ -152,7 +155,6 @@ export default function AddAgent() {
               autoComplete="off"
             />
             <TextField
-              required
               // value={price}
               onChange={handleNumber}
               id="outlined-basic"
@@ -161,29 +163,16 @@ export default function AddAgent() {
               type="Number"
               sx={{ bgcolor: '#F8F8F8', width: '100%' }}
             />
-            <TextField
-              required
-              // value={price}
-              onChange={handlePassword}
-              id="outlined-basic"
-              label="Password"
-              variant="outlined"
-              type="Password"
-              sx={{ bgcolor: '#F8F8F8', width: '100%' }}
-            />
+            {/* <Textarea minRows={2} maxRows={4} /> */}
           </FormControl>
         </DialogContent>
         <DialogActions>
           <Button
-            onClick={handleSubmit}
-            startIcon={<AddIcon />}
-            // variant="outlined"
             variant="contained"
-            sx={{
-              marginTop: '10px',
-            }}
+            // onClick={handleSubmit}
+            startIcon={<TelegramIcon />}
           >
-            Add
+            Update
           </Button>
           <ToastContainer
             position="top-right"

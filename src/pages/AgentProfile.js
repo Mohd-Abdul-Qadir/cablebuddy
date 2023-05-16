@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, {useEffect,useState} from 'react'
 import PropTypes from 'prop-types';
 import Button from '@mui/material/Button';
 import { styled } from '@mui/material/styles';
@@ -10,6 +10,7 @@ import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import Typography from '@mui/material/Typography';
 import SupportAgentIcon from '@mui/icons-material/SupportAgent';
+import TelegramIcon from '@mui/icons-material/Telegram';
 import {
   Box,
   Checkbox,
@@ -23,6 +24,7 @@ import {
   Select,
   TextField,
 } from '@mui/material';
+import EditIcon from '@mui/icons-material/Edit';
 import AddIcon from '@mui/icons-material/Add';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -68,11 +70,11 @@ BootstrapDialogTitle.propTypes = {
   onClose: PropTypes.func.isRequired,
 };
 
-export default function AddAgent() {
-  const [open, setOpen] = React.useState(false);
-  const [name, setName] = React.useState('');
-  const [number, setNumber] = React.useState('');
-  const [password, setPassword] = React.useState('');
+export default function AgentProfile(props) {
+  const [open, setOpen] = useState(false);
+  const [name, setName] = useState('');
+  const [number, setNumber] = useState('');
+  const [password, setPassword] =useState('');
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -81,39 +83,60 @@ export default function AddAgent() {
     setOpen(false);
   };
 
-  const handleName = (e) => {
-    setName(e.target.value);
-  };
-  const handleNumber = (e) => {
-    setNumber(e.target.value);
-  };
 
   const handlePassword = (e) => {
     setPassword(e.target.value);
   };
 
-  const handleSubmit = async (e) => {
+  
+  useEffect(() => {
+    if (props.id) {
+      fetch(`http://localhost:4001/api/single-agents/${props.id}`)
+        .then((res) => res.json())
+        .then((data) => {
+          const agentData = data;
+          setName(agentData.name);
+          setNumber(agentData.number)
+          // setPrice(productData.price);
+          // setSelect(productData.select);
+          // setGst(productData.gst);
+          // setProduct(productData.product);
+          // setAdditional(productData.additional);
+          // setHsn(productData.hsn);
+          // setGenre(productData.genre);
+          // setType(productData.type);
+          console.log(agentData,"agen Data")
+        })
+        .catch((error) => console.error(error));
+    }
+  }, [props.id]);
+
+
+
+  const handleSubmit = (e) => {
     e.preventDefault();
 
-    try {
-      const response = await fetch('http://localhost:4001/api/add-agent', {
-        method: 'POST',
+    const agentData = { name, number };
+
+    if (props.id) {
+      fetch(`http://localhost:4001/api/update-agent/${props.id}`, {
+        method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ name, number, password }),
-      });
-
-      const data = await response.json();
-      if (response.ok) {
-        toast.success('Add successful!');
-      }
-      console.log(data);
-    } catch (error) {
-      console.error(error);
-      toast.error(`Not Add`);
+        body: JSON.stringify(agentData),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          toast.success('Agent updated successfully');
+          setMessage(data.message);
+          props.onUpdate();
+        
+        })
+        .catch((error) => console.error(error));
     }
   };
+
   return (
     <div>
       {/* <Button variant="outlined" onClick={handleClickOpen}>
@@ -122,15 +145,15 @@ export default function AddAgent() {
       <Button
         variant="outlined"
         onClick={handleClickOpen}
-        startIcon={<SupportAgentIcon />}
+        startIcon={<EditIcon />}
         sx={{ textTransform: 'capitalize', color: '#0C3547', border: '1px solid #0C3547' }}
         // onClick={() => navigate('/dashboard/add-product')}
       >
-        Add New Agent
+        Profile
       </Button>
       <BootstrapDialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>
         <BootstrapDialogTitle id="customized-dialog-title" onClose={handleClose}>
-          Add Agent
+          Update Profile
         </BootstrapDialogTitle>
         <DialogContent dividers>
           <FormControl
@@ -141,49 +164,33 @@ export default function AddAgent() {
             }}
           >
             <TextField
-              required
               id="outlined-basic"
               fullWidth
               label="Name"
               variant="outlined"
-              // value={name}
-              onChange={handleName}
+              value={name}
+              onChange={(e)=>setName(e.target.value)}
               sx={{ bgcolor: '#F8F8F8', width: '100%' }}
               autoComplete="off"
             />
             <TextField
-              required
-              // value={price}
-              onChange={handleNumber}
+              value={number}
+              onChange={(e)=>setNumber(e.target.value)}
               id="outlined-basic"
               label="Mobile Number"
               variant="outlined"
               type="Number"
               sx={{ bgcolor: '#F8F8F8', width: '100%' }}
             />
-            <TextField
-              required
-              // value={price}
-              onChange={handlePassword}
-              id="outlined-basic"
-              label="Password"
-              variant="outlined"
-              type="Password"
-              sx={{ bgcolor: '#F8F8F8', width: '100%' }}
-            />
           </FormControl>
         </DialogContent>
         <DialogActions>
           <Button
-            onClick={handleSubmit}
-            startIcon={<AddIcon />}
-            // variant="outlined"
             variant="contained"
-            sx={{
-              marginTop: '10px',
-            }}
+            onClick={handleSubmit}
+            startIcon={<TelegramIcon />}
           >
-            Add
+            Update
           </Button>
           <ToastContainer
             position="top-right"
@@ -199,6 +206,8 @@ export default function AddAgent() {
           />
         </DialogActions>
       </BootstrapDialog>
+      <ToastContainer />
+
     </div>
   );
 }

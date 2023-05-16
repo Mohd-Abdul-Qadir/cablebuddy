@@ -63,7 +63,7 @@ export default function Details() {
   const onPanelChange = (value, mode) => {
     console.log(value.format('YYYY-MM-DD'), mode);
   };
-  console.log(id, 'product id');
+  // console.log(id, 'product id');
 
   return (
     <Box sx={{ width: '100%' }}>

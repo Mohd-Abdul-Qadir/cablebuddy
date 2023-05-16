@@ -2,14 +2,39 @@ import { Helmet } from 'react-helmet-async';
 import { filter } from 'lodash';
 import { sentenceCase } from 'change-case';
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
 import PersonAddAltOutlinedIcon from '@mui/icons-material/PersonAddAltOutlined';
 import SystemUpdateAltOutlinedIcon from '@mui/icons-material/SystemUpdateAltOutlined';
 // @mui
 import {
-  Card, Table, Stack, Paper, Avatar, Button, Popover, Checkbox, TableRow, MenuItem, TableBody, TableCell,
-  Container, Typography, IconButton, TableContainer, TablePagination, Box
+  Card,
+  Table,
+  Stack,
+  Paper,
+  Avatar,
+  Button,
+  Popover,
+  Checkbox,
+  TableRow,
+  MenuItem,
+  TableBody,
+  TableCell,
+  Container,
+  Typography,
+  IconButton,
+  TableContainer,
+  TablePagination,
+  Box,
+  FormControl,
 } from '@mui/material';
+import InputLabel from '@mui/material/InputLabel';
+import Select from '@mui/material/Select';
+import InputBase from '@mui/material/InputBase';
+import SearchIcon from '@mui/icons-material/Search';
+import RestartAltIcon from '@mui/icons-material/RestartAlt';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 // components
 import Label from '../components/label';
 import Iconify from '../components/iconify';
@@ -65,7 +90,6 @@ function applySortFilter(array, comparator, query) {
   return stabilizedThis.map((el) => el[0]);
 }
 
-
 // ........................................................Main_Function.......................................................//
 
 export default function CustomersPage() {
@@ -77,6 +101,27 @@ export default function CustomersPage() {
   const [filterName, setFilterName] = useState('');
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [customers, setCustomers] = useState([]);
+  const [action, setAction] = useState('');
+  const [date, setDate] = useState('');
+  const [status, setStatus] = useState('');
+  const [area, setArea] = useState('');
+  const [balance, setBalance] = useState('');
+
+  const handleChange = (event) => {
+    setAction(event.target.value);
+  };
+  const handleDate = (event) => {
+    setDate(event.target.value);
+  };
+  const handleStatus = (event) => {
+    setStatus(event.target.value);
+  };
+  const handleArea = (event) => {
+    setArea(event.target.value);
+  };
+  const handleBalance = (event) => {
+    setBalance(event.target.value);
+  };
 
   const handleOpenMenu = (event) => {
     setOpen(event.currentTarget);
@@ -139,20 +184,25 @@ export default function CustomersPage() {
   const navigate = useNavigate();
 
   const handleAddCustomer = () => {
-    navigate('/dashboard/add-customer')
-  }
+    navigate('/dashboard/add-customer');
+  };
 
   const handleCustomerDetails = () => {
-    navigate('/dashboard/customer-details')
-  }
+    navigate('/dashboard/customer-details');
+  };
 
   useEffect(() => {
-    fetch('http://localhost:4001/api/customers')
+    fetch('http://localhost:4001/api/customers', {
+      method: 'GET',
+      // headers: {
+      //   'x-access-token': `${localStorage.getItem('accessToken')}`,
+      // },
+    })
       .then((response) => response.json())
       .then((data) => setCustomers(data))
       .catch((error) => console.error(error));
   }, []);
-  console.log(customers, "customers")
+  console.log(customers, 'customers');
 
   return (
     <>
@@ -164,12 +214,152 @@ export default function CustomersPage() {
         <Box sx={{ mb: '1rem' }}>
           <Typography sx={{ color: '#0C3547', fontWeight: '400', fontSize: '48px' }}>Customers</Typography>
           <Box sx={{ display: 'flex', gap: '1rem' }}>
-            <Button variant='outlined' onClick={() => { handleAddCustomer() }} startIcon={<PersonAddAltOutlinedIcon />}
-              sx={{ textTransform: 'capitalize', color: '#0C3547', border: '1px solid #0C3547' }}>Add New Customers</Button>
-            <Button variant='outlined' startIcon={<SystemUpdateAltOutlinedIcon />}
-              sx={{ textTransform: 'capitalize', color: '#0C3547', border: '1px solid #0C3547' }}>Import Customers</Button>
+            <Button
+              variant="outlined"
+              onClick={() => {
+                handleAddCustomer();
+              }}
+              startIcon={<PersonAddAltOutlinedIcon />}
+              sx={{ textTransform: 'capitalize', color: '#0C3547', border: '1px solid #0C3547' }}
+            >
+              Add New Customers
+            </Button>
+            <Button
+              variant="outlined"
+              startIcon={<SystemUpdateAltOutlinedIcon />}
+              sx={{ textTransform: 'capitalize', color: '#0C3547', border: '1px solid #0C3547' }}
+            >
+              Import Customers
+            </Button>
           </Box>
         </Box>
+        <Stack
+          direction="column"
+          justifyContent="center"
+          alignItems="center"
+          marginBottom="20px"
+          width="100%"
+          top="55%"
+          gap="2rem"
+        >
+          <Stack sx={{ border: '1px solid #D8D8D8', borderRadius: '10px', bgcolor: 'white', width: '100%' }}>
+            <Box
+              sx={{ bgcolor: '#F5F5F5', border: '1px solid #D8D8D8', padding: '14px', borderRadius: '10px 10px 0 0' }}
+            >
+              <Typography sx={{ fontWeight: '600', fontSize: '16px' }}>Filters And Option</Typography>
+            </Box>
+            <Stack padding="1rem" gap="10px">
+              <Stack direction="row" alignItems="center" justifyContent="space-between">
+                <FormControl sx={{ m: 1, minWidth: 125 }} size="small">
+                  <InputLabel id="demo-select-small" sx={{ color: 'black', fontWeight: '400', fontSize: '15px' }}>
+                    Bulk Action
+                  </InputLabel>
+                  <Select
+                    labelId="demo-select-small"
+                    id="demo-select-small"
+                    value={action}
+                    label="Bulk Action"
+                    onChange={handleChange}
+                  >
+                    <MenuItem value={10}>Bulk Action</MenuItem>
+                    <MenuItem value={20}>Clear Balance</MenuItem>
+                    <MenuItem value={30}>Renew</MenuItem>
+                  </Select>
+                </FormControl>
+                <Button variant="outlined">
+                Apply (0)
+                          </Button>
+                <FormControl sx={{ m: 1, minWidth: 200 }} size="small">
+                  <LocalizationProvider dateAdapter={AdapterDayjs}>
+                    <DatePicker label="Select Date Follow Up" />
+                  </LocalizationProvider>
+                </FormControl>
+                <FormControl sx={{ m: 1, minWidth: 140 }} size="small">
+                  <InputLabel id="demo-select-small" sx={{ color: 'black', fontWeight: '400', fontSize: '15px' }}>
+                    Select Status
+                  </InputLabel>
+                  <Select
+                    labelId="demo-select-small"
+                    id="demo-select-small"
+                    value={status}
+                    label="Select Status"
+                    onChange={handleStatus}
+                  >
+                    <MenuItem value={10}>Active</MenuItem>
+                    <MenuItem value={20}>Inactive</MenuItem>
+                  </Select>
+                </FormControl>
+                <FormControl sx={{ m: 1, minWidth: 140 }} size="small">
+                  <InputLabel id="demo-select-small" sx={{ color: 'black', fontWeight: '400', fontSize: '15px' }}>
+                    Select Area
+                  </InputLabel>
+                  <Select
+                    labelId="demo-select-small"
+                    id="demo-select-small"
+                    value={area}
+                    label="Select Area"
+                    onChange={handleArea}
+                  >
+                    <MenuItem value={10}>Ten</MenuItem>
+                    <MenuItem value={20}>Twenty</MenuItem>
+                    <MenuItem value={30}>Thirty</MenuItem>
+                  </Select>
+                </FormControl>
+                <FormControl sx={{ m: 1, minWidth: 150 }} size="small">
+                  <InputLabel id="demo-select-small" sx={{ color: 'black', fontWeight: '400', fontSize: '15px' }}>
+                    Select Balance
+                  </InputLabel>
+                  <Select
+                    labelId="demo-select-small"
+                    id="demo-select-small"
+                    value={balance}
+                    label="Select Balance"
+                    onChange={handleBalance}
+                  >
+                    <MenuItem value={10}>Ten</MenuItem>
+                    <MenuItem value={20}>Twenty</MenuItem>
+                    <MenuItem value={30}>Thirty</MenuItem>
+                  </Select>
+                </FormControl>
+              </Stack>
+              <Stack direction="row" justifyContent="space-between" gap="2rem" px="5px">
+                {/* <Paper component="form" sx={{
+                                height: '40px', display: 'flex', alignItems: 'center', width: '50%', bgcolor: '#F8F8F8'
+                            }}>
+                                <InputBase
+                                    sx={{ ml: 1, flex: 1 }}
+                                    placeholder="Search For..."
+                                    inputProps={{ 'aria-label': 'search google maps' }}
+                                />
+                                <IconButton type="button" sx={{ height: 'fit-content', color: 'white', bgcolor: '#2065D1', borderRadius: '2px', '&:hover': { bgcolor: '#0C3547' } }} aria-label="search">
+                                    <SearchIcon />
+                                </IconButton>
+                            </Paper> */}
+                <Box sx={{ display: 'flex', gap: '20px', width: '50%' }}>
+                  <Paper
+                    component="form"
+                    sx={{
+                      height: '40px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      width: '100%',
+                      bgcolor: '#F8F8F8',
+                    }}
+                  >
+                    <InputBase
+                      sx={{ ml: 1, flex: 1, textTransform: 'capitalize' }}
+                      placeholder="Select Date For Renewal/Expired"
+                      inputProps={{ 'aria-label': 'search google maps' }}
+                    />
+                  </Paper>
+                  <Button variant="contained" startIcon={<RestartAltIcon />} sx={{ width: 'fit-content' }}>
+                    Reset
+                  </Button>
+                </Box>
+              </Stack>
+            </Stack>
+          </Stack>
+        </Stack>
 
         <Card>
           <UserListToolbar numSelected={selected.length} filterName={filterName} onFilterName={handleFilterByName} />
@@ -188,37 +378,45 @@ export default function CustomersPage() {
                 />
                 <TableBody>
                   {customers.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
-                
                     return (
                       <TableRow hover key={row.scode} tabIndex={-1} role="checkbox">
                         <TableCell padding="checkbox">
-                          <Checkbox  />
+                          <Checkbox />
                         </TableCell>
 
                         <TableCell component="th" scope="row" padding="none">
                           <Stack direction="row" alignItems="center" spacing={2}>
                             <Typography variant="subtitle2" noWrap>
                               {/* {row.name} */}
-                           {"1"}
+                              {'1'}
                             </Typography>
                           </Stack>
                         </TableCell>
 
-                        {/* <TableCell align="left">{company}</TableCell>
+                        {/* <TableCell align="left">{role}</TableCell> */}
 
-                        <TableCell align="left">{role}</TableCell>
+                        {/* <TableCell align="left">{isVerified ? 'Yes' : 'No'}</TableCell> */}
 
-                        <TableCell align="left">{isVerified ? 'Yes' : 'No'}</TableCell>
-
-                        <TableCell align="left">
+                        {/* <TableCell align="left">
                           <Label color={(status === 'banned' && 'error') || 'success'}>{sentenceCase(status)}</Label>
                         </TableCell> */}
-                        <TableCell>
-                          {row.name}
+                        <TableCell>{row.name}</TableCell>
+                        <TableCell align="left">DSNW20e8c240</TableCell>
+                        <TableCell>{row.openingBalanceAmount}</TableCell>
+                        <TableCell>{row.address}</TableCell>
+                        <TableCell align="center">15</TableCell>
+                        <TableCell align="left">22/05/2022</TableCell>
+                        <TableCell align="left">
+                          <Label color={'success'}>
+                            {/* {sentenceCase(status)} */}
+                            Active
+                          </Label>
                         </TableCell>
 
                         <TableCell>
-                          <Button variant='outlined' onClick={handleCustomerDetails}>Detail</Button>
+                          <Button variant="outlined" onClick={handleCustomerDetails}>
+                            Detail
+                          </Button>
                         </TableCell>
 
                         <TableCell align="right">

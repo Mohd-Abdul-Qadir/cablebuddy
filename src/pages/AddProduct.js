@@ -25,7 +25,7 @@ const AddProduct = () => {
   const [product, setProduct] = useState('');
   const [hsn, setHsn] = useState('');
   const [select, setSelect] = useState('');
-  const [gst, setGst] = useState('');
+  const [gst, setGst] = useState('18');
   const [additional, setAdditional] = useState('');
   const [genre, setGenre] = useState('');
   const [type, setType] = useState('');
@@ -72,12 +72,17 @@ const AddProduct = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
 
     try {
       const response = await fetch('http://localhost:4001/api/add-product', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          // headers: {
+          //   'x-access-token': `${localStorage.getItem("accessToken")}`
+           
+          // },
         },
         body: JSON.stringify({ name, price, product, select, gst, additional, genre, type, hsn }),
       });
@@ -173,9 +178,10 @@ const AddProduct = () => {
                 onChange={handleGst}
                 label="GST Rate"
                 variant="outlined"
-                value={gst}
+                type='number'
+                defaultValue={gst}
                 sx={{ bgcolor: '#F8F8F8', width: '50%' }}
-                autoComplete="off"
+                // autoComplete="off"
               />
               <TextField
                 id="outlined-basic"

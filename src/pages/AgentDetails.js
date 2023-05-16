@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState ,useEffect} from 'react';
 import { useTheme, styled } from '@mui/material/styles';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -37,6 +37,9 @@ import AddIcon from '@mui/icons-material/Add';
 import SystemUpdateAltOutlinedIcon from '@mui/icons-material/SystemUpdateAltOutlined';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import TelegramIcon from '@mui/icons-material/Telegram';
+import LockResetIcon from '@mui/icons-material/LockReset';
+import DeleteIcon from '@mui/icons-material/Delete';
+import FormGroup from '@mui/material/FormGroup';
 
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
@@ -51,8 +54,12 @@ import {
   AppCurrentSubject,
   AppConversionRates,
 } from '../sections/@dashboard/app';
-
 import AgentTable from './AgentTable';
+import AgentProfile from './AgentProfile';
+import RecordCollection from './RecordCollection';
+import { SettingsAccessibility } from '@mui/icons-material';
+import { useParams } from 'react-router-dom';
+
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -63,7 +70,70 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 const AgentDetails = () => {
+  const { id } = useParams();
+  const [name, setName]=useState('');
+  const [number, setNumber]=useState('')
+
+
+
   const theme = useTheme();
+  const [agetntPermission, setAgentPermission] = useState([
+    {
+      id: '1',
+      name: 'first',
+      isChecked: false,
+    },
+    {
+      id: '2',
+      name: 'second',
+      isChecked: false,
+    },
+    {
+      id: '3',
+      name: 'third',
+      isChecked: false,
+    },
+  ]);
+
+  const handleCheckbox = (e, id) => {
+    console.log(id,e.target.checked)
+    const list = agetntPermission.map((agent) => {
+      if (agent.id === id) {
+       
+
+          agent.isChecked = !agent.isChecked 
+     
+      }
+      
+      return agent
+    });
+    setAgentPermission(list)
+    console.log(list,"list")
+  };
+
+  console.log(id,"agent id")
+  useEffect(() => {
+    if (id) {
+      fetch(`http://localhost:4001/api/single-agents/${id}`)
+        .then((res) => res.json())
+        .then((data) => {
+          const agentData = data;
+          setName(agentData.name);
+          setNumber(agentData.number)
+          // setPrice(productData.price);
+          // setSelect(productData.select);
+          // setGst(productData.gst);
+          // setProduct(productData.product);
+          // setAdditional(productData.additional);
+          // setHsn(productData.hsn);
+          // setGenre(productData.genre);
+          // setType(productData.type);
+          console.log(agentData,"agen Data")
+        })
+        .catch((error) => console.error(error));
+    }
+  }, [id]);
+
 
   return (
     <>
@@ -73,12 +143,30 @@ const AgentDetails = () => {
         <Box sx={{ display: 'flex', gap: '1rem' }}>
           <Button
             variant="outlined"
+            // onClick={() => handleDelete(props.id)}
+            startIcon={<DeleteIcon />}
+            sx={{
+              height: 'fit-content',
+              borderColor: '#ff3333',
+              color: '#ff3333',
+              '&:hover': {
+                backgroundColor: '#ff3333',
+                color: '#fff',
+                borderColor: '#fff',
+              },
+            }}
+          >
+            Delete
+          </Button>
+          {/* <Button
+            variant="outlined"
             startIcon={<AddIcon />}
             sx={{ textTransform: 'capitalize', color: '#0C3547', border: '1px solid #0C3547' }}
             //   onClick={() => navigate('/dashboard/add-product')}
           >
-            Record
-          </Button>
+            Record Collection
+          </Button> */}
+          <RecordCollection />
         </Box>
       </Box>
 
@@ -139,10 +227,11 @@ const AgentDetails = () => {
               <AgentTable />
             </Box>
           </Grid>
+
           <Grid item xs={12} md={6} lg={8}>
             <AppWebsiteVisits
-              title="Website Visits"
-              subheader="(+43%) than last year"
+              title="Total Collection"
+              subheader="By Months"
               chartLabels={[
                 '01/01/2003',
                 '02/01/2003',
@@ -181,20 +270,51 @@ const AgentDetails = () => {
 
           <Grid item xs={12} md={6} lg={4}>
             <Card>
-              <CardActionArea>
-                <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
-                  <img src="/assets/images/user.png" alt="img" width={'120px'} height={'125px'} />
-                </div>
+              <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
+                <img src="/assets/images/user.png" alt="img" width={'120px'} height={'125px'} />
+              </div>
 
-                <CardContent>
-                  <Typography gutterBottom variant="h5" component="div">
-                    Name
-                  </Typography>
-                  <Typography gutterBottom variant="h5" component="div">
-                    Number ----
-                  </Typography>
-                </CardContent>
-              </CardActionArea>
+              <CardContent>
+                <Typography gutterBottom variant="h5" component="div">
+                  {name}
+                </Typography>
+                <Typography gutterBottom variant="h5" component="div">
+                  Number : <span style={{color:"grey"}}>{number}</span>
+                    
+                </Typography>
+
+                <div style={{ display: 'flex', justifyContent: 'space-between', flexDirection: 'row' }}>
+                  <Button
+                    variant="outlined"
+                    onClick={() => handleDelete(props.id)}
+                    startIcon={<LockResetIcon />}
+                    sx={{
+                      height: 'fit-content',
+                      borderColor: '#ff3333',
+                      color: '#ff3333',
+                      '&:hover': {
+                        backgroundColor: '#ff3333',
+                        color: '#fff',
+                        borderColor: '#fff',
+                      },
+                    }}
+                  >
+                    Reset Password
+                  </Button>
+
+                  {/* <Button
+                  variant="contained"
+                  startIcon={<EditIcon />}
+                  sx={{
+                    marginLeft: '60px',
+                    // marginBottom: '20px',
+                  }}
+                >
+                  Profile
+                </Button> */}
+                  <AgentProfile  id={id}/>
+                </div>
+              </CardContent>
             </Card>
           </Grid>
 
@@ -269,21 +389,23 @@ const AgentDetails = () => {
                 Agent Permission
               </div>
               <div style={{ padding: '20px' }}>
-                <FormControl>
-                  {/* <FormLabel id="demo-radio-buttons-group-label">Gender</FormLabel> */}
-                  <RadioGroup
-                    aria-labelledby="demo-radio-buttons-group-label"
-                    defaultValue="female"
-                    name="radio-buttons-group"
-                  >
-                    <FormControlLabel value="female" control={<Radio />} label="Update subscriptions" />
-                    <FormControlLabel value="male" control={<Radio />} label="Add Customers" />
-                    <FormControlLabel value="other" control={<Radio />} label="Delete Customers" />
-                    <FormControlLabel value="other" control={<Radio />} label="Edit Genral details" />
-                    <FormControlLabel value="other" control={<Radio />} label="Edit Billing details" />
-                    <FormControlLabel value="other" control={<Radio />} label="Edit Customers Status" />
-                  </RadioGroup>
-                </FormControl>
+                {agetntPermission.map((agent, index) => {
+                  return (
+                    <FormGroup key={index}>
+                      <FormControlLabel
+                        control={
+                          <Checkbox
+                            checked={agent.isChecked}
+                            onChange={(e) => {
+                              handleCheckbox(e,agent.id);
+                            }}
+                          />
+                        }
+                        label="Label"
+                      />
+                    </FormGroup>
+                  );
+                })}
               </div>
               <Button
                 variant="contained"

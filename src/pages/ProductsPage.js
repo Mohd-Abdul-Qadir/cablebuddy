@@ -34,7 +34,6 @@ import PRODUCTS from '../_mock/products';
 import { UserListHead, UserListToolbar } from '../sections/@dashboard/user';
 import USERLIST from '../_mock/user';
 import Scrollbar from '../components/scrollbar';
-import Iconify from '../components/iconify';
 import AddChannels from './AddChannels';
 // ----------------------------------------------------------------------
 const TABLE_HEAD = [
@@ -141,18 +140,43 @@ export default function ProductsPage() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch('http://localhost:4001/api/products')
+
+  fetch('http://localhost:4001/api/products',{
+      method:"GET",
+      headers: {
+        'x-access-token': `${localStorage.getItem("accessToken")}`
+       
+      },
+      
+
+    }
+    )
       .then((response) => response.json())
       .then((data) => setProducts(data))
       .catch((error) => console.error(error));
   }, []);
 
-  // console.log(products._id);
+  // console.log(products._id); 
 
   const details = (id) => {
     navigate(`/dashboard/details/${id}`);
   };
-  console.log(products);
+ 
+  const handleDownload = () => {
+    fetch('http://localhost:4001/api/agent-download')
+      .then(response => response.blob())
+      .then(blob => {
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'product.xlsx';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        window.URL.revokeObjectURL(url);
+      })
+      .catch(error => console.error('Error:', error));
+  };
 
   return (
     <>
@@ -169,8 +193,7 @@ export default function ProductsPage() {
               startIcon={<AddIcon />}
               sx={{ textTransform: 'capitalize', color: '#0C3547', border: '1px solid #0C3547' }}
               onClick={() => navigate('/dashboard/add-product')}
-            >
-              Add Channel/ Bouquet
+            > Add Channel/ Bouquet
             </Button>
             <Button
               variant="outlined"
@@ -181,6 +204,7 @@ export default function ProductsPage() {
             </Button>
           </Box>
         </Box>
+        <button onClick={handleDownload}>Download Data</button>
 
         <Card>
           <UserListToolbar numSelected={selected.length} filterName={filterName} onFilterName={handleFilterByName} />

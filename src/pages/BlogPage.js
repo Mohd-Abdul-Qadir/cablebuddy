@@ -9,6 +9,8 @@ import AddIcon from '@mui/icons-material/Add';
 import PersonAddAltIcon from '@mui/icons-material/PersonAddAlt';
 import SystemUpdateAltOutlinedIcon from '@mui/icons-material/SystemUpdateAltOutlined';
 import SupportAgentIcon from '@mui/icons-material/SupportAgent';
+import SummarizeOutlinedIcon from '@mui/icons-material/SummarizeOutlined';
+import PaymentsOutlinedIcon from '@mui/icons-material/PaymentsOutlined';
 // import { Grid, Button, Container, Stack, Typography, Box } from '@mui/material';
 import {
   Card,
@@ -22,10 +24,12 @@ import {
   Checkbox,
   Container,
   TableRow,
+  styled,
   MenuItem,
   Grid,
   Typography,
   TableBody,
+  Slide,
   TableCell,
   IconButton,
   TableContainer,
@@ -35,6 +39,7 @@ import {
 import Iconify from '../components/iconify';
 import Scrollbar from '../components/scrollbar';
 import Label from '../components/label';
+
 
 import { BlogPostCard, BlogPostsSort, BlogPostsSearch } from '../sections/@dashboard/blog';
 import { UserListHead, UserListToolbar } from '../sections/@dashboard/user';
@@ -54,6 +59,7 @@ import {
 import POSTS from '../_mock/blog';
 import AddAgent from './AddAgent';
 import USERLIST from '../_mock/user';
+import AgentCard from './AgentCard';
 
 // ----------------------------------------------------------------------
 
@@ -81,6 +87,15 @@ function descendingComparator(a, b, orderBy) {
   }
   return 0;
 }
+
+const StyledButton = styled(Button)(({ theme, selected }) => ({
+  padding: '14px',
+  color: selected ? '#fff' : theme.palette.text.primary,
+  backgroundColor: selected ? '#2065D1' : 'transparent',
+  '&:hover': {
+      backgroundColor: selected ? '#2065D1' : theme.palette.action.hover,
+  },
+}));
 
 function getComparator(order, orderBy) {
   return order === 'desc'
@@ -115,6 +130,8 @@ export default function BlogPage() {
 
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [agents, setAgents] = useState([]);
+  const [agent, setAgent] = useState('');
+  const [tabs, setTabs] = useState('Summary')
   const navigate = useNavigate();
 
   const handleOpenMenu = (event) => {
@@ -140,20 +157,33 @@ export default function BlogPage() {
     setSelected([]);
   };
 
-  const handleClick = (event, name) => {
-    const selectedIndex = selected.indexOf(name);
-    let newSelected = [];
-    if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, name);
-    } else if (selectedIndex === 0) {
-      newSelected = newSelected.concat(selected.slice(1));
-    } else if (selectedIndex === selected.length - 1) {
-      newSelected = newSelected.concat(selected.slice(0, -1));
-    } else if (selectedIndex > 0) {
-      newSelected = newSelected.concat(selected.slice(0, selectedIndex), selected.slice(selectedIndex + 1));
-    }
-    setSelected(newSelected);
-  };
+  // const handleClick = (event, name) => {
+  //   const selectedIndex = selected.indexOf(name);
+  //   let newSelected = [];
+  //   if (selectedIndex === -1) {
+  //     newSelected = newSelected.concat(selected, name);
+  //   } else if (selectedIndex === 0) {
+  //     newSelected = newSelected.concat(selected.slice(1));
+  //   } else if (selectedIndex === selected.length - 1) {
+  //     newSelected = newSelected.concat(selected.slice(0, -1));
+  //   } else if (selectedIndex > 0) {
+  //     newSelected = newSelected.concat(selected.slice(0, selectedIndex), selected.slice(selectedIndex + 1));
+  //   }
+  //   setSelected(newSelected);
+  // };
+
+  const handleClick = (tab) => {
+    setTabs(tab);
+};
+const handleAgent = (event) => {
+    setAgent(event.target.value);
+    console.log(`e.target ${event.target.value}`)
+};
+
+const handleReset = () => {
+    setAgent('')
+}
+
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -168,6 +198,8 @@ export default function BlogPage() {
     setPage(0);
     setFilterName(event.target.value);
   };
+
+  
 
   const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - USERLIST.length) : 0;
 
@@ -197,8 +229,11 @@ export default function BlogPage() {
 
   console.log(agents, 'agent');
 
-  const details = () => {
-    navigate(`/dashboard/agent-details`);
+
+
+
+  const details = (id) => {
+    navigate(`/dashboard/agent-details/${id}`);
   };
   return (
     <>
@@ -230,6 +265,30 @@ export default function BlogPage() {
             <AppWidgetSummary title="Bug Reports" total={234} color="error" icon={'ant-design:bug-filled'} />
           </Grid>
         </Grid> */}
+        <AgentCard/>
+        <Paper elevation={3} sx={{
+                    display: 'flex', border: '1px solid #D8D8D8', gap: '10px', bgcolor: 'white', width: '100%', height: '38px', padding: 0, borderRadius: '8px',
+                }}>
+                    <StyledButton variant={tabs === 'Summary' ? 'contained' : 'text'}
+                        selected={tabs === 'Summary'}
+                        // startIcon={<SummarizeOutlinedIcon />}
+                        onClick={() => handleClick('Summary')}
+                    >
+                        General Details
+                    </StyledButton>
+                    <StyledButton variant={tabs === 'OnlineTransaction' ? 'contained' : 'text'}
+                        selected={tabs === 'OnlineTransaction'}
+                        // startIcon={<PaymentsOutlinedIcon />}
+                        onClick={() => handleClick('OnlineTransaction')}
+                    >
+                        Present/Absent
+                    </StyledButton>
+                </Paper>
+                {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
+      <DemoContainer components={['SingleInputDateRangeField']}>
+        <DateRangePicker slots={{ field: SingleInputDateRangeField }} />
+      </DemoContainer>
+    </LocalizationProvider> */}
 
         <Card>
           <UserListToolbar numSelected={selected.length} filterName={filterName} onFilterName={handleFilterByName} />
@@ -269,7 +328,7 @@ export default function BlogPage() {
                         <TableCell align="left">₹ 3036 From 5 Customer</TableCell>
                         <TableCell align="left">₹ 0 From 0 Custome</TableCell>
                         <TableCell align="left">
-                          <Button variant="outlined" onClick={details}>
+                          <Button variant="outlined" onClick={()=>details(row._id)}>
                             Details
                           </Button>
                           <Button variant="outlined" sx={{ marginLeft: '10px' }}>

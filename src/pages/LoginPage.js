@@ -86,8 +86,9 @@ const LoginSignup = () => {
         body: JSON.stringify({ roll, business, password, number }),
       });
       const data = await response.json();
+   
       if (response.ok) {
-        localStorage.setItem('accessToken', data.accessToken);
+        localStorage.setItem('accessToken', data.token);
         navigate('/dashboard/app');
         toast.success('Sign up successful!');
       } else {
@@ -109,8 +110,9 @@ const LoginSignup = () => {
         body: JSON.stringify({ number, password }),
       });
       const data = await response.json();
+      console.log(data,"data")
       if (response.ok) {
-        localStorage.setItem('accessToken', data.accessToken);
+        localStorage.setItem('accessToken', data.token);
         navigate('/dashboard/app');
       } else {
         toast.error(data.message);

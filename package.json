@@ -45,6 +45,7 @@
     "@faker-js/faker": "^7.6.0",
     "@iconify/react": "^4.1.0",
     "@mui/icons-material": "^5.11.16",
+    "@mui/joy": "^5.0.0-alpha.79",
     "@mui/lab": "^5.0.0-alpha.129",
     "@mui/material": "^5.13.0",
     "@mui/styled-engine-sc": "^5.12.0",

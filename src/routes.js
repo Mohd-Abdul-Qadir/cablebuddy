@@ -34,7 +34,7 @@ export default function Router() {
         { path: 'details/:id', element: <Details /> },
         { path: 'blog', element: <BlogPage /> },
         { path: 'profile', element: <ProfilePage /> },
-        { path: 'agent-details', element: <AgentDetails /> },
+        { path: 'agent-details/:id', element: <AgentDetails /> },
       ],
     },
     {
