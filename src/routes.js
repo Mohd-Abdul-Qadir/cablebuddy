@@ -15,7 +15,9 @@ import ProfilePage from './pages/ProfilePage';
 import AddProduct from './pages/AddProduct';
 import Details from './pages/Details';
 import AgentDetails from './pages/AgentDetails';
-
+import Collection from './pages/Collection';
+import Companies from './pages/Companies';
+import Reports from './pages/Reports';
 // ----------------------------------------------------------------------
 
 export default function Router() {
@@ -34,6 +36,9 @@ export default function Router() {
         { path: 'details/:id', element: <Details /> },
         { path: 'blog', element: <BlogPage /> },
         { path: 'profile', element: <ProfilePage /> },
+        { path: 'collection', element: <Collection /> },
+        { path: 'companies', element: <Companies /> },
+        { path: 'reports', element: <Reports /> },
         { path: 'agent-details/:id', element: <AgentDetails /> },
       ],
     },
