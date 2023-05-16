@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Stack, Typography, TextField, Button } from '@mui/material'
+import { Stack, Typography, TextField, Button, Divider, Box } from '@mui/material'
 import TelegramIcon from '@mui/icons-material/Telegram';
 
 
@@ -11,17 +11,17 @@ const AccountDetails = () => {
             </Stack>
             <Stack gap='20px' sx={{ width: '100%', padding: '1rem' }}>
                 <Stack fullWidth direction='row' gap='20px'>
-                    <TextField variant="outlined" fullWidth
+                    <TextField variant="outlined"
                         label="Account Holder Name"
                         autoComplete="off"
                         // name='name'
                         // value={inputData.name}
                         // onChange={handleInputs}
-                        sx={{ bgcolor: 'white' }}
+                        sx={{ bgcolor: 'white', height: 'fit-content', width: '50%' }}
                     />
-                    <Stack direction='row' sx={{ width: '50%' }}>
+                    <Stack direction='row'>
                         <Typography>Account Status</Typography>
-                        <Typography sx={{ color: 'green' }}>Account Addition to Payment Gateway Successfull</Typography>
+                        <Typography sx={{ color: 'green', bgcolor: '#bdddf6', border: '1px solid #c3e6cb', py: '5px', px: '5%' }}>Account Addition to Payment Gateway Successfull</Typography>
                     </Stack>
                 </Stack>
                 <Stack fullWidth direction='row' gap='20px'>
@@ -67,8 +67,25 @@ const AccountDetails = () => {
                     />
                 </Stack>
             </Stack>
+            <Divider />
+            <Stack gap='1rem'>
+                <Typography>Upload Pan Card</Typography>
+                <Button variant="contained" component="label" sx={{ width: 'fit-content', padding: '12px' }}>
+                    Choose File
+                    <input hidden accept="image/*" multiple type="file" />
+                </Button>
+                <Box sx={{ border: '1px solid lightgrey', height: 'fit-content', padding: '10px', borderRadius: '5px' }} />
+            </Stack>
+            <Stack gap='1rem'>
+                <Typography>Bank Passbook photo / Cancelled Cheque photo</Typography>
+                <Button variant="contained" component="label" sx={{ width: 'fit-content', padding: '12px' }}>
+                    Choose File
+                    <input hidden accept="image/*" multiple type="file" />
+                </Button>
+                <Box sx={{ border: '1px solid lightgrey', height: 'fit-content', padding: '10px', borderRadius: '5px' }} />
+            </Stack>
             <Stack mt='10px'>
-                <Button variant="contained" endIcon={<TelegramIcon />} sx={{ width: 'fit-content', mx: 'auto', padding: '10px' }}>Update</Button>
+                <Button variant="contained" endIcon={<TelegramIcon />} sx={{ width: 'fit-content', mx: 'auto', padding: '12px' }}>Update</Button>
             </Stack>
         </Stack>
     )
