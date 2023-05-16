@@ -1,12 +1,17 @@
-import React from 'react'
-import { Box, Stack, Typography } from '@mui/material'
+import React, { useState } from 'react'
+import { Box, InputAdornment, Stack, Typography } from '@mui/material'
 import PropTypes from 'prop-types';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
+import IconButton from '@mui/material/IconButton';
+import PhotoCamera from '@mui/icons-material/PhotoCamera';
+import Image from '../components/Image';
 import GeneralDetails from '../components/ProfilePageTabs/GeneralDetails';
 import BillingPreference from '../components/ProfilePageTabs/BillingPreference';
 import BillingReminder from '../components/ProfilePageTabs/BillingReminder';
 import AccountDetails from '../components/ProfilePageTabs/AccountDetails';
+import ProfileBgImg from '../assets/images/CableBackground.png'
+import ProfilePicture from '../assets/images/ProfilePicture.jpg'
 
 
 function TabPanel(props) {
@@ -43,18 +48,41 @@ function a11yProps(index) {
 
 const ProfilePage = () => {
     const [value, setValue] = React.useState(0);
+    const [imageSrc, setImageSrc] = useState('');
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
-                                                                         
+
+    const handleImageChange = (e) => {
+        const file = e.target.files[0];
+
+        if (file) {
+            const reader = new FileReader();
+            reader.addEventListener('load', () => {
+                setImageSrc(reader.result);
+            });
+            reader.readAsDataURL(file);
+        }
+    };
+
     return (
-        <Box>
-            <Stack>
-                <Typography variant='h3'>Profile</Typography>
+        <Box marginTop='0px'>
+            <Typography variant='h3'>Profile</Typography>
+            <Stack sx={{ backgroundImage: `url(${ProfileBgImg})`, backgroundSize: 'cover', backgroundPosition: 'center', position: 'relative' }}>
+                <Box sx={{ bgcolor: 'rgb(17, 46, 60)', width: 'fit-content', padding: '10px', borderRadius: '5px', position: 'absolute', right: 20, top: 20, boxShadow: '4px 2px 2px 2px white' }}>
+                    <Typography sx={{ color: 'white' }}>Expiry On :- 06-Oct-2023</Typography>
+                </Box>
             </Stack>
-            {/* <img src='/assets/images/CableBackground.png' alt='cable'/> */}
-            <Box sx={{ width: '100%' }}>
+            <Stack sx={{ position: 'relative', height: '150px', width: '150px', borderRadius: '50%', border: '1px solid grey', padding: '5px' }}>
+                <Image src={imageSrc || ProfilePicture} alt="profilepicture" sx={{ height: '100%', width: '100%', borderRadius: '50%' }} />
+                <IconButton aria-label="upload picture" component="label" sx={{ position: 'absolute', bottom: 5, right: 5 }}>
+                    <input hidden accept="image/*" type="file" onChange={handleImageChange} />
+                    <PhotoCamera sx={{ color: 'blue', fontSize: '28px' }} />
+                </IconButton>
+            </Stack>
+
+            <Box sx={{ width: '100%', mt: '4rem' }}>
                 <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                     <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
                         <Tab label="General Details" {...a11yProps(0)} />
@@ -76,7 +104,7 @@ const ProfilePage = () => {
                     <AccountDetails />
                 </TabPanel>
             </Box>
-        </Box>
+        </Box >
     )
 }
 

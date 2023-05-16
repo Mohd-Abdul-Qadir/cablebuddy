@@ -38,17 +38,17 @@ const navConfig = [
   },
   {
     title: 'Companys',
-    path: '/login',
+    path: '/dashboard/companies',
     icon: <BusinessIcon />,
   },
   {
     title: 'Collection',
-    path: '/login',
+    path: '/dashboard/collection',
     icon: <AccountBalanceWalletIcon />,
   },
   {
     title: 'Reports',
-    path: '/login',
+    path: '/dashboard/reports',
     icon: <AssessmentIcon />,
   },
   {

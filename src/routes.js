@@ -12,6 +12,10 @@ import DashboardAppPage from './pages/DashboardAppPage';
 import AddCustomers from './pages/AddCustomers';
 import CustomerDetails from './pages/CustomerDetails';
 import ProfilePage from './pages/ProfilePage';
+import Collection from './pages/Collection';
+import CompaniesContent from './components/Companies/CompaniesContent';
+import Companies from './pages/Companies';
+import Reports from './pages/Reports';
 
 // ----------------------------------------------------------------------
 
@@ -28,7 +32,10 @@ export default function Router() {
         { path: 'customer-details', element: <CustomerDetails /> },
         { path: 'products', element: <ProductsPage /> },
         { path: 'blog', element: <BlogPage /> },
-        { path: 'profile', element: <ProfilePage /> }
+        { path: 'profile', element: <ProfilePage /> },
+        { path: 'collection', element: <Collection /> },
+        { path: 'companies', element: <Companies /> },
+        { path: 'reports', element: <Reports /> }
       ],
     },
     {
