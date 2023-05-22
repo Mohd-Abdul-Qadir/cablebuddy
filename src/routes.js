@@ -18,6 +18,9 @@ import AgentDetails from './pages/AgentDetails';
 import Collection from './pages/Collection';
 import Companies from './pages/Companies';
 import Reports from './pages/Reports';
+import Complaints from './pages/Complaints';
+import SmsWallet from './pages/SmsWallet';
+import Expenses from './pages/Expenses';
 // ----------------------------------------------------------------------
 
 export default function Router() {
@@ -40,6 +43,9 @@ export default function Router() {
         { path: 'companies', element: <Companies /> },
         { path: 'reports', element: <Reports /> },
         { path: 'agent-details/:id', element: <AgentDetails /> },
+        { path: 'complaints', element: <Complaints /> },
+        { path: 'smswallet', element: <SmsWallet /> },
+        { path: 'expenses', element: <Expenses /> },
       ],
     },
     {

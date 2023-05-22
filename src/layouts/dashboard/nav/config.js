@@ -53,17 +53,17 @@ const navConfig = [
   },
   {
     title: 'Complaints',
-    path: '/login',
+    path: '/dashboard/complaints',
     icon: <QuestionAnswerIcon />,
   },
   {
     title: 'SMS~Wallet',
-    path: '/login',
+    path: '/dashboard/smswallet',
     icon: <ContactMailIcon />,
   },
   {
     title: 'Expenses',
-    path: '/login',
+    path: '/dashboard/expenses',
     icon: <PaidIcon />,
   },
   // {
