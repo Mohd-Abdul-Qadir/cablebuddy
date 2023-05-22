@@ -98,9 +98,7 @@ export default function AddAgent() {
     try {
       const response = await fetch('http://localhost:4001/api/add-agent', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'x-access-token': `${localStorage.getItem('accessToken')}`, 'Content-Type': 'application/json' },
         body: JSON.stringify({ name, number, password }),
       });
 

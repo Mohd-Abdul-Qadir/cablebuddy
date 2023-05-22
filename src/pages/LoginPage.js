@@ -41,8 +41,7 @@ const theme = createTheme({
   },
 });
 
-const LoginSignup = () => {
-  const [value, setValue] = useState('2');
+const LoginSignup = ({ value }) => {
   const [cable, setCable] = useState('cable');
   const [roll, setRoll] = React.useState('');
   const [password, setPassword] = React.useState('');
@@ -54,7 +53,8 @@ const LoginSignup = () => {
   };
   console.log(roll);
   const handleChange = (event, newValue) => {
-    setValue(newValue);
+    if (newValue === '2') navigate(`/signup`);
+    else navigate(`/login`);
   };
 
   const handleNumber = (e) => {
@@ -86,7 +86,7 @@ const LoginSignup = () => {
         body: JSON.stringify({ roll, business, password, number }),
       });
       const data = await response.json();
-   
+
       if (response.ok) {
         localStorage.setItem('accessToken', data.token);
         navigate('/dashboard/app');
@@ -110,7 +110,7 @@ const LoginSignup = () => {
         body: JSON.stringify({ number, password }),
       });
       const data = await response.json();
-      console.log(data,"data")
+      console.log(data, 'data');
       if (response.ok) {
         localStorage.setItem('accessToken', data.token);
         navigate('/dashboard/app');

@@ -1,8 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Box, Typography, Stack, Button, TextField, InputAdornment } from '@mui/material';
 import { Telegram } from '@mui/icons-material';
 
 const AddOnBill = () => {
+  const [price, setPrice] = useState(0);
+
+  const handlePrice = (e) => {
+    setPrice(e.target.value);
+  };
   return (
     <Box>
       <Stack mb="1rem">
@@ -55,6 +60,7 @@ const AddOnBill = () => {
               fullWidth
               placeholder="Price"
               id="outlined-start-adornment"
+              onChange={handlePrice}
               InputProps={{
                 startAdornment: <InputAdornment position="start">₹</InputAdornment>,
               }}
@@ -67,7 +73,7 @@ const AddOnBill = () => {
             <Typography
               sx={{ bgcolor: '#072534', color: 'white', width: '55px', textAlign: 'center', borderRadius: '5px' }}
             >
-              ₹ <span> 0</span>
+              ₹ <span> {price}</span>
             </Typography>
           </Stack>
         </Stack>

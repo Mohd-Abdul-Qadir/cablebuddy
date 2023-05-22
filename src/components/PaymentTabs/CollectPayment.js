@@ -1,5 +1,5 @@
-import React from 'react'
-import { Box, Typography, Stack, Button, TextField, InputAdornment, MenuItem, Divider } from '@mui/material'
+import React, { useState } from 'react'
+import { Box, Typography, Stack, Button, TextField, InputAdornment, MenuItem, Divider ,ButtonBase} from '@mui/material'
 import ShareIcon from '@mui/icons-material/Share';
 import { DemoContainer, DemoItem } from '@mui/x-date-pickers/internals/demo';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -7,6 +7,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
 import TelegramIcon from '@mui/icons-material/Telegram';
+import CalenderPop from './CalenderPop';
 
 
 const PaymentMode = [
@@ -41,6 +42,22 @@ const PaymentMode = [
 
 const CollectPayment = () => {
 
+    const [price, setPrice]=useState(0)
+    const [totalAmount, setTotalAmount]=useState(500)
+    const [discount, setDiscount]= useState(0)
+
+
+    const handleDiscount=(e)=>{
+        setDiscount(e.target.value)
+    }
+
+    const addAmount=(e)=>{
+        setPrice(e.target.value)
+    }
+
+   
+
+
     return (
         <Box sx={{ width: '100%' }}>
             <Stack direction='row' alignItems='center' justifyContent='space-between' width='100%'>
@@ -55,7 +72,7 @@ const CollectPayment = () => {
                         <Typography sx={{ textAlign: 'center', py: '1rem', fontWeight: 600 }}>
                             ₹<span>0</span>
                         </Typography>
-                        <Typography sx={{ py: '4%', fontSize: '14px', width: '100%', borderRadius: '10px 10px 0 0', borderTop: '1px solid #D8D8D8', textAlign: 'center' }}>Till Date : Null
+                        <Typography sx={{ py: '4%', fontSize: '14px', width: '100%', borderRadius: '10px 10px 0 0', borderTop: '1px solid #D8D8D8', textAlign: 'center' }}>Till Date : <CalenderPop/>
                         </Typography>
                     </Stack>
                     <Stack sx={{ border: '1px solid #D8D8D8', borderRadius: '10px', width: '220px' }}>
@@ -85,6 +102,7 @@ const CollectPayment = () => {
                             fullWidth
                             defaultValue='0'
                             id="outlined-start-adornment"
+                            onChange={addAmount}
                             InputProps={{
                                 startAdornment: <InputAdornment position="start">₹</InputAdornment>,
                             }}
@@ -97,6 +115,7 @@ const CollectPayment = () => {
                         <TextField
                             fullWidth
                             defaultValue='0'
+                            onChange={handleDiscount}
                             id="outlined-start-adornment"
                             InputProps={{
                                 startAdornment: <InputAdornment position="start">₹</InputAdornment>,
@@ -128,7 +147,7 @@ const CollectPayment = () => {
                         </Stack>
                         <LocalizationProvider dateAdapter={AdapterDayjs}>
                             {/* <DemoItem label="Start Date"> */}
-                            <DatePicker fullWidth defaultValue={dayjs('2022-04-17')} sx={{ width: '100%' }} />
+                            <DatePicker fullWidth defaultValue={dayjs('2022-05-17')} sx={{ width: '100%' }} />
                             {/* </DemoItem> */}
                         </LocalizationProvider>
                     </Stack>
@@ -149,13 +168,16 @@ const CollectPayment = () => {
                             <Stack sx={{ width: '100%' }}>
                                 <Typography>Total Payment</Typography>
                             </Stack>
-                            <Typography sx={{ bgcolor: '#072534', color: 'white', width: '55px', textAlign: 'center', borderRadius: '5px' }}>₹ <span> 0</span></Typography>
+                            <Typography sx={{ bgcolor: '#072534', color: 'white', width: '120px', textAlign: 'center', borderRadius: '5px' }}>₹ <span>{price-discount}</span></Typography>
                         </Stack>
                         <Stack direction='row' alignItems='center' gap='40px'>
                             <Stack sx={{ width: '100%' }}>
                                 <Typography>New Balance</Typography>
                             </Stack>
-                            <Typography sx={{ bgcolor: 'grey', color: 'white', width: '55px', textAlign: 'center', borderRadius: '5px' }}>₹ <span> 0</span></Typography>
+                            <Typography sx={{ bgcolor: (totalAmount - price - discount) >= 0 ? 'green' : 'red', color: 'white', width: '120px', textAlign: 'center', borderRadius: '5px' }}>
+  ₹ <span>{totalAmount - price - discount}</span>
+</Typography>
+
                         </Stack>
                     </Stack>
                     <Divider sx={{ mt: '10px' }} />

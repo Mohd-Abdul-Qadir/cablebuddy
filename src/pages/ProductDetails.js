@@ -84,7 +84,6 @@ const ProductDetails = (props) => {
           toast.success('Product updated successfully');
           setMessage(data.message);
           props.onUpdate();
-        
         })
         .catch((error) => console.error(error));
     }
@@ -109,7 +108,7 @@ const ProductDetails = (props) => {
       .then((data) => {
         if (data.message === 'Product deleted successfully') {
           // const updatedProducts = products.filter((props) => props.id !== id);
-          
+
           toast.success('Product deleted successfully');
           // setProducts(updatedProducts);
         } else {
@@ -225,7 +224,6 @@ const ProductDetails = (props) => {
                 variant="outlined"
                 defaultValue="18"
                 sx={{ bgcolor: '#F8F8F8', width: '50%' }}
-              
               />
 
               <Select
@@ -300,8 +298,6 @@ const ProductDetails = (props) => {
             >
               Update
             </Button>
-           
-            
           </div>
         </Box>
       </div>

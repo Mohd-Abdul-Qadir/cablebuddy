@@ -212,7 +212,9 @@ export default function AddChannels() {
   const navigate = useNavigate();
 
   React.useEffect(() => {
-    fetch('http://localhost:4001/api/products')
+    fetch('http://localhost:4001/api/products', {
+      headers: { 'x-access-token': `${localStorage.getItem('accessToken')}`, 'Content-Type': 'application/json' },
+    })
       .then((response) => response.json())
       .then((data) => {
         // Filter the data based on select value of "Chanel"
@@ -248,7 +250,7 @@ export default function AddChannels() {
             Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget
             quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
           </Typography>
-          <Select
+          {/* <Select
             // value={genre}
             // onChange={handleGener}
             displayEmpty
@@ -277,7 +279,7 @@ export default function AddChannels() {
             <MenuItem value="Shopping">Shopping</MenuItem>
             <MenuItem value="Sports">Sports</MenuItem>
             <MenuItem value="Other">Other</MenuItem>
-          </Select>
+          </Select> */}
           <UserListToolbar numSelected={selected.length} filterName={filterName} onFilterName={handleFilterByName} />
 
           <Scrollbar>

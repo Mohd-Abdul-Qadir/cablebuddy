@@ -30,7 +30,7 @@ export default function Router() {
         { path: 'app', element: <DashboardAppPage /> },
         { path: 'user', element: <UserPage /> },
         { path: 'add-customer', element: <AddCustomers /> },
-        { path: 'customer-details', element: <CustomerDetails /> },
+        { path: 'customer-details/:id', element: <CustomerDetails /> },
         { path: 'products', element: <ProductsPage /> },
         { path: 'add-product', element: <AddProduct /> },
         { path: 'details/:id', element: <Details /> },
@@ -44,7 +44,11 @@ export default function Router() {
     },
     {
       path: 'login',
-      element: <LoginPage />,
+      element: <LoginPage value={'1'} />,
+    },
+    {
+      path: 'signup',
+      element: <LoginPage value={'2'} />,
     },
     {
       element: <SimpleLayout />,

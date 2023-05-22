@@ -40,7 +40,6 @@ import Iconify from '../components/iconify';
 import Scrollbar from '../components/scrollbar';
 import Label from '../components/label';
 
-
 import { BlogPostCard, BlogPostsSort, BlogPostsSearch } from '../sections/@dashboard/blog';
 import { UserListHead, UserListToolbar } from '../sections/@dashboard/user';
 import {
@@ -93,7 +92,7 @@ const StyledButton = styled(Button)(({ theme, selected }) => ({
   color: selected ? '#fff' : theme.palette.text.primary,
   backgroundColor: selected ? '#2065D1' : 'transparent',
   '&:hover': {
-      backgroundColor: selected ? '#2065D1' : theme.palette.action.hover,
+    backgroundColor: selected ? '#2065D1' : theme.palette.action.hover,
   },
 }));
 
@@ -131,7 +130,7 @@ export default function BlogPage() {
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [agents, setAgents] = useState([]);
   const [agent, setAgent] = useState('');
-  const [tabs, setTabs] = useState('Summary')
+  const [tabs, setTabs] = useState('Summary');
   const navigate = useNavigate();
 
   const handleOpenMenu = (event) => {
@@ -174,16 +173,15 @@ export default function BlogPage() {
 
   const handleClick = (tab) => {
     setTabs(tab);
-};
-const handleAgent = (event) => {
+  };
+  const handleAgent = (event) => {
     setAgent(event.target.value);
-    console.log(`e.target ${event.target.value}`)
-};
+    console.log(`e.target ${event.target.value}`);
+  };
 
-const handleReset = () => {
-    setAgent('')
-}
-
+  const handleReset = () => {
+    setAgent('');
+  };
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -198,8 +196,6 @@ const handleReset = () => {
     setPage(0);
     setFilterName(event.target.value);
   };
-
-  
 
   const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - USERLIST.length) : 0;
 
@@ -216,7 +212,9 @@ const handleReset = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://localhost:4001/api/agents');
+        const response = await fetch('http://localhost:4001/api/agents', {
+          headers: { 'x-access-token': `${localStorage.getItem('accessToken')}`, 'Content-Type': 'application/json' },
+        });
         const data = await response.json();
         setAgents(data);
       } catch (error) {
@@ -228,9 +226,6 @@ const handleReset = () => {
   }, []);
 
   console.log(agents, 'agent');
-
-
-
 
   const details = (id) => {
     navigate(`/dashboard/agent-details/${id}`);
@@ -248,43 +243,39 @@ const handleReset = () => {
             <AddAgent />
           </Box>
         </Box>
-        {/* <Grid container spacing={3}>
-          <Grid item xs={12} sm={6} md={3}>
-            <AppWidgetSummary title="Weekly Sales" total={714000} icon={'ant-design:android-filled'} />
-          </Grid>
-
-          <Grid item xs={12} sm={6} md={3}>
-            <AppWidgetSummary title="New Users" total={1352831} color="info" icon={'ant-design:apple-filled'} />
-          </Grid>
-
-          <Grid item xs={12} sm={6} md={3}>
-            <AppWidgetSummary title="Item Orders" total={1723315} color="warning" icon={'ant-design:windows-filled'} />
-          </Grid>
-
-          <Grid item xs={12} sm={6} md={3}>
-            <AppWidgetSummary title="Bug Reports" total={234} color="error" icon={'ant-design:bug-filled'} />
-          </Grid>
-        </Grid> */}
-        <AgentCard/>
-        <Paper elevation={3} sx={{
-                    display: 'flex', border: '1px solid #D8D8D8', gap: '10px', bgcolor: 'white', width: '100%', height: '38px', padding: 0, borderRadius: '8px',
-                }}>
-                    <StyledButton variant={tabs === 'Summary' ? 'contained' : 'text'}
-                        selected={tabs === 'Summary'}
-                        // startIcon={<SummarizeOutlinedIcon />}
-                        onClick={() => handleClick('Summary')}
-                    >
-                        General Details
-                    </StyledButton>
-                    <StyledButton variant={tabs === 'OnlineTransaction' ? 'contained' : 'text'}
-                        selected={tabs === 'OnlineTransaction'}
-                        // startIcon={<PaymentsOutlinedIcon />}
-                        onClick={() => handleClick('OnlineTransaction')}
-                    >
-                        Present/Absent
-                    </StyledButton>
-                </Paper>
-                {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <AgentCard />
+        <Paper
+          elevation={3}
+          sx={{
+            display: 'flex',
+            border: '1px solid #D8D8D8',
+            gap: '10px',
+            bgcolor: 'white',
+            width: '100%',
+            height: '38px',
+            padding: 0,
+            borderRadius: '8px',
+            marginBottom: '20px',
+          }}
+        >
+          <StyledButton
+            variant={tabs === 'Summary' ? 'contained' : 'text'}
+            selected={tabs === 'Summary'}
+            // startIcon={<SummarizeOutlinedIcon />}
+            onClick={() => handleClick('Summary')}
+          >
+            General Details
+          </StyledButton>
+          <StyledButton
+            variant={tabs === 'OnlineTransaction' ? 'contained' : 'text'}
+            selected={tabs === 'OnlineTransaction'}
+            // startIcon={<PaymentsOutlinedIcon />}
+            onClick={() => handleClick('OnlineTransaction')}
+          >
+            Present/Absent
+          </StyledButton>
+        </Paper>
+        {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
       <DemoContainer components={['SingleInputDateRangeField']}>
         <DateRangePicker slots={{ field: SingleInputDateRangeField }} />
       </DemoContainer>
@@ -328,7 +319,7 @@ const handleReset = () => {
                         <TableCell align="left">₹ 3036 From 5 Customer</TableCell>
                         <TableCell align="left">₹ 0 From 0 Custome</TableCell>
                         <TableCell align="left">
-                          <Button variant="outlined" onClick={()=>details(row._id)}>
+                          <Button variant="outlined" onClick={() => details(row._id)}>
                             Details
                           </Button>
                           <Button variant="outlined" sx={{ marginLeft: '10px' }}>

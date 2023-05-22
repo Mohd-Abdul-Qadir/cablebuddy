@@ -3,6 +3,8 @@ import { useState, useEffect } from 'react';
 import PersonAddAltOutlinedIcon from '@mui/icons-material/PersonAddAltOutlined';
 import AddIcon from '@mui/icons-material/Add';
 import SystemUpdateAltOutlinedIcon from '@mui/icons-material/SystemUpdateAltOutlined';
+import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
+import RestartAltIcon from '@mui/icons-material/RestartAlt';
 // @mui
 import {
   Avatar,
@@ -11,8 +13,13 @@ import {
   Card,
   Checkbox,
   Container,
+  FormControl,
   IconButton,
+  InputBase,
+  InputLabel,
+  MenuItem,
   Paper,
+  Select,
   Stack,
   Table,
   TableBody,
@@ -55,6 +62,7 @@ export default function ProductsPage() {
   const [order, setOrder] = useState('asc');
   const [products, setProducts] = useState([]);
   const [popup, setPopup] = useState(false);
+  const [filterPackage, setFilterPackage] = useState('');
 
   const handleOpenMenu = (event) => {
     setOpen(event.currentTarget);
@@ -140,32 +148,27 @@ export default function ProductsPage() {
   const navigate = useNavigate();
 
   useEffect(() => {
-
-  fetch('http://localhost:4001/api/products',{
-      method:"GET",
+    fetch('http://localhost:4001/api/products', {
+      method: 'GET',
       headers: {
-        'x-access-token': `${localStorage.getItem("accessToken")}`
-       
+        'x-access-token': `${localStorage.getItem('accessToken')}`,
       },
-      
-
-    }
-    )
+    })
       .then((response) => response.json())
       .then((data) => setProducts(data))
       .catch((error) => console.error(error));
   }, []);
 
-  // console.log(products._id); 
+  // console.log(products._id);
 
   const details = (id) => {
     navigate(`/dashboard/details/${id}`);
   };
- 
+
   const handleDownload = () => {
     fetch('http://localhost:4001/api/agent-download')
-      .then(response => response.blob())
-      .then(blob => {
+      .then((response) => response.blob())
+      .then((blob) => {
         const url = window.URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
@@ -175,7 +178,11 @@ export default function ProductsPage() {
         document.body.removeChild(a);
         window.URL.revokeObjectURL(url);
       })
-      .catch(error => console.error('Error:', error));
+      .catch((error) => console.error('Error:', error));
+  };
+
+  const filterData = () => {
+    return products.filter((product) => product.select.toLowerCase().includes(filterPackage.toLocaleLowerCase()));
   };
 
   return (
@@ -193,7 +200,9 @@ export default function ProductsPage() {
               startIcon={<AddIcon />}
               sx={{ textTransform: 'capitalize', color: '#0C3547', border: '1px solid #0C3547' }}
               onClick={() => navigate('/dashboard/add-product')}
-            > Add Channel/ Bouquet
+            >
+              {' '}
+              Add Channel/ Bouquet
             </Button>
             <Button
               variant="outlined"
@@ -204,10 +213,63 @@ export default function ProductsPage() {
             </Button>
           </Box>
         </Box>
-        <button onClick={handleDownload}>Download Data</button>
+
+        <Stack
+          sx={{
+            border: '1px solid #D8D8D8',
+            borderRadius: '10px',
+            bgcolor: 'white',
+            width: '100%',
+            marginBottom: '20px',
+          }}
+        >
+          <Box sx={{ bgcolor: '#F5F5F5', border: '1px solid white', padding: '14px', borderRadius: '10px 10px 0 0' }}>
+            <Typography sx={{ fontWeight: '600', fontSize: '16px' }}>Filters And Option</Typography>
+          </Box>
+          <Stack padding="1rem" gap="10px">
+            <Stack>
+              <Stack direction="row" alignItems="center">
+                <FormControl sx={{ m: 1, width: '100%' }} size="small">
+                  <InputLabel id="demo-select-small" sx={{ color: 'black', fontWeight: '400', fontSize: '15px' }}>
+                    Select Date Follow Up
+                  </InputLabel>
+                  <Select
+                    labelId="demo-select-small"
+                    value={filterPackage}
+                    onChange={(e) => setFilterPackage(e.target.value)}
+                    id="demo-select-small"
+                    // value={packagetype}
+                    label="Select Package Type"
+                    // onChange={handlePackage}
+                  >
+                    <MenuItem value="">Please Select One</MenuItem>
+                    <MenuItem value="Channel">Channel</MenuItem>
+                    <MenuItem value="Broadcaster Bouqet">Broadcaster Bouqet</MenuItem>
+                    <MenuItem value="My Package">My Package</MenuItem>
+                    <MenuItem value="Base Pack">Base Pack</MenuItem>
+                  </Select>
+                </FormControl>
+                <Button variant="contained" startIcon={<RestartAltIcon />}>
+                  Reset
+                </Button>
+              </Stack>
+            </Stack>
+          </Stack>
+        </Stack>
 
         <Card>
-          <UserListToolbar numSelected={selected.length} filterName={filterName} onFilterName={handleFilterByName} />
+          <div style={{ display: 'flex', justifyContent: 'space-between', flexDirection: 'row' }}>
+            <UserListToolbar numSelected={selected.length} filterName={filterName} onFilterName={handleFilterByName} />
+            <Button
+              startIcon={<FileDownloadOutlinedIcon />}
+              onClick={handleDownload}
+              color="success"
+              variant="outlined"
+              sx={{ height: '50px', margin: '20px 20px', color: '#229A16' }}
+            >
+              Download Excel
+            </Button>
+          </div>
 
           <Scrollbar>
             <TableContainer sx={{ minWidth: 800 }}>
@@ -222,54 +284,56 @@ export default function ProductsPage() {
                   onSelectAllClick={handleSelectAllClick}
                 />
                 <TableBody>
-                  {products.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row, index) => {
-                    return (
-                      <TableRow hover tabIndex={-1} role="checkbox" key={row._id}>
-                        <TableCell padding="checkbox">
-                          <Checkbox />
-                        </TableCell>
-                        <TableCell align="left">{index + 2231}</TableCell>
+                  {filterData()
+                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                    .map((row, index) => {
+                      return (
+                        <TableRow hover tabIndex={-1} role="checkbox" key={row._id}>
+                          <TableCell padding="checkbox">
+                            <Checkbox />
+                          </TableCell>
+                          <TableCell align="left">{index + 2231}</TableCell>
 
-                        <TableCell component="th" scope="row" padding="none">
-                          <Stack
-                            direction="row"
-                            alignItems="center"
-                            spacing={2}
-                            sx={{ display: 'flex', justifyContent: 'space-between', marginLeft: '20px' }}
-                          >
-                            {/* <Avatar alt={name} src={avatarUrl} /> */}
-                            <Typography variant="subtitle2" noWrap>
-                              {row.name}
-                            </Typography>
-                            {row.select === 'Broadcaster Bouqet' && (
-                              <Typography>
-                                <AddChannels />
+                          <TableCell component="th" scope="row" padding="none">
+                            <Stack
+                              direction="row"
+                              alignItems="center"
+                              spacing={2}
+                              sx={{ display: 'flex', justifyContent: 'space-between', marginLeft: '20px' }}
+                            >
+                              {/* <Avatar alt={name} src={avatarUrl} /> */}
+                              <Typography variant="subtitle2" noWrap>
+                                {row.name}
                               </Typography>
-                            )}
-                          </Stack>
-                        </TableCell>
+                              {row.select === 'Broadcaster Bouqet' && (
+                                <Typography>
+                                  <AddChannels />
+                                </Typography>
+                              )}
+                            </Stack>
+                          </TableCell>
 
-                        <TableCell align="left">{row.price}</TableCell>
-                        <TableCell align="left">
-                          <Label color={'success'}>
-                            {/* {sentenceCase(status)} */}
-                            Active
-                          </Label>
-                        </TableCell>
+                          <TableCell align="left">{row.price}</TableCell>
+                          <TableCell align="left">
+                            <Label color={'success'}>
+                              {/* {sentenceCase(status)} */}
+                              Active
+                            </Label>
+                          </TableCell>
 
-                        <TableCell align="left" sx={{ cursor: 'pointer' }} onClick={() => details(row._id)}>
-                          {/* <Label>Details</Label> */}
-                          <Button variant="outlined">Details</Button>
-                        </TableCell>
+                          <TableCell align="left" sx={{ cursor: 'pointer' }} onClick={() => details(row._id)}>
+                            {/* <Label>Details</Label> */}
+                            <Button variant="outlined">Details</Button>
+                          </TableCell>
 
-                        {/* <TableCell align="right">
+                          {/* <TableCell align="right">
                           <IconButton size="large" color="inherit" onClick={handleOpenMenu}>
                             <Iconify icon={'eva:more-vertical-fill'} />
                           </IconButton>
                         </TableCell> */}
-                      </TableRow>
-                    );
-                  })}
+                        </TableRow>
+                      );
+                    })}
                   {emptyRows > 0 && (
                     <TableRow style={{ height: 53 * emptyRows }}>
                       <TableCell colSpan={6} />
