@@ -3,6 +3,8 @@ import { Box, Typography, Paper, Stack, List, ListItemButton, ListItemIcon, List
 import { Icon } from '@iconify/react';
 import ExcelandPdf from './ReportTabs/ExcelandPdf';
 import GstInvoice from './ReportTabs/GstInvoice';
+import AreaSummary from './ReportTabs/AreaSummary';
+import ProfitAndLoss from './ReportTabs/ProfitAndLoss';
 
 
 const ReportsContent = () => {
@@ -48,7 +50,7 @@ const ReportsContent = () => {
                         </ListItemIcon>
                         <ListItemText primary="Gst Invoice" />
                     </ListItemButton>
-                    <ListItemButton onClick={() => handleTabClick('Downloads')}
+                    {/* <ListItemButton onClick={() => handleTabClick('Downloads')}
                         sx={{
                             display: 'flex',
                             gap: '10px',
@@ -61,7 +63,7 @@ const ReportsContent = () => {
                             <Icon icon="ph:download-simple" width='24px' color={activeTab === 'Downloads' ? 'white' : 'grey'} />
                         </ListItemIcon>
                         <ListItemText primary="Downloads" />
-                    </ListItemButton>
+                    </ListItemButton> */}
                     <ListItemButton onClick={() => handleTabClick('AreaSummary')}
                         sx={{
                             display: 'flex',
@@ -93,7 +95,7 @@ const ReportsContent = () => {
                     </ListItemButton>
                 </List >
                 {
-                    activeTab === 'Excel&Pdf' ? <ExcelandPdf /> : activeTab === 'GstInvoice' ? <GstInvoice /> : null
+                    activeTab === 'Excel&Pdf' ? <ExcelandPdf /> : activeTab === 'GstInvoice' ? <GstInvoice /> : activeTab === 'AreaSummary' ? <AreaSummary /> : activeTab === 'Profit&Loss' ? <ProfitAndLoss /> : null
                 }
             </Stack >
         </Box >

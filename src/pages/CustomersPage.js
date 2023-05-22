@@ -259,7 +259,9 @@ export default function CustomersPage() {
           top="55%"
           gap="2rem"
         >
-          <Stack sx={{ border: '1px solid #D8D8D8', borderRadius: '10px', bgcolor: 'white', width: '100%' }}>
+          <Stack
+            sx={{ border: '1px solid #D8D8D8', borderRadius: '10px', bgcolor: 'white', width: '100%', mt: '1rem' }}
+          >
             <Box
               sx={{ bgcolor: '#F5F5F5', border: '1px solid #D8D8D8', padding: '14px', borderRadius: '10px 10px 0 0' }}
             >
@@ -389,6 +391,9 @@ export default function CustomersPage() {
               Download Excel
             </Button>
           </div>
+        </Card>
+        <Card sx={{ border: '1px solid #D8D8D8' }}>
+          <UserListToolbar numSelected={selected.length} filterName={filterName} onFilterName={handleFilterByName} />
 
           <Scrollbar>
             <TableContainer sx={{ minWidth: 800 }}>
