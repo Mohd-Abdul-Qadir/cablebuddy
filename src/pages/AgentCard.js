@@ -46,7 +46,7 @@ const AgentCard = () => {
                             <Typography>Agent Used</Typography>
                             <SupportAgentOutlinedIcon sx={{ position: 'absolute', right: 10, top: 30, fontSize: '60px', color: '#0C3547' }} />
                         </Paper>
-                        <Paper elevation={2} sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', position: 'relative', height: '126px', padding: '20px', flex: 1, bgcolor: '#0C3547', color: 'white', borderRadius: '8px' }}>
+                        <Paper elevation={2} sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', position: 'relative', height: '126px', padding: '20px', flex: 1, bgcolor: '#2065D1', color: 'white', borderRadius: '8px' }}>
                             <Typography sx={{ fontWeight: '500', fontSize: '20px' }}>Get Agents</Typography>
                             <AddCircleOutlinedIcon sx={{ fontSize: '60px' }} />
                         </Paper>
@@ -62,7 +62,7 @@ const AgentCard = () => {
                                     placeholder="9720940484"
                                     inputProps={{ 'aria-label': 'search google maps' }}
                                 />
-                                <IconButton type="button" sx={{ height: 'fit-content', px: '18px', color: 'white', bgcolor: '#0C3547', borderRadius: '2px', '&:hover': { bgcolor: '#0C3547' } }} aria-label="search">
+                                <IconButton type="button" sx={{ height: 'fit-content', px: '18px', color: 'white', bgcolor: '#2065D1', borderRadius: '2px', '&:hover': { bgcolor: '#0C3547' } }} aria-label="search">
                                     <SearchIcon />
                                 </IconButton>
                             </Box>

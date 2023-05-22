@@ -5,6 +5,8 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import PersonAddAltOutlinedIcon from '@mui/icons-material/PersonAddAltOutlined';
 import SystemUpdateAltOutlinedIcon from '@mui/icons-material/SystemUpdateAltOutlined';
+import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
+
 // @mui
 import {
   Card,
@@ -30,11 +32,11 @@ import {
 import InputLabel from '@mui/material/InputLabel';
 import Select from '@mui/material/Select';
 import InputBase from '@mui/material/InputBase';
-import SearchIcon from '@mui/icons-material/Search';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+
 // components
 import Label from '../components/label';
 import Iconify from '../components/iconify';
@@ -184,30 +186,45 @@ export default function CustomersPage() {
   const navigate = useNavigate();
 
   const handleAddCustomer = () => {
-    navigate('/dashboard/add-customer');
+    navigate(`/dashboard/add-customer`);
   };
 
-  const handleCustomerDetails = () => {
-    navigate('/dashboard/customer-details');
+  const handleCustomerDetails = (id) => {
+    navigate(`/dashboard/customer-details/${id}`);
   };
 
   useEffect(() => {
     fetch('http://localhost:4001/api/customers', {
       method: 'GET',
-      // headers: {
-      //   'x-access-token': `${localStorage.getItem('accessToken')}`,
-      // },
+      headers: {
+        'x-access-token': `${localStorage.getItem('accessToken')}`,
+      },
     })
       .then((response) => response.json())
       .then((data) => setCustomers(data))
       .catch((error) => console.error(error));
   }, []);
-  console.log(customers, 'customers');
+
+  const handleDownload = () => {
+    fetch('http://localhost:4001/api/customer-download')
+      .then((response) => response.blob())
+      .then((blob) => {
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'product.xlsx';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        window.URL.revokeObjectURL(url);
+      })
+      .catch((error) => console.error('Error:', error));
+  };
 
   return (
     <>
       <Helmet>
-        <title> User | Minimal UI </title>
+        <title> User | Customer </title>
       </Helmet>
 
       <Container>
@@ -242,7 +259,9 @@ export default function CustomersPage() {
           top="55%"
           gap="2rem"
         >
-          <Stack sx={{ border: '1px solid #D8D8D8', borderRadius: '10px', bgcolor: 'white', width: '100%', mt: '1rem' }}>
+          <Stack
+            sx={{ border: '1px solid #D8D8D8', borderRadius: '10px', bgcolor: 'white', width: '100%', mt: '1rem' }}
+          >
             <Box
               sx={{ bgcolor: '#F5F5F5', border: '1px solid #D8D8D8', padding: '14px', borderRadius: '10px 10px 0 0' }}
             >
@@ -266,9 +285,7 @@ export default function CustomersPage() {
                     <MenuItem value={30}>Renew</MenuItem>
                   </Select>
                 </FormControl>
-                <Button variant="outlined">
-                  Apply (0)
-                </Button>
+                <Button variant="outlined">Apply (0)</Button>
                 <FormControl sx={{ m: 1, minWidth: 200 }} size="small">
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DatePicker label="Select Date Follow Up" />
@@ -361,6 +378,20 @@ export default function CustomersPage() {
           </Stack>
         </Stack>
 
+        <Card>
+          <div style={{ display: 'flex', justifyContent: 'space-between', flexDirection: 'row' }}>
+            <UserListToolbar numSelected={selected.length} filterName={filterName} onFilterName={handleFilterByName} />
+            <Button
+              startIcon={<FileDownloadOutlinedIcon />}
+              onClick={handleDownload}
+              color="success"
+              variant="outlined"
+              sx={{ height: '50px', margin: '20px 20px', color: '#229A16' }}
+            >
+              Download Excel
+            </Button>
+          </div>
+        </Card>
         <Card sx={{ border: '1px solid #D8D8D8' }}>
           <UserListToolbar numSelected={selected.length} filterName={filterName} onFilterName={handleFilterByName} />
 
@@ -402,7 +433,7 @@ export default function CustomersPage() {
                         </TableCell> */}
                         <TableCell>{row.name}</TableCell>
                         <TableCell align="left">DSNW20e8c240</TableCell>
-                        <TableCell>{row.openingBalanceAmount}</TableCell>
+                        <TableCell>{row.subdcriptionAmount}</TableCell>
                         <TableCell>{row.address}</TableCell>
                         <TableCell align="center">15</TableCell>
                         <TableCell align="left">22/05/2022</TableCell>
@@ -414,7 +445,7 @@ export default function CustomersPage() {
                         </TableCell>
 
                         <TableCell>
-                          <Button variant="outlined" onClick={handleCustomerDetails}>
+                          <Button variant="outlined" onClick={() => handleCustomerDetails(row._id)}>
                             Detail
                           </Button>
                         </TableCell>

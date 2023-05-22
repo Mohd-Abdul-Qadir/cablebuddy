@@ -72,17 +72,13 @@ const AddProduct = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
 
     try {
       const response = await fetch('http://localhost:4001/api/add-product', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          // headers: {
-          //   'x-access-token': `${localStorage.getItem("accessToken")}`
-           
-          // },
+          'x-access-token': `${localStorage.getItem('accessToken')}`,
         },
         body: JSON.stringify({ name, price, product, select, gst, additional, genre, type, hsn }),
       });
@@ -178,7 +174,7 @@ const AddProduct = () => {
                 onChange={handleGst}
                 label="GST Rate"
                 variant="outlined"
-                type='number'
+                type="number"
                 defaultValue={gst}
                 sx={{ bgcolor: '#F8F8F8', width: '50%' }}
                 // autoComplete="off"
