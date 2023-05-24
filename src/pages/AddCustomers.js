@@ -95,10 +95,10 @@ const AddCustomers = () => {
   const [selectedValue, setSelectedValue] = React.useState('outstanding');
   const [selectedValue2, setSelectedValue2] = React.useState('additionalcharge');
   const [month, setMonth] = React.useState('Every 1 Month');
-  const [stbName, setStbName] = React.useState(null);
-  const [stbNumber, setStbNumber] = useState(null);
-  const [cardNumber, setCardNumber] = useState(null);
-  const [membershipNo, setMembershipNo] = useState(null);
+  // const [stbName, setStbName] = React.useState(null);
+  // const [stbNumber, setStbNumber] = useState(null);
+  // const [cardNumber, setCardNumber] = useState(null);
+  // const [membershipNo, setMembershipNo] = useState(null);
   const [showCard, setShowCard] = React.useState(false);
 
   const [inputData, setInputData] = useState({
@@ -157,19 +157,26 @@ const AddCustomers = () => {
 
   // .................................Add Button Hardware Details....................................//
   const onclickShowCard = () => {
-    if (stbName === null) {
+    if (inputData.stbName === null) {
       setShowCard(false);
-    } else if (stbNumber === null) {
+    } else if (inputData.stbNumber === null) {
       setShowCard(false);
-    } else if (cardNumber === null) {
+    } else if (inputData.cardNumber === null) {
       setShowCard(false);
-    } else if (membershipNo === null) {
+    } else if (inputData.membershipNo === null) {
       setShowCard(false);
     } else {
       setShowCard(true);
     }
   };
+  // ............................................Delete Card...........................................
 
+  // const DeleteCard = () => {
+  //   setInputData.stbName('');
+  //   setInputData.stbNumber('');
+  //   setInputData.cardNumber('');
+  //   setInputData.membershipNo('');
+  // }
   // .........................addButton.........................
 
   const handleAddSubmit = async (e) => {
@@ -530,21 +537,21 @@ const AddCustomers = () => {
               >
                 <Stack direction="row" gap="10px" width="100%">
                   <Typography sx={{ width: '50%', fontSize: '12px', color: 'grey' }}>STB NAME</Typography>
-                  <Typography sx={{ width: '50%', fontSize: '12px' }}>{stbName}</Typography>
+                  <Typography sx={{ width: '50%', fontSize: '12px' }}>{inputData.stbName}</Typography>
                 </Stack>
                 <Stack direction="row" gap="10px" width="100%">
                   <Typography sx={{ width: '50%', fontSize: '12px', color: 'grey' }}>STB Number</Typography>
-                  <Typography sx={{ width: '50%', fontSize: '12px' }}>{stbNumber}</Typography>
+                  <Typography sx={{ width: '50%', fontSize: '12px' }}>{inputData.stbNumber}</Typography>
                 </Stack>
                 <Stack direction="row" gap="10px" width="100%">
                   <Typography sx={{ width: '50%', fontSize: '12px', color: 'grey' }}>Card Number</Typography>
-                  <Typography sx={{ width: '50%', fontSize: '12px' }}>{cardNumber}</Typography>
+                  <Typography sx={{ width: '50%', fontSize: '12px' }}>{inputData.cardNumber}</Typography>
                 </Stack>
                 <Stack direction="row" gap="10px" width="100%">
                   <Typography sx={{ width: '50%', fontSize: '12px', color: 'grey' }}>Membership No</Typography>
-                  <Typography sx={{ width: '50%', fontSize: '12px' }}>{membershipNo}</Typography>
+                  <Typography sx={{ width: '50%', fontSize: '12px' }}>{inputData.membershipNo}</Typography>
                 </Stack>
-                <DeleteOutlineIcon sx={{ position: 'absolute', right: 10, top: 10 }} />
+                <DeleteOutlineIcon onClick={DeleteCard()} sx={{ position: 'absolute', right: 10, top: 10 }} />
               </Stack>
             ) : null}
           </Stack>

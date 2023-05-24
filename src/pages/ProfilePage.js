@@ -10,8 +10,8 @@ import GeneralDetails from '../components/ProfilePageTabs/GeneralDetails';
 import BillingPreference from '../components/ProfilePageTabs/BillingPreference';
 import BillingReminder from '../components/ProfilePageTabs/BillingReminder';
 import AccountDetails from '../components/ProfilePageTabs/AccountDetails';
-import ProfileBgImg from '../assets/images/CableBackground.png'
-import ProfilePicture from '../assets/images/ProfilePicture.jpg'
+import ProfileBgImg from '../assets/Images/CableBackground.png'
+import ProfilePicture from '../assets/Images/ProfilePicture.jpg'
 
 
 function TabPanel(props) {

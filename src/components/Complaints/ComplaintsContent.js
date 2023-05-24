@@ -117,7 +117,7 @@ const ComplaintsContent = () => {
                     </Dialog>
                 </Box>
             </Box>
-            <Stack direction='column' justifyContent='center' alignItems='center' width='100%' gap='2rem' mt='25px'>
+            <Stack direction='column' justifyContent='center' alignItems='center' width='100%' gap='2rem' mt='30px'>
                 <Stack sx={{ border: '1px solid #D8D8D8', borderRadius: '10px', bgcolor: 'white', width: '100%', gap: '10px' }}>
                     <Stack direction='row' alignItems='center' gap='20px' sx={{ py: '10px', px: '2rem', bgcolor: '#FBFBFB', borderRadius: '10px 10px 0px 0px', borderBottom: '1px solid #D6D6D6' }}>
                         <Button onClick={() => setActive('Open')}
