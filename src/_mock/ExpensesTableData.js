@@ -1,4 +1,4 @@
-import randomImage from '../assets/images/ProfilePicture.jpg'
+import randomImage from '../assets/Images/ProfilePicture.jpg'
 
 export const ExpenseTableData = [
     {
