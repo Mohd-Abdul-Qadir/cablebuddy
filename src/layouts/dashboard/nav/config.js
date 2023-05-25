@@ -23,7 +23,7 @@ const navConfig = [
   },
   {
     title: 'Customers',
-    path: '/dashboard/user',
+    path: '/dashboard/customer',
     icon: <Groups2Icon />,
   },
   {
@@ -66,6 +66,11 @@ const navConfig = [
     path: '/dashboard/expenses',
     icon: <PaidIcon />,
   },
+  // {
+  //   title: 'RechargeRenew',
+  //   path: '/dashboard/rechargeRenew',
+  //   icon: <PaidIcon />,
+  // },
   // {
   //   title: 'Not found',
   //   path: '/404',

@@ -75,7 +75,7 @@ const SmsWalletContent = () => {
         }}>
             <Box sx={{ width: '100%', px: '20px' }}>
                 <Typography sx={{ color: '#0C3547', fontWeight: '400', fontSize: '48px' }}>SMS/Wallet</Typography>
-                <Typography sx={{ color: '#2065D1', fontWeight: '400', fontSize: '40px' }}>Total Balance<Typography component='span' sx={{ fontWeight: '400', fontSize: '40px', color: 'black' }}>
+                <Typography sx={{ color: '#2065D1', fontWeight: '400', fontSize: '30px' }}>Total Balance  <Typography component='span' sx={{ fontWeight: '400', fontSize: '30px', color: 'black' }}>
                     2887.00</Typography>
                 </Typography>
             </Box>

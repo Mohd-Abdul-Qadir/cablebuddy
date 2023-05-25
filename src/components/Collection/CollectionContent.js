@@ -45,6 +45,7 @@ const CollectionContent = () => {
     const handleClick = (tab) => {
         setTabs(tab);
     };
+
     const handleAgent = (event) => {
         setAgent(event.target.value);
         console.log(`e.target ${event.target.value}`)
@@ -108,20 +109,6 @@ const CollectionContent = () => {
                         </Stack>
                     </Box>
                 </Stack>
-                {/* <Paper elevation={3} sx={{
-                    display: 'flex', border: '1px solid #D8D8D8', gap: '10px', bgcolor: 'white', width: '100%', height: '38px', padding: 0, borderRadius: '8px',
-                }}>
-                    <Button variant={tabs === 'Summary' ? 'contained' : 'text'} startIcon={<SummarizeOutlinedIcon />}
-                        onClick={() => setTabs('Summary')} sx={{ padding: '14px', '&:focus': { bgcolor: '#2065D1', color: 'white' } }}
-                    >
-                        Summary
-                    </Button>
-                    <Button variant={tabs === 'OnlineTransaction' ? 'contained' : 'text'} startIcon={<PaymentsOutlinedIcon />}
-                        onClick={() => setTabs('OnlineTransaction')} sx={{ padding: '14px', '&:focus': { bgcolor: '#2065D1', color: 'white' } }}
-                    >
-                        Online Transaction
-                    </Button>
-                </Paper> */}
                 <Paper elevation={3} sx={{
                     display: 'flex', border: '1px solid #D8D8D8', gap: '10px', bgcolor: 'white', width: '100%', height: '38px', padding: 0, borderRadius: '8px',
                 }}>

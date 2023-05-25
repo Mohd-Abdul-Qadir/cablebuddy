@@ -21,17 +21,23 @@ import Reports from './pages/Reports';
 import Complaints from './pages/Complaints';
 import SmsWallet from './pages/SmsWallet';
 import Expenses from './pages/Expenses';
+import RechargeRenew from './pages/RechargeRenew';
+import LandingPage from './pages/LandingPage';
 // ----------------------------------------------------------------------
 
 export default function Router() {
   const routes = useRoutes([
+    {
+      path: '/Home',
+      element: <LandingPage />
+    },
     {
       path: '/dashboard',
       element: <DashboardLayout />,
       children: [
         // { element: <Navigate to="/" />, index: true },
         { path: 'app', element: <DashboardAppPage /> },
-        { path: 'user', element: <UserPage /> },
+        { path: 'customer', element: <UserPage /> },
         { path: 'add-customer', element: <AddCustomers /> },
         { path: 'customer-details/:id', element: <CustomerDetails /> },
         { path: 'products', element: <ProductsPage /> },
@@ -46,7 +52,8 @@ export default function Router() {
         { path: 'complaints', element: <Complaints /> },
         { path: 'smswallet', element: <SmsWallet /> },
         { path: 'expenses', element: <Expenses /> },
-      ],
+        { path: 'rechargeRenew', element: <RechargeRenew /> },
+      ],                                    
     },
     {
       path: 'login',

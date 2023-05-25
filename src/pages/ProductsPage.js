@@ -221,6 +221,7 @@ export default function ProductsPage() {
             bgcolor: 'white',
             width: '100%',
             marginBottom: '20px',
+            mt: '25px'
           }}
         >
           <Box sx={{ bgcolor: '#F5F5F5', border: '1px solid white', padding: '14px', borderRadius: '10px 10px 0 0' }}>
@@ -240,7 +241,7 @@ export default function ProductsPage() {
                     id="demo-select-small"
                     // value={packagetype}
                     label="Select Package Type"
-                    // onChange={handlePackage}
+                  // onChange={handlePackage}
                   >
                     <MenuItem value="">Please Select One</MenuItem>
                     <MenuItem value="Channel">Channel</MenuItem>
@@ -342,29 +343,29 @@ export default function ProductsPage() {
                 </TableBody>
 
                 {isNotFound &&
-                  {
-                    /* <TableBody>
-                    <TableRow>
-                      <TableCell align="center" colSpan={6} sx={{ py: 3 }}>
-                        <Paper
-                          sx={{
-                            textAlign: 'center',
-                          }}
-                        >
-                          <Typography variant="h6" paragraph>
-                            Not found
-                          </Typography>
+                {
+                  /* <TableBody>
+                  <TableRow>
+                    <TableCell align="center" colSpan={6} sx={{ py: 3 }}>
+                      <Paper
+                        sx={{
+                          textAlign: 'center',
+                        }}
+                      >
+                        <Typography variant="h6" paragraph>
+                          Not found
+                        </Typography>
 
-                          <Typography variant="body2">
-                            No results found for &nbsp;
-                            <strong>&quot;{filterName}&quot;</strong>.
-                            <br /> Try checking for typos or using complete words.
-                          </Typography>
-                        </Paper>
-                      </TableCell>
-                    </TableRow>
-                  </TableBody> */
-                  }}
+                        <Typography variant="body2">
+                          No results found for &nbsp;
+                          <strong>&quot;{filterName}&quot;</strong>.
+                          <br /> Try checking for typos or using complete words.
+                        </Typography>
+                      </Paper>
+                    </TableCell>
+                  </TableRow>
+                </TableBody> */
+                }}
               </Table>
             </TableContainer>
           </Scrollbar>
