@@ -131,6 +131,14 @@ const LoginSignup = ({ value }) => {
     }
   }, []);
 
+  // if (role === "admin") {
+  //   options.unshift({
+  //     icon: <DashboardIcon />,
+  //     name: "Dashboard",
+  //     func: dashboard,
+  //   });
+  // }
+
   return (
     <ThemeProvider theme={theme}>
       <Box

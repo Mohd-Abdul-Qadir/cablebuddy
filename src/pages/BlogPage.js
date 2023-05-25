@@ -2,16 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { filter } from 'lodash';
-import { sentenceCase } from 'change-case';
 
 // @mui
-import AddIcon from '@mui/icons-material/Add';
-import PersonAddAltIcon from '@mui/icons-material/PersonAddAlt';
-import SystemUpdateAltOutlinedIcon from '@mui/icons-material/SystemUpdateAltOutlined';
-import SupportAgentIcon from '@mui/icons-material/SupportAgent';
-import SummarizeOutlinedIcon from '@mui/icons-material/SummarizeOutlined';
-import PaymentsOutlinedIcon from '@mui/icons-material/PaymentsOutlined';
-// import { Grid, Button, Container, Stack, Typography, Box } from '@mui/material';
 import {
   Card,
   Box,
@@ -19,46 +11,23 @@ import {
   Table,
   Stack,
   Paper,
-  Avatar,
-  Popover,
   Checkbox,
   Container,
   TableRow,
   styled,
-  MenuItem,
-  Grid,
   Typography,
   TableBody,
-  Slide,
   TableCell,
-  IconButton,
   TableContainer,
   TablePagination,
 } from '@mui/material';
 // components
-import Iconify from '../components/iconify';
 import Scrollbar from '../components/scrollbar';
-import Label from '../components/label';
-
-import { BlogPostCard, BlogPostsSort, BlogPostsSearch } from '../sections/@dashboard/blog';
 import { UserListHead, UserListToolbar } from '../sections/@dashboard/user';
-import {
-  AppTasks,
-  AppNewsUpdate,
-  AppOrderTimeline,
-  AppCurrentVisits,
-  AppWebsiteVisits,
-  AppTrafficBySite,
-  AppWidgetSummary,
-  AppCurrentSubject,
-  AppConversionRates,
-} from '../sections/@dashboard/app';
-
 // mock
-import POSTS from '../_mock/blog';
-import AddAgent from './AddAgent';
+import AddAgent from '../components/Agent/AddAgent';
 import USERLIST from '../_mock/user';
-import AgentCard from './AgentCard';
+import AgentCard from '../components/Agent/AgentCard';
 
 // ----------------------------------------------------------------------
 
@@ -203,12 +172,6 @@ export default function BlogPage() {
 
   const isNotFound = !filteredUsers.length && !!filterName;
 
-  // useEffect(() => {
-  //   fetch('http://localhost:4001/api/agents')
-  //     .then((response) => response.json())
-  //     .then((data) => setAgents(data))
-  //     .catch((error) => console.error(error));
-  // }, []);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -225,10 +188,17 @@ export default function BlogPage() {
     fetchData();
   }, []);
 
-  console.log(agents, 'agent');
-
   const details = (id) => {
     navigate(`/dashboard/agent-details/${id}`);
+  };
+
+  const agentNumber = (id) => {
+    console.log(id, 'it is id of agent');
+  };
+
+  const handleLogin = () => {
+    window.alert('login Agent');
+    navigate('/dashboard/app');
   };
   return (
     <>
@@ -322,7 +292,13 @@ export default function BlogPage() {
                           <Button variant="outlined" onClick={() => details(row._id)}>
                             Details
                           </Button>
-                          <Button variant="outlined" sx={{ marginLeft: '10px' }}>
+                          <Button
+                            variant="outlined"
+                            sx={{ marginLeft: '10px' }}
+                            // onClick={() => agentNumber(row._id)}
+
+                            onClick={handleLogin}
+                          >
                             Login
                           </Button>
                         </TableCell>

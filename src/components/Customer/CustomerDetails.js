@@ -36,17 +36,17 @@ import HardwareIcon from '@mui/icons-material/Computer';
 import FollowUpIcon from '@mui/icons-material/AlternateEmail';
 import EditIcon from '@mui/icons-material/Edit';
 import styled from '@emotion/styled';
-import Subscription from '../components/PaymentTabs/Subscription';
-import Renew from '../components/PaymentTabs/Renew';
-import AdjustBalance from '../components/PaymentTabs/AdjustBalance';
-import AddOnBill from '../components/PaymentTabs/AddOnBill';
-import ActiveInactive from '../components/PaymentTabs/ActiveInactive';
-import AdditionalCharge from '../components/PaymentTabs/AdditionalCharge';
-import BalanceHistory from '../components/PaymentTabs/BalanceHistory';
-import CustomerFollowUp from '../components/PaymentTabs/CustomerFollowUp';
-import CustomerEdit from '../components/PaymentTabs/CustomerEdit';
-import CollectPayment from '../components/PaymentTabs/CollectPayment';
-import HardwareDetails from '../components/PaymentTabs/HardwareDetails';
+import Subscription from '../PaymentTabs/Subscription';
+import Renew from '../PaymentTabs/Renew';
+import AdjustBalance from '../PaymentTabs/AdjustBalance';
+import AddOnBill from '../PaymentTabs/AddOnBill';
+import ActiveInactive from '../PaymentTabs/ActiveInactive';
+import AdditionalCharge from '../PaymentTabs/AdditionalCharge';
+import BalanceHistory from '../PaymentTabs/BalanceHistory';
+import CustomerFollowUp from '../PaymentTabs/CustomerFollowUp';
+import CustomerEdit from '../PaymentTabs/CustomerEdit';
+import CollectPayment from '../PaymentTabs/CollectPayment';
+import HardwareDetails from '../PaymentTabs/HardwareDetails';
 import { useParams } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -443,7 +443,7 @@ const CustomerDetails = () => {
                   <CollectPayment />
                 </TabPanel>
                 <TabPanel value={value} index={1}>
-                  <Renew />
+                  <Renew allData={allData} />
                 </TabPanel>
                 <TabPanel value={value} index={2}>
                   <Subscription allData={allData} />

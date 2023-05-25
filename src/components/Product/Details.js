@@ -15,9 +15,9 @@ import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
 import { Button } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Calendar } from 'antd';
-import ChangeRate from './ChangeRate';
+import ChangeRate from '../../pages/ChangeRate';
 import ProductDetails from './ProductDetails';
-import AdditionalRate from './AdditionalRate';
+import AdditionalRate from '../../pages/AdditionalRate';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
