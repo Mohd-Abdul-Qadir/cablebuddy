@@ -1,28 +1,26 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Box,
   Typography,
   Stack,
   Button,
   TextField,
-  InputAdornment,
   MenuItem,
   Divider,
-  ButtonBase,
   Table,
   TableHead,
   TableBody,
   TableRow,
   TableCell,
 } from '@mui/material';
-import { DemoContainer, DemoItem } from '@mui/x-date-pickers/internals/demo';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
 import TelegramIcon from '@mui/icons-material/Telegram';
-import FolderIcon from '@mui/icons-material/Folder';
 import SubscriptionPopup from './SubscriptionPopup';
+import RenewPopup from './RenewPopup';
+import CalenderPop from './CalenderPop';
 
 const Months = [
   {
@@ -63,7 +61,8 @@ const Months = [
   },
 ];
 
-const Renew = () => {
+const Renew = (props) => {
+  const [data, setData] = useState(props.allData);
   return (
     <Box sx={{ width: '100%' }}>
       <Stack direction="row" padding="1rem" sx={{ width: '100%' }}>
@@ -84,7 +83,8 @@ const Renew = () => {
             <Typography sx={{ width: '40%' }}>Last Bill Date: </Typography>
             <Typography>
               31-May-2023
-              <ButtonBase sx={{ bgcolor: '#072534', color: 'white', px: '5px', borderRadius: '5px' }}>Edit</ButtonBase>
+              {/* <ButtonBase sx={{ bgcolor: '#072534', color: 'white', px: '5px', borderRadius: '5px' }}>Edit</ButtonBase> */}
+              <CalenderPop />
             </Typography>
           </Stack>
           <Stack>
@@ -133,9 +133,7 @@ const Renew = () => {
         </Stack>
       </Stack>
       <Stack direction="row" justifyContent="space-between" py="1rem" borderTop="1px solid #D8D8D8" mt="10px">
-        <Button variant="contained" endIcon={<TelegramIcon />} sx={{ bgcolor: '#072534' }}>
-          Renew
-        </Button>
+        <RenewPopup data={data} />
         <Button variant="contained" endIcon={<TelegramIcon />}>
           Renew From Today
         </Button>

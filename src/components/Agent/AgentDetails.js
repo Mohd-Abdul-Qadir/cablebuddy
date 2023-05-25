@@ -1,4 +1,4 @@
-import React, { useState ,useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTheme, styled } from '@mui/material/styles';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -17,10 +17,6 @@ import {
   Container,
   IconButton,
   Paper,
-  Stack,
-  Table,
-  TableBody,
-  TextField,
   Grid,
   TableCell,
   TableContainer,
@@ -34,8 +30,6 @@ import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import AddIcon from '@mui/icons-material/Add';
-import SystemUpdateAltOutlinedIcon from '@mui/icons-material/SystemUpdateAltOutlined';
-import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import TelegramIcon from '@mui/icons-material/Telegram';
 import LockResetIcon from '@mui/icons-material/LockReset';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -43,23 +37,12 @@ import FormGroup from '@mui/material/FormGroup';
 
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
-import {
-  AppTasks,
-  AppNewsUpdate,
-  AppOrderTimeline,
-  AppCurrentVisits,
-  AppWebsiteVisits,
-  AppTrafficBySite,
-  AppWidgetSummary,
-  AppCurrentSubject,
-  AppConversionRates,
-} from '../sections/@dashboard/app';
+import { AppWebsiteVisits } from '../../sections/@dashboard/app';
 import AgentTable from './AgentTable';
 import AgentProfile from './AgentProfile';
-import RecordCollection from './RecordCollection';
+import RecordCollection from '../../pages/RecordCollection';
 import { SettingsAccessibility } from '@mui/icons-material';
 import { useParams } from 'react-router-dom';
-
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -71,10 +54,8 @@ const Item = styled(Paper)(({ theme }) => ({
 
 const AgentDetails = () => {
   const { id } = useParams();
-  const [name, setName]=useState('');
-  const [number, setNumber]=useState('')
-
-
+  const [name, setName] = useState('');
+  const [number, setNumber] = useState('');
 
   const theme = useTheme();
   const [agetntPermission, setAgentPermission] = useState([
@@ -96,18 +77,15 @@ const AgentDetails = () => {
   ]);
 
   const handleCheckbox = (e, id) => {
-    console.log(id,e.target.checked)
+    console.log(id, e.target.checked);
     const list = agetntPermission.map((agent) => {
       if (agent.id === id) {
-       
-
-          agent.isChecked = !agent.isChecked 
-     
+        agent.isChecked = !agent.isChecked;
       }
-      
-      return agent
+
+      return agent;
     });
-    setAgentPermission(list)
+    setAgentPermission(list);
   };
 
   useEffect(() => {
@@ -117,12 +95,11 @@ const AgentDetails = () => {
         .then((data) => {
           const agentData = data;
           setName(agentData.name);
-          setNumber(agentData.number)
+          setNumber(agentData.number);
         })
         .catch((error) => console.error(error));
     }
   }, [id]);
-
 
   return (
     <>
@@ -165,7 +142,6 @@ const AgentDetails = () => {
             <Box
               sx={{
                 width: '100%',
-                // height: 00,
                 borderRadius: '10px',
                 backgroundColor: 'white',
               }}
@@ -268,8 +244,7 @@ const AgentDetails = () => {
                   {name}
                 </Typography>
                 <Typography gutterBottom variant="h5" component="div">
-                  Number : <span style={{color:"grey"}}>{number}</span>
-                    
+                  Number : <span style={{ color: 'grey' }}>{number}</span>
                 </Typography>
 
                 <div style={{ display: 'flex', justifyContent: 'space-between', flexDirection: 'row' }}>
@@ -301,7 +276,7 @@ const AgentDetails = () => {
                 >
                   Profile
                 </Button> */}
-                  <AgentProfile  id={id}/>
+                  <AgentProfile id={id} />
                 </div>
               </CardContent>
             </Card>
@@ -386,7 +361,7 @@ const AgentDetails = () => {
                           <Checkbox
                             checked={agent.isChecked}
                             onChange={(e) => {
-                              handleCheckbox(e,agent.id);
+                              handleCheckbox(e, agent.id);
                             }}
                           />
                         }

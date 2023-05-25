@@ -106,10 +106,6 @@ export default function SubscriptionPopup(props) {
   const [data, setData] = React.useState(props.customer);
   const [subdcriptionAmount, setSubdcriptionAmount] = React.useState();
 
-  console.log(totalPrice, 'this is me');
-
-  console.log(subdcriptionAmount, 'this is amount');
-
   const handleClickOpen = () => {
     setOpen(true);
   };
