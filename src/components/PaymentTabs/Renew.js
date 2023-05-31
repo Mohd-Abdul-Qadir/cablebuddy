@@ -69,14 +69,14 @@ const Renew = (props) => {
         <Stack direction="column" gap="2rem">
           <Stack direction="row">
             <Typography sx={{ width: '40%' }}>Customer: </Typography>
-            <Typography>Srinivasarao Bathula</Typography>
+            <Typography>{data.name}</Typography>
           </Stack>
           <Stack direction="row">
             <Typography sx={{ width: '40%' }}>Current Balance: </Typography>
             <Typography
               sx={{ bgcolor: '#072534', color: 'white', width: '50px', textAlign: 'center', borderRadius: '5px' }}
             >
-              ₹ <span> 0</span>
+              ₹ <span> {data.subdcriptionAmount}</span>
             </Typography>
           </Stack>
           <Stack direction="row">

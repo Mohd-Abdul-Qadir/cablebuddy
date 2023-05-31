@@ -2,7 +2,7 @@ import React from 'react'
 import { Box, ButtonBase, Stack, Typography } from '@mui/material'
 import TwitterIcon from '@mui/icons-material/Twitter';
 import FacebookOutlinedIcon from '@mui/icons-material/FacebookOutlined';
-import Cablebuddylogo from '../../assets/Images/Cablebuddy.png';
+import Cablebuddylogo from '../../assets/images/Cablebuddy.png';
 
 const Footer = () => {
     return (

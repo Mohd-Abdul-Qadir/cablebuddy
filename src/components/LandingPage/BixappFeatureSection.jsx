@@ -1,12 +1,12 @@
 import React from 'react'
 import { Box, Typography, Stack } from '@mui/material'
-import CustomersManagementImg from '../../assets/Images/CustomersImg.png'
-import AutomaticBilling from '../../assets/Images/AutomaticBillingImg.png'
-import CollectionAgent from '../../assets/Images/AgentImg.png'
-import GSTBilling from '../../assets/Images/GstImg.png'
-import OnlinePayment from '../../assets/Images/PaymentImg.png'
-import Report from '../../assets/Images/Report.png'
-import bgImg from '../../assets/Images/FeaturesLayer.png'
+import CustomersManagementImg from '../../assets/images/CustomersImg.png'
+import AutomaticBilling from '../../assets/images/AutomaticBillingImg.png'
+import CollectionAgent from '../../assets/images/AgentImg.png'
+import GSTBilling from '../../assets/images/GstImg.png'
+import OnlinePayment from '../../assets/images/PaymentImg.png'
+import Report from '../../assets/images/Report.png'
+import bgImg from '../../assets/images/FeaturesLayer.png'
 
 const BixappFeatureSection = () => {
     return (

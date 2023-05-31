@@ -1,17 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {
-  Box,
-  Stack,
-  Typography,
-  Switch,
-  Select,
-  MenuItem,
-  Button,
-  FormLabel,
-  InputLabel,
-  Divider,
-  FormControlLabel,
-} from '@mui/material';
+import { Box, Stack, Typography, Switch, Button, FormControlLabel } from '@mui/material';
 import PropTypes from 'prop-types';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
@@ -245,7 +233,7 @@ const CustomerDetails = () => {
                   Balance Amount :
                 </Typography>
                 <Typography sx={{ textAlign: 'center', py: '1rem', fontWeight: 600 }}>
-                  ₹ {allData.subdcriptionAmount}
+                  ₹ {allData.balanceAmount}
                 </Typography>
               </Stack>
               <Stack sx={{ border: '1px solid #D8D8D8', borderRadius: '10px', width: '50%' }}>
@@ -440,7 +428,7 @@ const CustomerDetails = () => {
                   />
                 </Tabs>
                 <TabPanel value={value} index={0}>
-                  <CollectPayment />
+                  <CollectPayment allData={allData} />
                 </TabPanel>
                 <TabPanel value={value} index={1}>
                   <Renew allData={allData} />
@@ -452,7 +440,7 @@ const CustomerDetails = () => {
                   <AdjustBalance />
                 </TabPanel>
                 <TabPanel value={value} index={4}>
-                  <AddOnBill />
+                  <AddOnBill allData={allData} />
                 </TabPanel>
                 <TabPanel value={value} index={5}>
                   <ActiveInactive />
@@ -461,7 +449,7 @@ const CustomerDetails = () => {
                   <AdditionalCharge />
                 </TabPanel>
                 <TabPanel value={value} index={7}>
-                  <BalanceHistory />
+                  <BalanceHistory allData={allData} />
                 </TabPanel>
                 <TabPanel value={value} index={8}>
                   <HardwareDetails allData={allData} />

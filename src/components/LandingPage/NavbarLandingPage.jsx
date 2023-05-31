@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import CableBuddyLogo from '../../assets/Images/Cablebuddy.png'
+import CableBuddyLogo from '../../assets/images/Cablebuddy.png'
 import { AppBar, Box, Button, Drawer, IconButton, MenuItem, Stack, TextField, Toolbar, Typography } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import MenuIcon from '@mui/icons-material/Menu';

@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { styled } from '@mui/material/styles';
 import Dialog from '@mui/material/Dialog';
@@ -7,18 +7,11 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import CloseIcon from '@mui/icons-material/Close';
 import { filter } from 'lodash';
-import { sentenceCase } from 'change-case';
 import {
-  Avatar,
-  Box,
   Button,
-  Card,
   Checkbox,
-  Container,
   IconButton,
-  MenuItem,
   Paper,
-  Select,
   Stack,
   Table,
   TableBody,
@@ -32,7 +25,6 @@ import AddIcon from '@mui/icons-material/Add';
 import FolderIcon from '@mui/icons-material/Folder';
 import { useNavigate } from 'react-router-dom';
 import Label from '../components/label';
-import Iconify from '../components/iconify';
 import Scrollbar from '../components/scrollbar';
 import { UserListHead, UserListToolbar } from '../sections/@dashboard/user';
 import USERLIST from '../_mock/user';
@@ -91,17 +83,17 @@ BootstrapDialogTitle.propTypes = {
 };
 
 export default function AddChannels() {
-  const [open, setOpen] = React.useState(false);
-  const [openFilter, setOpenFilter] = React.useState(false);
-  const [selected, setSelected] = React.useState([]);
-  const [filterName, setFilterName] = React.useState('');
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
-  const [orderBy, setOrderBy] = React.useState('name');
-  const [order, setOrder] = React.useState('asc');
-  const [totalPrice, setTotalPrice] = React.useState(0);
-  const [products, setProducts] = React.useState([]);
-  const [popup, setPopup] = React.useState(false);
+  const [open, setOpen] = useState(false);
+  const [openFilter, setOpenFilter] = useState(false);
+  const [selected, setSelected] = useState([]);
+  const [filterName, setFilterName] = useState('');
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [orderBy, setOrderBy] = useState('name');
+  const [order, setOrder] = useState('asc');
+  const [totalPrice, setTotalPrice] = useState(0);
+  const [products, setProducts] = useState([]);
+  const [popup, setPopup] = useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -122,7 +114,16 @@ export default function AddChannels() {
   const handleOpenFilter = () => {
     setOpenFilter(true);
   };
-
+  React;
+  React;
+  React;
+  React;
+  React;
+  React;
+  React;
+  React;
+  React;
+  React;
   const handleCloseFilter = () => {
     setOpenFilter(false);
   };
@@ -384,11 +385,7 @@ export default function AddChannels() {
             onRowsPerPageChange={handleChangeRowsPerPage}
           />
         </DialogContent>
-        {/* </Card> */}
         <DialogActions>
-          {/* <Button autoFocus onClick={handleClose}>
-            Submit
-          </Button> */}
           <Button
             variant="contained"
             color="primary"

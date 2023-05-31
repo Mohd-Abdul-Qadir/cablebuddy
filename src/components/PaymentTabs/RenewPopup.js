@@ -23,6 +23,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import CollectPopUp from '../Customer/CollectPopUp';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialogContent-root': {
@@ -95,6 +96,7 @@ export default function RenewPopup(props) {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
   const [password, setPassword] = useState('');
+  const [user, setUser] = useState('');
 
   const [data, setData] = useState(props.data);
 
@@ -111,6 +113,30 @@ export default function RenewPopup(props) {
 
   const componentRef = useRef();
 
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const response = await fetch(`http://localhost:4001/api/users`, {
+          headers: {
+            'x-access-token': `${localStorage.getItem('accessToken')}`,
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error('Error fetching user');
+        }
+
+        const user = await response.json();
+        setUser(user);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchUser();
+  }, []);
+
+  console.log(user, 'this is user');
   return (
     <div>
       <Button variant="contained" endIcon={<TelegramIcon />} sx={{ bgcolor: '#072534' }} onClick={handleClickOpen}>
@@ -141,7 +167,11 @@ export default function RenewPopup(props) {
                   <div style={{ width: '250px' }}>
                     <h4>From :</h4>
 
-                    <p>K CABLE NETWORK VIJAYAWADA , VIJAYAWADA Phone: 9494951133 GST: 0</p>
+                    <h4>{user.agency}</h4>
+                    <p>{user.city}</p>
+                    <p>{user.address}</p>
+                    <p>Phone{user.number}</p>
+                    <p>GST{user.gstnumber}</p>
                   </div>
                   <div style={{ width: '250px' }}>
                     <h4>To :</h4>
@@ -205,23 +235,24 @@ export default function RenewPopup(props) {
                       <TableCell align="right">{row.hsn}</TableCell>
                       <TableCell align="right">{row.discount}</TableCell>
                       <TableCell align="right">{row.additional}</TableCell>
-                      <TableCell align="right">{row.gst}</TableCell>
+                      <TableCell align="right">{row.subdcriptionAmount}</TableCell>
                     </TableRow>
                   ))}
-
                   <TableRow>
                     <TableCell rowSpan={7} colSpan={5} />
                     <TableCell colSpan={2}>Product Subtotal</TableCell>
-                    <TableCell align="right">{ccyFormat(invoiceSubtotal)}</TableCell>
+                    <TableCell align="right">{data.subdcriptionAmount}</TableCell>
                   </TableRow>
                   <TableRow>
                     <TableCell>Prev Balance</TableCell>
-                    <TableCell align="right">{`${(TAX_RATE * 100).toFixed(0)} %`}</TableCell>
-                    <TableCell align="right">{ccyFormat(invoiceTaxes)}</TableCell>
+                    <TableCell align="right"></TableCell>
+                    <TableCell align="right">{data.balanceAmount}</TableCell>
                   </TableRow>
                   <TableRow>
                     <TableCell colSpan={2}>Grand Total</TableCell>
-                    <TableCell align="right">{ccyFormat(invoiceTotal)}</TableCell>
+                    <TableCell align="right">
+                      {parseInt(data.balanceAmount) + parseInt(data.subdcriptionAmount)}
+                    </TableCell>
                   </TableRow>
                 </TableBody>
               </Table>
@@ -232,14 +263,7 @@ export default function RenewPopup(props) {
         </DialogContent>
         <DialogActions>
           <div style={{ display: 'flex', justifyContent: 'space-between', flexDirection: 'row', width: '100%' }}>
-            <Button
-              startIcon={<TelegramIcon />}
-              color="success"
-              variant="outlined"
-              sx={{ height: '50px', color: '#229A16' }}
-            >
-              Generate Bill & Collect Payment
-            </Button>
+            <CollectPopUp data={data} />
             <Button variant="outlined" color="secondary" startIcon={<TelegramIcon />}>
               Generate Bill
             </Button>

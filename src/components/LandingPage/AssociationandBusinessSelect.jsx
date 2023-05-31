@@ -1,15 +1,15 @@
 import React from 'react'
 import { Box, Stack, Typography, Button } from '@mui/material'
-import IFMR from '../../assets/Images/IFMR.png'
-import OasisStartup from '../../assets/Images/Oasis.png'
-import StartUp from '../../assets/Images/StartUp.png'
-import iStart from '../../assets/Images/iStart.png'
-import cablebuddylogo from '../../assets/Images/Cablebuddy.png'
-import Gym from '../../assets/Images/Gym.png'
-import Cable from '../../assets/Images/Cable.png'
-import Hotel from '../../assets/Images/Hotel.png'
+import IFMR from '../../assets/images/IFMR.png'
+import OasisStartup from '../../assets/images/Oasis.png'
+import StartUp from '../../assets/images/StartUp.png'
+import iStart from '../../assets/images/iStart.png'
+import cablebuddylogo from '../../assets/images/Cablebuddy.png'
+import Gym from '../../assets/images/Gym.png'
+import Cable from '../../assets/images/Cable.png'
+import Hotel from '../../assets/images/Hotel.png'
 import { Icon } from '@iconify/react';
-import handsomeMen from '../../assets/Images/handsomeMen.png'
+import handsomeMen from '../../assets/images/handsomeMen.png'
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 

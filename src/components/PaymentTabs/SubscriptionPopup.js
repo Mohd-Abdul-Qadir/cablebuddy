@@ -228,7 +228,7 @@ export default function SubscriptionPopup(props) {
   }, []);
 
   const updateCustomer = async () => {
-    const url = `http://localhost:4001/api/update-customer/${data._id}`; // Replace with your API endpoint
+    const url = `http://localhost:4001/api/update-customer/${data._id}`;
 
     // Define the updated customer data
     const updatedCustomer = {

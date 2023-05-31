@@ -378,22 +378,25 @@ export default function CustomersPage() {
           </Stack>
         </Stack>
 
-        <Card>
-          <div style={{ display: 'flex', justifyContent: 'space-between', flexDirection: 'row' }}>
-            <UserListToolbar numSelected={selected.length} filterName={filterName} onFilterName={handleFilterByName} />
-            <Button
-              startIcon={<FileDownloadOutlinedIcon />}
-              onClick={handleDownload}
-              color="success"
-              variant="outlined"
-              sx={{ height: '50px', margin: '20px 20px', color: '#229A16' }}
-            >
-              Download Excel
-            </Button>
-          </div>
-        </Card>
         <Card sx={{ border: '1px solid #D8D8D8' }}>
-          <UserListToolbar numSelected={selected.length} filterName={filterName} onFilterName={handleFilterByName} />
+          <Card>
+            <div style={{ display: 'flex', justifyContent: 'space-between', flexDirection: 'row' }}>
+              <UserListToolbar
+                numSelected={selected.length}
+                filterName={filterName}
+                onFilterName={handleFilterByName}
+              />
+              <Button
+                startIcon={<FileDownloadOutlinedIcon />}
+                onClick={handleDownload}
+                color="success"
+                variant="outlined"
+                sx={{ height: '50px', margin: '20px 20px', color: '#229A16' }}
+              >
+                Download Excel
+              </Button>
+            </div>
+          </Card>
 
           <Scrollbar>
             <TableContainer sx={{ minWidth: 800 }}>

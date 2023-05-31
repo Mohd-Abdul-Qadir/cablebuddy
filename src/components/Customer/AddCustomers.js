@@ -92,14 +92,14 @@ const Months = [
 ];
 
 const AddCustomers = () => {
-  const [selectedValue, setSelectedValue] = React.useState('outstanding');
-  const [selectedValue2, setSelectedValue2] = React.useState('additionalcharge');
-  const [month, setMonth] = React.useState('Every 1 Month');
+  const [selectedValue, setSelectedValue] = useState('outstanding');
+  const [selectedValue2, setSelectedValue2] = useState('additionalcharge');
+  const [month, setMonth] = useState('Every 1 Month');
   // const [stbName, setStbName] = React.useState(null);
   // const [stbNumber, setStbNumber] = useState(null);
   // const [cardNumber, setCardNumber] = useState(null);
   // const [membershipNo, setMembershipNo] = useState(null);
-  const [showCard, setShowCard] = React.useState(false);
+  const [showCard, setShowCard] = useState(false);
 
   const [inputData, setInputData] = useState({
     name: '',
@@ -551,7 +551,7 @@ const AddCustomers = () => {
                   <Typography sx={{ width: '50%', fontSize: '12px', color: 'grey' }}>Membership No</Typography>
                   <Typography sx={{ width: '50%', fontSize: '12px' }}>{inputData.membershipNo}</Typography>
                 </Stack>
-                <DeleteOutlineIcon onClick={DeleteCard()} sx={{ position: 'absolute', right: 10, top: 10 }} />
+                <DeleteOutlineIcon sx={{ position: 'absolute', right: 10, top: 10 }} />
               </Stack>
             ) : null}
           </Stack>

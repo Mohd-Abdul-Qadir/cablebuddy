@@ -1,13 +1,48 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Box, Typography, Stack, Button, TextField, InputAdornment } from '@mui/material';
 import { Telegram } from '@mui/icons-material';
 
-const AddOnBill = () => {
+const AddOnBill = (props) => {
+  const [data, setData] = useState(props.allData);
   const [price, setPrice] = useState(0);
+  const [totalAmount, setTotalAmount] = useState(0);
+
+  useEffect(() => {
+    if (data?.balanceAmount) setTotalAmount(parseFloat(data?.balanceAmount));
+  }, [data]);
 
   const handlePrice = (e) => {
-    setPrice(e.target.value);
+    setPrice(parseFloat(e.target.value) || 0);
   };
+  const updateCustomer = async () => {
+    const url = `http://localhost:4001/api/update-customer/${data._id}`; // Replace with your API endpoint
+
+    const updatedCustomer = {
+      balanceAmount: totalAmount + price,
+    };
+
+    try {
+      const response = await fetch(url, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(updatedCustomer),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message);
+      }
+
+      const data = await response.json();
+      toast.success('Customer updated successfully');
+      console.log('Customer updated successfully:', data.customer);
+    } catch (error) {
+      console.error('Error updating customer:', error.message);
+    }
+  };
+
   return (
     <Box>
       <Stack mb="1rem">
@@ -33,7 +68,7 @@ const AddOnBill = () => {
             <b>Current Balance :</b>
           </Typography>
           <Typography sx={{ textAlign: 'center', py: '1rem', fontWeight: 600 }}>
-            ₹<span>0</span>
+            ₹<span>{totalAmount}</span>
           </Typography>
         </Stack>
         <Stack
@@ -73,13 +108,13 @@ const AddOnBill = () => {
             <Typography
               sx={{ bgcolor: '#072534', color: 'white', width: '55px', textAlign: 'center', borderRadius: '5px' }}
             >
-              ₹ <span> {price}</span>
+              ₹ <span> {totalAmount + price}</span>
             </Typography>
           </Stack>
         </Stack>
       </Stack>
       <Stack sx={{ mx: 'auto', mt: '10px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-        <Button variant="contained" endIcon={<Telegram />} sx={{ width: 'fit-content' }}>
+        <Button variant="contained" endIcon={<Telegram />} sx={{ width: 'fit-content' }} onClick={updateCustomer}>
           Update
         </Button>
       </Stack>
