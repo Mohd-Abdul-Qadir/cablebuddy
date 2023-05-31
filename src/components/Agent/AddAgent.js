@@ -8,22 +8,9 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
-import Typography from '@mui/material/Typography';
-import SupportAgentIcon from '@mui/icons-material/SupportAgent';
-import {
-  Box,
-  Checkbox,
-  FormControl,
-  FormControlLabel,
-  FormLabel,
-  InputAdornment,
-  InputLabel,
-  MenuItem,
-  OutlinedInput,
-  Select,
-  TextField,
-} from '@mui/material';
+import { FormControl, TextField } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -114,15 +101,11 @@ export default function AddAgent() {
   };
   return (
     <div>
-      {/* <Button variant="outlined" onClick={handleClickOpen}>
-        Open dialog
-      </Button> */}
       <Button
         variant="outlined"
         onClick={handleClickOpen}
-        startIcon={<SupportAgentIcon />}
+        startIcon={<PersonAddIcon />}
         sx={{ textTransform: 'capitalize', color: '#0C3547', border: '1px solid #0C3547' }}
-        // onClick={() => navigate('/dashboard/add-product')}
       >
         Add New Agent
       </Button>

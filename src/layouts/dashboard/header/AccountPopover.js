@@ -39,7 +39,7 @@ export default function AccountPopover() {
   };
   const handleLogout = () => {
     localStorage.removeItem('accessToken');
-    navigate('/login');
+    navigate('/home');
   };
 
   const handleProfileClick = () => {

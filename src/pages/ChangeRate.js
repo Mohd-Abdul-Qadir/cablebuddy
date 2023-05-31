@@ -1,24 +1,9 @@
-import React from 'react';
-import { FormControl, MenuItem, Select, TextField, Button, Box } from '@mui/material';
+import React, { useState } from 'react';
+import { FormControl, TextField, Button, Box } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import TelegramIcon from '@mui/icons-material/Telegram';
 
 const ChangeRate = () => {
-  const [value, setValue] = React.useState(0);
-  const [select, setSelect] = React.useState('');
-  const [genre, setGenre] = React.useState('');
-  const [selectedLanguage, setSelectedLanguage] = React.useState('');
-
-  const handleSelect1 = (e) => {
-    setSelect(e.target.value);
-  };
-  const handleLanguageChange = (event) => {
-    setSelectedLanguage(event.target.value);
-  };
-
-  const handleGener = (e) => {
-    setGenre(e.target.value);
-  };
   return (
     <>
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -46,7 +31,6 @@ const ChangeRate = () => {
         <Box
           sx={{
             width: '100%',
-            // height: 00,
             borderRadius: '10px',
             backgroundColor: 'white',
           }}
@@ -68,7 +52,6 @@ const ChangeRate = () => {
                 id="outlined-basic"
                 label="New Rate"
                 variant="outlined"
-                // onChange={handleName}
                 sx={{ bgcolor: '#F8F8F8', width: '100%' }}
                 autoComplete="off"
               />
@@ -78,7 +61,6 @@ const ChangeRate = () => {
               variant="contained"
               startIcon={<TelegramIcon />}
               sx={{
-                // paddingBottom: '10px',
                 marginTop: '20px',
               }}
             >

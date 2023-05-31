@@ -31,11 +31,6 @@ import AgentCard from '../components/Agent/AgentCard';
 
 // ----------------------------------------------------------------------
 
-const SORT_OPTIONS = [
-  { value: 'latest', label: 'Latest' },
-  { value: 'popular', label: 'Popular' },
-  { value: 'oldest', label: 'Oldest' },
-];
 const TABLE_HEAD = [
   { id: 'name', label: 'Name', alignRight: false },
   { id: 'company', label: 'Mobile', alignRight: false },
@@ -101,10 +96,6 @@ export default function BlogPage() {
   const [agent, setAgent] = useState('');
   const [tabs, setTabs] = useState('Summary');
   const navigate = useNavigate();
-
-  const handleOpenMenu = (event) => {
-    setOpen(event.currentTarget);
-  };
 
   const handleCloseMenu = () => {
     setOpen(null);
@@ -198,7 +189,7 @@ export default function BlogPage() {
 
   const handleLogin = () => {
     window.alert('login Agent');
-    navigate('/dashboard/app');
+    navigate('/dashboard/agent-dashboard');
   };
   return (
     <>
@@ -302,18 +293,6 @@ export default function BlogPage() {
                             Login
                           </Button>
                         </TableCell>
-
-                        {/* <TableCell align="left">{isVerified ? 'Yes' : 'No'}</TableCell> */}
-
-                        {/* <TableCell align="left">
-                          <Label color={(status === 'banned' && 'error') || 'success'}>{sentenceCase(status)}</Label>
-                        </TableCell> */}
-
-                        {/* <TableCell align="right">
-                          <IconButton size="large" color="inherit" onClick={handleOpenMenu}>
-                            <Iconify icon={'eva:more-vertical-fill'} />
-                          </IconButton>
-                        </TableCell> */}
                       </TableRow>
                     );
                   })}

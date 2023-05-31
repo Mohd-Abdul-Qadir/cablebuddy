@@ -1,20 +1,20 @@
 import { Box, Button, Card, Stack, Typography } from '@mui/material'
-import vector1 from '../../assets/Images/Vector-1.png'
-import vector2 from '../../assets/Images/Vector-2.png'
+import vector1 from '../../assets/images/Vector-1.png'
+import vector2 from '../../assets/images/Vector-2.png'
 import { Icon } from '@iconify/react';
 import DesktopWindowsOutlinedIcon from '@mui/icons-material/DesktopWindowsOutlined';
 import StarBorderPurple500Icon from '@mui/icons-material/StarBorderPurple500';
-import Snake1 from '../../assets/Images/Snake1.jpg'
-import Snake2 from '../../assets/Images/Snake2.jpg'
-import Snake3 from '../../assets/Images/Snake3.jpg'
-import FrontsectionImg from '../../assets/Images/FrontImage.png'
-import BillingSoftImg from '../../assets/Images/InvoiceImage.png'
+import Snake1 from '../../assets/images/Snake1.jpg'
+import Snake2 from '../../assets/images/Snake2.jpg'
+import Snake3 from '../../assets/images/Snake3.jpg'
+import FrontsectionImg from '../../assets/images/FrontImage.png'
+import BillingSoftImg from '../../assets/images/InvoiceImage.png'
 import Avatar from '@mui/material/Avatar';
 import AvatarGroup from '@mui/material/AvatarGroup';
-import follower1 from '../../assets/Images/follower1.png'
-import follower2 from '../../assets/Images/follower2.png'
-import follower3 from '../../assets/Images/follower3.png'
-import follower4 from '../../assets/Images/follower4.png'
+import follower1 from '../../assets/images/follower1.png'
+import follower2 from '../../assets/images/follower2.png'
+import follower3 from '../../assets/images/follower3.png'
+import follower4 from '../../assets/images/follower4.png'
 
 
 const MainSection = () => {

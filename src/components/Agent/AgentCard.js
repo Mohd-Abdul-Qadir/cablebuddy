@@ -5,7 +5,6 @@ import AddCircleOutlinedIcon from '@mui/icons-material/AddCircleOutlined';
 import InputBase from '@mui/material/InputBase';
 import IconButton from '@mui/material/IconButton';
 import SearchIcon from '@mui/icons-material/Search';
-import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
 
 const AgentCard = () => {
   const [total, setTotal] = useState();

@@ -16,6 +16,8 @@ import {
   Divider,
 } from '@mui/material';
 import TelegramIcon from '@mui/icons-material/Telegram';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const BillingArea = [
   {
@@ -96,13 +98,9 @@ const CustomerEdit = (props) => {
   const [customerCode, setCustomerCode] = useState(data.customerCode);
   const [remark, setRemark] = useState(data.remark);
 
-  // Assuming this code is inside a React component
-
-  // Define a function to handle the update request
   const updateCustomer = async () => {
     const url = `http://localhost:4001/api/update-customer/${data._id}`; // Replace with your API endpoint
 
-    // Define the updated customer data
     const updatedCustomer = {
       name,
       billingName,
@@ -116,15 +114,6 @@ const CustomerEdit = (props) => {
       gstNo,
       customerCode,
       remark,
-      //   startDate,
-      //   openingBalanceRadio,
-      //   openingBalanceAmount,
-      //   additionalChargeDiscount,
-      //   additionalChargeRadio,
-      //   billDurationRadio,
-      //   billDurationSelect,
-      //   billTypeRadio,
-      //   gstTypeRadio,
     };
 
     try {
@@ -142,15 +131,12 @@ const CustomerEdit = (props) => {
       }
 
       const data = await response.json();
+      toast.success('Customer updated successfully');
       console.log('Customer updated successfully:', data.customer);
-      // Do something with the updated customer data
     } catch (error) {
       console.error('Error updating customer:', error.message);
-      // Handle the error
     }
   };
-
-  // Call the updateCustomer function to update the customer
 
   return (
     <Stack gap="3rem" sx={{ width: '55vw' }}>
@@ -408,6 +394,7 @@ const CustomerEdit = (props) => {
           Update
         </Button>
       </Stack>
+      <ToastContainer />
     </Stack>
   );
 };

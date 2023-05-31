@@ -6,42 +6,20 @@ import { DateRangePicker } from '@mui/x-date-pickers-pro/DateRangePicker';
 import { SingleInputDateRangeField } from '@mui/x-date-pickers-pro/SingleInputDateRangeField';
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 
-import {
-  Avatar,
-  Box,
-  FormControl,
-  Button,
-  Card,
-  MenuItem,
-  Checkbox,
-  Container,
-  IconButton,
-  Paper,
-  Grid,
-  TableCell,
-  TableContainer,
-  TablePagination,
-  TableRow,
-  Typography,
-  CardActionArea,
-  CardActions,
-} from '@mui/material';
+import { Box, FormControl, Button, Card, Checkbox, Container, Paper, Grid, Typography } from '@mui/material';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import AddIcon from '@mui/icons-material/Add';
 import TelegramIcon from '@mui/icons-material/Telegram';
 import LockResetIcon from '@mui/icons-material/LockReset';
 import DeleteIcon from '@mui/icons-material/Delete';
 import FormGroup from '@mui/material/FormGroup';
 
 import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
 import { AppWebsiteVisits } from '../../sections/@dashboard/app';
 import AgentTable from './AgentTable';
 import AgentProfile from './AgentProfile';
 import RecordCollection from '../../pages/RecordCollection';
-import { SettingsAccessibility } from '@mui/icons-material';
 import { useParams } from 'react-router-dom';
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -124,14 +102,6 @@ const AgentDetails = () => {
           >
             Delete
           </Button>
-          {/* <Button
-            variant="outlined"
-            startIcon={<AddIcon />}
-            sx={{ textTransform: 'capitalize', color: '#0C3547', border: '1px solid #0C3547' }}
-            //   onClick={() => navigate('/dashboard/add-product')}
-          >
-            Record Collection
-          </Button> */}
           <RecordCollection />
         </Box>
       </Box>
@@ -148,7 +118,6 @@ const AgentDetails = () => {
             >
               <div
                 style={{
-                  // backgroundColor: 'rgba(145, 158, 171, 0.12)',
                   borderRadius: '10px 10px 0 0',
                   padding: '0rem 1rem 2px',
                   display: 'flex',
@@ -171,7 +140,6 @@ const AgentDetails = () => {
             <Box
               sx={{
                 width: '100%',
-                // height: 00,
                 borderRadius: '10px',
                 backgroundColor: 'white',
               }}
@@ -179,7 +147,6 @@ const AgentDetails = () => {
               <div
                 style={{
                   fontWeight: 'bold',
-                  // backgroundColor: 'rgba(145, 158, 171, 0.12)',
                   borderRadius: '10px 10px 0 0',
                   padding: '0rem 1.25rem',
                   display: 'flex',
@@ -304,7 +271,6 @@ const AgentDetails = () => {
               </div>
               <div style={{ padding: '20px' }}>
                 <FormControl>
-                  {/* <FormLabel id="demo-radio-buttons-group-label">Gender</FormLabel> */}
                   <RadioGroup
                     aria-labelledby="demo-radio-buttons-group-label"
                     defaultValue="female"
@@ -344,7 +310,6 @@ const AgentDetails = () => {
               <div
                 style={{
                   fontWeight: 'bold',
-                  // backgroundColor: 'rgba(145, 158, 171, 0.12)',
                   borderRadius: '10px 10px 0 0',
                   padding: '0.75rem 1.25rem',
                   borderBottom: '1px solid rgba(0,0,0,.125)',

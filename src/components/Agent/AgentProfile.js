@@ -1,4 +1,4 @@
-import React, {useEffect,useState} from 'react'
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import Button from '@mui/material/Button';
 import { styled } from '@mui/material/styles';
@@ -8,24 +8,9 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
-import Typography from '@mui/material/Typography';
-import SupportAgentIcon from '@mui/icons-material/SupportAgent';
 import TelegramIcon from '@mui/icons-material/Telegram';
-import {
-  Box,
-  Checkbox,
-  FormControl,
-  FormControlLabel,
-  FormLabel,
-  InputAdornment,
-  InputLabel,
-  MenuItem,
-  OutlinedInput,
-  Select,
-  TextField,
-} from '@mui/material';
+import { FormControl, TextField } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
-import AddIcon from '@mui/icons-material/Add';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -74,7 +59,7 @@ export default function AgentProfile(props) {
   const [open, setOpen] = useState(false);
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
-  const [password, setPassword] =useState('');
+  const [password, setPassword] = useState('');
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -83,12 +68,10 @@ export default function AgentProfile(props) {
     setOpen(false);
   };
 
-
   const handlePassword = (e) => {
     setPassword(e.target.value);
   };
 
-  
   useEffect(() => {
     if (props.id) {
       fetch(`http://localhost:4001/api/single-agents/${props.id}`)
@@ -96,7 +79,7 @@ export default function AgentProfile(props) {
         .then((data) => {
           const agentData = data;
           setName(agentData.name);
-          setNumber(agentData.number)
+          setNumber(agentData.number);
           // setPrice(productData.price);
           // setSelect(productData.select);
           // setGst(productData.gst);
@@ -105,13 +88,11 @@ export default function AgentProfile(props) {
           // setHsn(productData.hsn);
           // setGenre(productData.genre);
           // setType(productData.type);
-          console.log(agentData,"agen Data")
+          console.log(agentData, 'agen Data');
         })
         .catch((error) => console.error(error));
     }
   }, [props.id]);
-
-
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -131,7 +112,6 @@ export default function AgentProfile(props) {
           toast.success('Agent updated successfully');
           setMessage(data.message);
           props.onUpdate();
-        
         })
         .catch((error) => console.error(error));
     }
@@ -139,15 +119,11 @@ export default function AgentProfile(props) {
 
   return (
     <div>
-      {/* <Button variant="outlined" onClick={handleClickOpen}>
-        Open dialog
-      </Button> */}
       <Button
         variant="outlined"
         onClick={handleClickOpen}
         startIcon={<EditIcon />}
         sx={{ textTransform: 'capitalize', color: '#0C3547', border: '1px solid #0C3547' }}
-        // onClick={() => navigate('/dashboard/add-product')}
       >
         Profile
       </Button>
@@ -169,13 +145,13 @@ export default function AgentProfile(props) {
               label="Name"
               variant="outlined"
               value={name}
-              onChange={(e)=>setName(e.target.value)}
+              onChange={(e) => setName(e.target.value)}
               sx={{ bgcolor: '#F8F8F8', width: '100%' }}
               autoComplete="off"
             />
             <TextField
               value={number}
-              onChange={(e)=>setNumber(e.target.value)}
+              onChange={(e) => setNumber(e.target.value)}
               id="outlined-basic"
               label="Mobile Number"
               variant="outlined"
@@ -185,11 +161,7 @@ export default function AgentProfile(props) {
           </FormControl>
         </DialogContent>
         <DialogActions>
-          <Button
-            variant="contained"
-            onClick={handleSubmit}
-            startIcon={<TelegramIcon />}
-          >
+          <Button variant="contained" onClick={handleSubmit} startIcon={<TelegramIcon />}>
             Update
           </Button>
           <ToastContainer
@@ -207,7 +179,6 @@ export default function AgentProfile(props) {
         </DialogActions>
       </BootstrapDialog>
       <ToastContainer />
-
     </div>
   );
 }
