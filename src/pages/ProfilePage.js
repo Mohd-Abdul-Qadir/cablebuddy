@@ -73,7 +73,7 @@ const ProfilePage = () => {
         // Replace 'accessTokenValue' with your actual access token value
         // const accessToken = 'accessTokenValue';
 
-        const response = await fetch(`http://54.224.167.209:4001/api/users`, {
+        const response = await fetch(`/api/users`, {
           headers: {
             'x-access-token': `${localStorage.getItem('accessToken')}`,
           },

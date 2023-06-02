@@ -101,7 +101,7 @@ export default function CalenderPop() {
     e.preventDefault();
 
     // try {
-    //   const response = await fetch('http://54.224.167.209:4001/api/add-agent', {
+    //   const response = await fetch('/api/add-agent', {
     //     method: 'POST',
     //     headers: {
     //       'Content-Type': 'application/json',

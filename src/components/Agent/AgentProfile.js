@@ -74,7 +74,7 @@ export default function AgentProfile(props) {
 
   useEffect(() => {
     if (props.id) {
-      fetch(`http://54.224.167.209:4001/api/single-agents/${props.id}`)
+      fetch(`/api/single-agents/${props.id}`)
         .then((res) => res.json())
         .then((data) => {
           const agentData = data;
@@ -100,7 +100,7 @@ export default function AgentProfile(props) {
     const agentData = { name, number };
 
     if (props.id) {
-      fetch(`http://54.224.167.209:4001/api/update-agent/${props.id}`, {
+      fetch(`/api/update-agent/${props.id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

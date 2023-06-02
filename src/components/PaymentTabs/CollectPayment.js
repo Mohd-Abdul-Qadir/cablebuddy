@@ -81,7 +81,7 @@ const CollectPayment = (props) => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await fetch(`http://54.224.167.209:4001/api/users`, {
+        const response = await fetch(`/api/users`, {
           headers: {
             'x-access-token': `${localStorage.getItem('accessToken')}`,
           },
@@ -102,7 +102,7 @@ const CollectPayment = (props) => {
   }, []);
 
   const updateCustomer = async () => {
-    const url = `http://54.224.167.209:4001/api/update-amount/${data._id}`;
+    const url = `/api/update-amount/${data._id}`;
     const updatedCustomer = {
       transactionAmount: price + discountAmount,
       remainingAmount: totalAmount - price + discountAmount,

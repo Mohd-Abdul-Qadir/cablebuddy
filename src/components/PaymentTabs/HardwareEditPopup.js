@@ -101,7 +101,7 @@ export default function HardwareEditPopup(props) {
     // const productData = { name, number, card, member };
 
     // if (props.id) {
-    //   fetch(`http://54.224.167.209:4001/api/update-/${props.id}`, {
+    //   fetch(`/api/update-/${props.id}`, {
     //     method: 'PUT',
     //     headers: {
     //       'Content-Type': 'application/json',

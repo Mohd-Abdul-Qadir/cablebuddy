@@ -74,7 +74,7 @@ const AddProduct = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch('http://54.224.167.209:4001/api/add-product', {
+      const response = await fetch('/api/add-product', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

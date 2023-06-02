@@ -17,7 +17,7 @@ const GeneralDetails = () => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await fetch(`http://54.224.167.209:4001/api/users`, {
+        const response = await fetch(`/api/users`, {
           headers: {
             'x-access-token': `${localStorage.getItem('accessToken')}`,
           },
@@ -50,7 +50,7 @@ const GeneralDetails = () => {
     const userData = { number, name, city, state, gstnumber, address, agency };
 
     if (id) {
-      fetch(`http://54.224.167.209:4001/api/user-update`, {
+      fetch(`/api/user-update`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

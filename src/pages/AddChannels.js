@@ -213,7 +213,7 @@ export default function AddChannels() {
   const navigate = useNavigate();
 
   React.useEffect(() => {
-    fetch('http://54.224.167.209:4001/api/products', {
+    fetch('/api/products', {
       headers: { 'x-access-token': `${localStorage.getItem('accessToken')}`, 'Content-Type': 'application/json' },
     })
       .then((response) => response.json())
