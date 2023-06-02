@@ -68,7 +68,7 @@ const AgentDetails = () => {
 
   useEffect(() => {
     if (id) {
-      fetch(`http://localhost:4001/api/single-agents/${id}`)
+      fetch(`http://54.224.167.209:4001/api/single-agents/${id}`)
         .then((res) => res.json())
         .then((data) => {
           const agentData = data;

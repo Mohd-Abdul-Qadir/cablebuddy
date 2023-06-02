@@ -1,4 +1,4 @@
-import React ,{useState,useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Button from '@mui/material/Button';
 import { styled } from '@mui/material/styles';
@@ -71,12 +71,11 @@ BootstrapDialogTitle.propTypes = {
 };
 
 export default function HardwareEditPopup(props) {
-
   const [open, setOpen] = useState(false);
   const [name, setName] = useState(props.data.stbName);
   const [number, setNumber] = useState(props.data.stbNumber);
   const [card, setCard] = useState(props.data.cardNumber);
-  const [member, setMember] =useState(props.data.membershipNo)
+  const [member, setMember] = useState(props.data.membershipNo);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -102,7 +101,7 @@ export default function HardwareEditPopup(props) {
     // const productData = { name, number, card, member };
 
     // if (props.id) {
-    //   fetch(`http://localhost:4001/api/update-/${props.id}`, {
+    //   fetch(`http://54.224.167.209:4001/api/update-/${props.id}`, {
     //     method: 'PUT',
     //     headers: {
     //       'Content-Type': 'application/json',
@@ -114,20 +113,21 @@ export default function HardwareEditPopup(props) {
     //       toast.success('updated successfully');
     //       setMessage(data.message);
     //       props.onUpdate();
-        
+
     //     })
     //     .catch((error) => console.error(error));
     // }
   };
 
-
-
   return (
     <div>
+      <ButtonBase
+        sx={{ bgcolor: '#17a2b8', padding: '5px', borderRadius: '5px', color: 'white' }}
+        onClick={handleClickOpen}
+      >
+        Edit
+      </ButtonBase>
 
-     <ButtonBase sx={{ bgcolor: '#17a2b8', padding: '5px', borderRadius: '5px',color: 'white' }}
-        onClick={handleClickOpen}>Edit</ButtonBase>
-      
       <BootstrapDialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>
         <BootstrapDialogTitle id="customized-dialog-title" onClose={handleClose}>
           Edit Hardware Detail

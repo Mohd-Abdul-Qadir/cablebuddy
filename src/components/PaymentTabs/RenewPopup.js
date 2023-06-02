@@ -116,7 +116,7 @@ export default function RenewPopup(props) {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await fetch(`http://localhost:4001/api/users`, {
+        const response = await fetch(`http://54.224.167.209:4001/api/users`, {
           headers: {
             'x-access-token': `${localStorage.getItem('accessToken')}`,
           },

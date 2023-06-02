@@ -148,7 +148,7 @@ export default function ProductsPage() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch('http://localhost:4001/api/products', {
+    fetch('http://54.224.167.209:4001/api/products', {
       method: 'GET',
       headers: {
         'x-access-token': `${localStorage.getItem('accessToken')}`,
@@ -166,7 +166,7 @@ export default function ProductsPage() {
   };
 
   const handleDownload = () => {
-    fetch('http://localhost:4001/api/agent-download')
+    fetch('http://54.224.167.209:4001/api/agent-download')
       .then((response) => response.blob())
       .then((blob) => {
         const url = window.URL.createObjectURL(blob);
@@ -221,7 +221,7 @@ export default function ProductsPage() {
             bgcolor: 'white',
             width: '100%',
             marginBottom: '20px',
-            mt: '25px'
+            mt: '25px',
           }}
         >
           <Box sx={{ bgcolor: '#F5F5F5', border: '1px solid white', padding: '14px', borderRadius: '10px 10px 0 0' }}>
@@ -241,7 +241,7 @@ export default function ProductsPage() {
                     id="demo-select-small"
                     // value={packagetype}
                     label="Select Package Type"
-                  // onChange={handlePackage}
+                    // onChange={handlePackage}
                   >
                     <MenuItem value="">Please Select One</MenuItem>
                     <MenuItem value="Channel">Channel</MenuItem>
@@ -343,8 +343,8 @@ export default function ProductsPage() {
                 </TableBody>
 
                 {isNotFound &&
-                {
-                  /* <TableBody>
+                  {
+                    /* <TableBody>
                   <TableRow>
                     <TableCell align="center" colSpan={6} sx={{ py: 3 }}>
                       <Paper
@@ -365,7 +365,7 @@ export default function ProductsPage() {
                     </TableCell>
                   </TableRow>
                 </TableBody> */
-                }}
+                  }}
               </Table>
             </TableContainer>
           </Scrollbar>

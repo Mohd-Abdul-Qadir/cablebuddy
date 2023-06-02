@@ -59,6 +59,7 @@ const CollectPayment = (props) => {
   const [recordDate, setRecordDate] = useState(dayjs(new Date()));
   const [data, setData] = useState(null);
   const [name, setName] = useState('');
+  const [collectedBy, setCollectedBy] = useState('');
 
   useEffect(() => {
     setData(props.allData);
@@ -77,8 +78,31 @@ const CollectPayment = (props) => {
     setPrice(parseFloat(e.target.value) || 0);
   };
 
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const response = await fetch(`http://54.224.167.209:4001/api/users`, {
+          headers: {
+            'x-access-token': `${localStorage.getItem('accessToken')}`,
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error('Error fetching user');
+        }
+
+        const user = await response.json();
+        setCollectedBy(user.agency);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchUser();
+  }, []);
+
   const updateCustomer = async () => {
-    const url = `http://localhost:4001/api/update-amount/${data._id}`;
+    const url = `http://54.224.167.209:4001/api/update-amount/${data._id}`;
     const updatedCustomer = {
       transactionAmount: price + discountAmount,
       remainingAmount: totalAmount - price + discountAmount,
@@ -86,6 +110,7 @@ const CollectPayment = (props) => {
       toDate: recordDate.toDate(),
       paymentMode,
       name,
+      collectedBy,
     };
     try {
       const response = await fetch(url, {

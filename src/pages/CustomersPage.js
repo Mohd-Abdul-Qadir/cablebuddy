@@ -194,7 +194,7 @@ export default function CustomersPage() {
   };
 
   useEffect(() => {
-    fetch('http://localhost:4001/api/customers', {
+    fetch('http://54.224.167.209:4001/api/customers', {
       method: 'GET',
       headers: {
         'x-access-token': `${localStorage.getItem('accessToken')}`,
@@ -206,7 +206,7 @@ export default function CustomersPage() {
   }, []);
 
   const handleDownload = () => {
-    fetch('http://localhost:4001/api/customer-download')
+    fetch('http://54.224.167.209:4001/api/customer-download')
       .then((response) => response.blob())
       .then((blob) => {
         const url = window.URL.createObjectURL(blob);
