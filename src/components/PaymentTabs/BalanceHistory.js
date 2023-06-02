@@ -21,7 +21,7 @@ const BalanceHistory = (props) => {
 
   useEffect(() => {
     if (id) {
-      fetch(`http://localhost:4001/api/balance-history/${id}`)
+      fetch(`http://54.224.167.209:4001/api/balance-history/${id}`)
         .then((res) => res.json())
         .then((data) => {
           setAllData(data);
@@ -31,7 +31,7 @@ const BalanceHistory = (props) => {
   }, [id]);
 
   const handleDownload = () => {
-    fetch('http://localhost:4001/api/balance-download')
+    fetch('http://54.224.167.209:4001/api/balance-download')
       .then((response) => response.blob())
       .then((blob) => {
         const url = window.URL.createObjectURL(blob);

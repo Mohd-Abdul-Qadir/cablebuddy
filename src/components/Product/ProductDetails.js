@@ -25,7 +25,7 @@ const ProductDetails = (props) => {
 
   useEffect(() => {
     if (props.id) {
-      fetch(`http://localhost:4001/api/single-products/${props.id}`)
+      fetch(`http://54.224.167.209:4001/api/single-products/${props.id}`)
         .then((res) => res.json())
         .then((data) => {
           const productData = data;
@@ -50,7 +50,7 @@ const ProductDetails = (props) => {
   //   const productData = { name, price, select, gst, product, additional, hsn, genre, type };
 
   //   if (props.id) {
-  //     fetch(`http://localhost:4001/api/update-product/${props.id}`, {
+  //     fetch(`http://54.224.167.209:4001/api/update-product/${props.id}`, {
   //       method: 'PUT',
   //       headers: {
   //         'Content-Type': 'application/json',
@@ -72,7 +72,7 @@ const ProductDetails = (props) => {
     const productData = { name, price, select, gst, product, additional, hsn, genre, type };
 
     if (props.id) {
-      fetch(`http://localhost:4001/api/update-product/${props.id}`, {
+      fetch(`http://54.224.167.209:4001/api/update-product/${props.id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -101,7 +101,7 @@ const ProductDetails = (props) => {
   };
 
   const handleDelete = (id) => {
-    fetch(`http://localhost:4001/api/delete-products/${id}`, {
+    fetch(`http://54.224.167.209:4001/api/delete-products/${id}`, {
       method: 'DELETE',
     })
       .then((res) => res.json())

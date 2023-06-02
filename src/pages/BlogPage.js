@@ -166,7 +166,7 @@ export default function BlogPage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://localhost:4001/api/agents', {
+        const response = await fetch('http://54.224.167.209:4001/api/agents', {
           headers: { 'x-access-token': `${localStorage.getItem('accessToken')}`, 'Content-Type': 'application/json' },
         });
         const data = await response.json();
@@ -187,9 +187,17 @@ export default function BlogPage() {
     console.log(id, 'it is id of agent');
   };
 
-  const handleLogin = () => {
-    window.alert('login Agent');
-    navigate('/dashboard/agent-dashboard');
+  const handleLogin = async (number) => {
+    try {
+      const response = await fetch(`http://54.224.167.209:4001/api/agentloginbyadmin/${number}`, {
+        headers: { 'x-access-token': `${localStorage.getItem('accessToken')}`, 'Content-Type': 'application/json' },
+      });
+      const data = await response.json();
+      localStorage.agentToken = data.token;
+      navigate('/agent/dashboard');
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <>
@@ -288,7 +296,7 @@ export default function BlogPage() {
                             sx={{ marginLeft: '10px' }}
                             // onClick={() => agentNumber(row._id)}
 
-                            onClick={handleLogin}
+                            onClick={() => handleLogin(row.number)}
                           >
                             Login
                           </Button>

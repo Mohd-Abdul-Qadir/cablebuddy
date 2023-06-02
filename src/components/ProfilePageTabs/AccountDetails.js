@@ -11,12 +11,13 @@ const AccountDetails = () => {
   const [Pancardnumber, setPancardnumber] = useState('');
   const [email, setEmail] = useState('');
   const [bankIfsc, setBankIfsc] = useState('');
+  const [panCardFile, setPanCardFile] = useState(null);
   const [id, setId] = useState('');
 
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await fetch(`http://localhost:4001/api/users`, {
+        const response = await fetch(`http://54.224.167.209:4001/api/users`, {
           headers: {
             'x-access-token': `${localStorage.getItem('accessToken')}`,
           },
@@ -33,7 +34,7 @@ const AccountDetails = () => {
         setPancardnumber(user.Pancardnumber);
         setAccountholdername(user.accountholdername);
         setAccountnumber(user.accountnumber);
-        setUploadPanCard(user.Pancardnumber);
+        setUploadPanCard(user.uploadPanCard);
       } catch (error) {
         console.error(error);
       }
@@ -42,19 +43,57 @@ const AccountDetails = () => {
     fetchUser();
   }, []);
 
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+
+  //   const userData = { accountnumber, accountholdername, Pancardnumber, bankIfsc };
+
+  //   if (id) {
+  //     fetch(`http://54.224.167.209:4001/api/user-update`, {
+  //       method: 'PUT',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //         'x-access-token': localStorage.accessToken,
+  //       },
+  //       body: JSON.stringify(userData),
+  //     })
+  //       .then((res) => res.json())
+  //       .then((data) => {
+  //         toast.success('User updated successfully');
+  //         setMessage(data.message);
+  //         props.onUpdate();
+  //       })
+  //       .catch((error) => console.error(error));
+  //   }
+  // };
+
+  console.log(uploadPanCard, 'this is pan card');
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const userData = { accountnumber, accountholdername, Pancardnumber, bankIfsc };
+    // Create a new FormData object
+    const formData = new FormData();
+
+    // Append the uploaded file to the FormData object
+    if (panCardFile) {
+      formData.append('uploadPanCard', panCardFile);
+    }
+
+    // Append other user data to the FormData object
+    formData.append('accountnumber', accountnumber);
+    formData.append('accountholdername', accountholdername);
+    formData.append('Pancardnumber', Pancardnumber);
+    formData.append('bankIfsc', bankIfsc);
 
     if (id) {
-      fetch(`http://localhost:4001/api/user-update`, {
+      fetch(`http://54.224.167.209:4001/api/user-update`, {
         method: 'PUT',
         headers: {
-          'Content-Type': 'application/json',
+          // Do not set 'Content-Type' header for FormData
           'x-access-token': localStorage.accessToken,
         },
-        body: JSON.stringify(userData),
+        body: formData, // Send the FormData object as the request body
       })
         .then((res) => res.json())
         .then((data) => {

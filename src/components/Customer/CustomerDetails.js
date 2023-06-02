@@ -137,7 +137,7 @@ const CustomerDetails = () => {
 
   useEffect(() => {
     if (id) {
-      fetch(`http://localhost:4001/api/single-customer/${id}`)
+      fetch(`http://54.224.167.209:4001/api/single-customer/${id}`)
         .then((res) => res.json())
         .then((data) => {
           setAllData(data);
@@ -147,7 +147,7 @@ const CustomerDetails = () => {
   }, [id]);
 
   const handleDelete = (id) => {
-    fetch(`http://localhost:4001/api/delete-customers/${id}`, {
+    fetch(`http://54.224.167.209:4001/api/delete-customers/${id}`, {
       method: 'DELETE',
     })
       .then((res) => res.json())
