@@ -17,7 +17,7 @@ const AddOnBill = (props) => {
     setPrice(parseFloat(e.target.value) || 0);
   };
   const updateCustomer = async () => {
-    const url = `http://54.224.167.209:4001/api/update-customer/${data._id}`; // Replace with your API endpoint
+    const url = `/api/update-customer/${data._id}`; // Replace with your API endpoint
 
     const updatedCustomer = {
       balanceAmount: totalAmount + price,

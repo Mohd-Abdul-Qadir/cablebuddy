@@ -42,7 +42,7 @@ const ComplaintsContent = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://54.224.167.209:4001/api/agents', {
+        const response = await fetch('/api/agents', {
           headers: { 'x-access-token': `${localStorage.getItem('accessToken')}`, 'Content-Type': 'application/json' },
         });
         const data = await response.json();

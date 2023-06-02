@@ -166,7 +166,7 @@ export default function BlogPage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://54.224.167.209:4001/api/agents', {
+        const response = await fetch('/api/agents', {
           headers: { 'x-access-token': `${localStorage.getItem('accessToken')}`, 'Content-Type': 'application/json' },
         });
         const data = await response.json();
@@ -189,7 +189,7 @@ export default function BlogPage() {
 
   const handleLogin = async (number) => {
     try {
-      const response = await fetch(`http://54.224.167.209:4001/api/agentloginbyadmin/${number}`, {
+      const response = await fetch(`/api/agentloginbyadmin/${number}`, {
         headers: { 'x-access-token': `${localStorage.getItem('accessToken')}`, 'Content-Type': 'application/json' },
       });
       const data = await response.json();

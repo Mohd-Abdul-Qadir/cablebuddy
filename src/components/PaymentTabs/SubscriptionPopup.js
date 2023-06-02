@@ -216,7 +216,7 @@ export default function SubscriptionPopup(props) {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch('http://54.224.167.209:4001/api/products', {
+    fetch('/api/products', {
       method: 'GET',
       headers: {
         'x-access-token': `${localStorage.getItem('accessToken')}`,
@@ -228,7 +228,7 @@ export default function SubscriptionPopup(props) {
   }, []);
 
   const updateCustomer = async () => {
-    const url = `http://54.224.167.209:4001/api/update-customer/${data._id}`;
+    const url = `/api/update-customer/${data._id}`;
 
     // Define the updated customer data
     const updatedCustomer = {

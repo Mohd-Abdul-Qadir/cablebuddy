@@ -37,7 +37,7 @@ const AdditionalRate = (props) => {
 
   useEffect(() => {
     if (props.id) {
-      fetch(`http://54.224.167.209:4001/api/single-products/${props.id}`)
+      fetch(`/api/single-products/${props.id}`)
         .then((res) => res.json())
         .then((data) => {
           const productData = data;
@@ -63,7 +63,7 @@ const AdditionalRate = (props) => {
 
     if (props.id) {
       console.log('call here');
-      fetch(`http://54.224.167.209:4001/api/update-product/${props.id}`, {
+      fetch(`/api/update-product/${props.id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

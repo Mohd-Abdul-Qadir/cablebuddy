@@ -78,7 +78,7 @@ const LoginSignup = ({ value }) => {
 
   const handleSignup = async () => {
     try {
-      const response = await fetch('http://54.224.167.209:4001/api/register', {
+      const response = await fetch('/api/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -102,7 +102,7 @@ const LoginSignup = ({ value }) => {
 
   const handleLogin = async () => {
     try {
-      const response = await fetch('http://54.224.167.209:4001/api/login', {
+      const response = await fetch('/api/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

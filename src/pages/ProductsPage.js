@@ -148,7 +148,7 @@ export default function ProductsPage() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch('http://54.224.167.209:4001/api/products', {
+    fetch('/api/products', {
       method: 'GET',
       headers: {
         'x-access-token': `${localStorage.getItem('accessToken')}`,
@@ -166,7 +166,7 @@ export default function ProductsPage() {
   };
 
   const handleDownload = () => {
-    fetch('http://54.224.167.209:4001/api/agent-download')
+    fetch('/api/agent-download')
       .then((response) => response.blob())
       .then((blob) => {
         const url = window.URL.createObjectURL(blob);
