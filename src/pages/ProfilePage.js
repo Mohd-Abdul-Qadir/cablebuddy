@@ -13,6 +13,7 @@ import AccountDetails from '../components/ProfilePageTabs/AccountDetails';
 import ProfileBgImg from '../assets/images/CableBackground.png';
 // import ProfilePicture from '../assets/Images/ProfilePicture.jpg';
 import ProfilePicture from '../assets/images/ProfilePicture.jpg';
+import ProfileImage from '../components/ProfilePageTabs/ProfieImage';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -50,6 +51,7 @@ const ProfilePage = () => {
   const [value, setValue] = React.useState(0);
   const [imageSrc, setImageSrc] = useState('');
   const [user, setUser] = useState(null);
+  const [profileImg, setProfileImg] = useState('');
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -66,6 +68,29 @@ const ProfilePage = () => {
       reader.readAsDataURL(file);
     }
   };
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const response = await fetch(`/api/users`, {
+          headers: {
+            'x-access-token': `${localStorage.getItem('accessToken')}`,
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error('Error fetching user');
+        }
+
+        const user = await response.json();
+        setProfileImg(user.profileImg);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchUser();
+  }, []);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -130,14 +155,16 @@ const ProfilePage = () => {
         }}
       >
         <Image
-          src={imageSrc || ProfilePicture}
+          src={`http://localhost:4001/${profileImg}`}
           alt="profilepicture"
           sx={{ height: '100%', width: '100%', borderRadius: '50%' }}
         />
-        <IconButton aria-label="upload picture" component="label" sx={{ position: 'absolute', bottom: 5, right: 5 }}>
+
+        <ProfileImage />
+        {/* <IconButton aria-label="upload picture" component="label" sx={{ position: 'absolute', bottom: 5, right: 5 }}>
           <input hidden accept="image/*" type="file" onChange={handleImageChange} />
           <PhotoCamera sx={{ color: 'blue', fontSize: '28px' }} />
-        </IconButton>
+        </IconButton> */}
       </Stack>
 
       <Box sx={{ width: '100%', mt: '4rem' }}>

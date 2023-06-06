@@ -12,6 +12,7 @@ const AccountDetails = () => {
   const [email, setEmail] = useState('');
   const [bankIfsc, setBankIfsc] = useState('');
   const [panCardFile, setPanCardFile] = useState(null);
+  const [bankPassbookphoto, setBankPassbookphoto] = useState('');
   const [id, setId] = useState('');
 
   useEffect(() => {
@@ -35,6 +36,7 @@ const AccountDetails = () => {
         setAccountholdername(user.accountholdername);
         setAccountnumber(user.accountnumber);
         setUploadPanCard(user.uploadPanCard);
+        setBankPassbookphoto(user.bankPassbookphoto);
       } catch (error) {
         console.error(error);
       }
@@ -43,44 +45,17 @@ const AccountDetails = () => {
     fetchUser();
   }, []);
 
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-
-  //   const userData = { accountnumber, accountholdername, Pancardnumber, bankIfsc };
-
-  //   if (id) {
-  //     fetch(`/api/user-update`, {
-  //       method: 'PUT',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //         'x-access-token': localStorage.accessToken,
-  //       },
-  //       body: JSON.stringify(userData),
-  //     })
-  //       .then((res) => res.json())
-  //       .then((data) => {
-  //         toast.success('User updated successfully');
-  //         setMessage(data.message);
-  //         props.onUpdate();
-  //       })
-  //       .catch((error) => console.error(error));
-  //   }
-  // };
-
-  console.log(uploadPanCard, 'this is pan card');
-
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    // Create a new FormData object
     const formData = new FormData();
 
-    // Append the uploaded file to the FormData object
-    if (panCardFile) {
-      formData.append('uploadPanCard', panCardFile);
+    if (uploadPanCard) {
+      formData.append('uploadPanCard', uploadPanCard);
+    }
+    if (bankPassbookphoto) {
+      formData.append('bankPassbookphoto', bankPassbookphoto);
     }
 
-    // Append other user data to the FormData object
     formData.append('accountnumber', accountnumber);
     formData.append('accountholdername', accountholdername);
     formData.append('Pancardnumber', Pancardnumber);
@@ -90,10 +65,9 @@ const AccountDetails = () => {
       fetch(`/api/user-update`, {
         method: 'PUT',
         headers: {
-          // Do not set 'Content-Type' header for FormData
           'x-access-token': localStorage.accessToken,
         },
-        body: formData, // Send the FormData object as the request body
+        body: formData,
       })
         .then((res) => res.json())
         .then((data) => {
@@ -178,23 +152,43 @@ const AccountDetails = () => {
         <Typography>Upload Pan Card</Typography>
         <Button variant="contained" component="label" sx={{ width: 'fit-content', padding: '12px' }}>
           Choose File
-          <input
-            hidden
-            accept="image/*"
-            multiple
-            type="file"
-            onChange={(event) => setUploadPanCard(event.target.files[0])}
-          />
+          <input hidden accept="image/*" multiple type="file" onChange={(e) => setUploadPanCard(e.target.files[0])} />
         </Button>
-        <Box sx={{ border: '1px solid lightgrey', height: 'fit-content', padding: '10px', borderRadius: '5px' }} />
+        <Box
+          sx={{
+            border: '1px solid lightgrey',
+            height: '350px',
+            padding: '10px',
+            borderRadius: '5px',
+            width: '100%',
+          }}
+        >
+          <img src={`http://localhost:4001/${uploadPanCard}`} alt="pan card" width="100%" height="100%" />
+        </Box>
       </Stack>
       <Stack gap="1rem">
         <Typography>Bank Passbook photo / Cancelled Cheque photo</Typography>
         <Button variant="contained" component="label" sx={{ width: 'fit-content', padding: '12px' }}>
           Choose File
-          <input hidden accept="image/*" multiple type="file" />
+          <input
+            hidden
+            accept="image/*"
+            multiple
+            type="file"
+            onChange={(e) => setBankPassbookphoto(e.target.files[0])}
+          />
         </Button>
-        <Box sx={{ border: '1px solid lightgrey', height: 'fit-content', padding: '10px', borderRadius: '5px' }} />
+        <Box
+          sx={{
+            border: '1px solid lightgrey',
+            height: 'fit-content',
+            padding: '10px',
+            borderRadius: '5px',
+            height: '800px',
+          }}
+        >
+          <img src={`http://localhost:4001/${bankPassbookphoto}`} alt="pan card" width="100%" height="100%" />
+        </Box>
       </Stack>
       <Stack mt="10px">
         <Button
