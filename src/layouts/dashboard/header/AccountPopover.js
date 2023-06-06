@@ -28,6 +28,10 @@ const MENU_OPTIONS = [
 
 export default function AccountPopover() {
   const [open, setOpen] = useState(null);
+  const [profileImg, setProfileImg] = useState('');
+  const [email, setEmail] = useState('');
+  const [name, setName] = useState('');
+
   const navigate = useNavigate();
 
   const handleOpen = (event) => {
@@ -47,35 +51,30 @@ export default function AccountPopover() {
     handleClose();
   };
 
-  // useEffect(() => {
-  //   const fetchUser = async () => {
-  //     try {
-  //       const response = await fetch(`/api/users`, {
-  //         headers: {
-  //           'x-access-token': `${localStorage.getItem('accessToken')}`,
-  //         },
-  //       });
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const response = await fetch(`/api/users`, {
+          headers: {
+            'x-access-token': `${localStorage.getItem('accessToken')}`,
+          },
+        });
 
-  //       if (!response.ok) {
-  //         throw new Error('Error fetching user');
-  //       }
+        if (!response.ok) {
+          throw new Error('Error fetching user');
+        }
 
-  //       const user = await response.json();
-  //       // setId(user._id);
-  //       // setBankIfsc(user.bankIfsc);
-  //       // setEmail(user.email);
-  //       // setPancardnumber(user.Pancardnumber);
-  //       // setAccountholdername(user.accountholdername);
-  //       // setAccountnumber(user.accountnumber);
-  //       // setUploadPanCard(user.uploadPanCard);
-  //       // setBankPassbookphoto(user.bankPassbookphoto);
-  //     } catch (error) {
-  //       console.error(error);
-  //     }
-  //   };
+        const user = await response.json();
+        setProfileImg(user.profileImg);
+        setName(user.name);
+        setEmail(user.email);
+      } catch (error) {
+        console.error(error);
+      }
+    };
 
-  //   fetchUser();
-  // }, []);
+    fetchUser();
+  }, []);
   return (
     <>
       <IconButton
@@ -95,7 +94,7 @@ export default function AccountPopover() {
           }),
         }}
       >
-        <Avatar src={account.photoURL} alt="photoURL" />
+        <Avatar src={`http://localhost:4001/${profileImg}`} alt="photoURL" />
       </IconButton>
 
       <Popover
@@ -119,10 +118,10 @@ export default function AccountPopover() {
       >
         <Box sx={{ my: 1.5, px: 2.5 }}>
           <Typography variant="subtitle2" noWrap>
-            {account.displayName}
+            {name}
           </Typography>
           <Typography variant="body2" sx={{ color: 'text.secondary' }} noWrap>
-            {account.email}
+            {email}
           </Typography>
         </Box>
 
