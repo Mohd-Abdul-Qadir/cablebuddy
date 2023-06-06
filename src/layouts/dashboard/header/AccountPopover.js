@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 // @mui
 import { alpha } from '@mui/material/styles';
@@ -47,6 +47,35 @@ export default function AccountPopover() {
     handleClose();
   };
 
+  // useEffect(() => {
+  //   const fetchUser = async () => {
+  //     try {
+  //       const response = await fetch(`/api/users`, {
+  //         headers: {
+  //           'x-access-token': `${localStorage.getItem('accessToken')}`,
+  //         },
+  //       });
+
+  //       if (!response.ok) {
+  //         throw new Error('Error fetching user');
+  //       }
+
+  //       const user = await response.json();
+  //       // setId(user._id);
+  //       // setBankIfsc(user.bankIfsc);
+  //       // setEmail(user.email);
+  //       // setPancardnumber(user.Pancardnumber);
+  //       // setAccountholdername(user.accountholdername);
+  //       // setAccountnumber(user.accountnumber);
+  //       // setUploadPanCard(user.uploadPanCard);
+  //       // setBankPassbookphoto(user.bankPassbookphoto);
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
+  //   };
+
+  //   fetchUser();
+  // }, []);
   return (
     <>
       <IconButton

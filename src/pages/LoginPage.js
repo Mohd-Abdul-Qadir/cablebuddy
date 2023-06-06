@@ -185,6 +185,25 @@ const LoginSignup = ({ value }) => {
               <Stack sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '24px' }}>
                 <Image src="/assets/images/CBlogo.png" alt="CBLogo" sx={{ width: '30%' }} />
                 <FormControl fullWidth sx={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                  <Select
+                    value={roll}
+                    onChange={handleSelect}
+                    displayEmpty
+                    inputProps={{ 'aria-label': 'Without label' }}
+                    sx={{
+                      backgroundColor: '#F8F8F8',
+                      color: '#A5A4A4',
+                      borderColor: '#ccc',
+                      ':active': {
+                        borderColor: 'red', // Set border color to red when clicked
+                      },
+                    }}
+                  >
+                    <MenuItem value="">Please Select Type</MenuItem>
+                    <MenuItem value="Cable">Cable</MenuItem>
+                    {/* <MenuItem value={20}>Twenty</MenuItem>
+                    <MenuItem value={30}>Thirty</MenuItem> */}
+                  </Select>
                   <TextField placeholder="Mobile Number" sx={{ bgcolor: '#F8F8F8' }} onChange={handleNumber} />
                   <TextField
                     placeholder="Password"
@@ -234,6 +253,7 @@ const LoginSignup = ({ value }) => {
                 <FormControl fullWidth sx={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
                   <Select
                     value={roll}
+                    required
                     onChange={handleSelect}
                     displayEmpty
                     inputProps={{ 'aria-label': 'Without label' }}
@@ -248,8 +268,8 @@ const LoginSignup = ({ value }) => {
                   >
                     <MenuItem value="">Please Select Type</MenuItem>
                     <MenuItem value="Cable">Cable</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
+                    {/* <MenuItem value={20}>Twenty</MenuItem>
+                    <MenuItem value={30}>Thirty</MenuItem> */}
                   </Select>
                   <TextField placeholder="Mobile Number" sx={{ bgcolor: '#F8F8F8' }} onChange={handleNumber} />
                   <TextField placeholder=" Business Name" sx={{ bgcolor: '#F8F8F8' }} onChange={handlBusiness} />
