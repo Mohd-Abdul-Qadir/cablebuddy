@@ -183,10 +183,6 @@ export default function BlogPage() {
     navigate(`/dashboard/agent-details/${id}`);
   };
 
-  const agentNumber = (id) => {
-    console.log(id, 'it is id of agent');
-  };
-
   const handleLogin = async (number) => {
     try {
       const response = await fetch(`/api/agentloginbyadmin/${number}`, {
@@ -244,11 +240,6 @@ export default function BlogPage() {
             Present/Absent
           </StyledButton>
         </Paper>
-        {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <DemoContainer components={['SingleInputDateRangeField']}>
-        <DateRangePicker slots={{ field: SingleInputDateRangeField }} />
-      </DemoContainer>
-    </LocalizationProvider> */}
 
         <Card>
           <UserListToolbar numSelected={selected.length} filterName={filterName} onFilterName={handleFilterByName} />

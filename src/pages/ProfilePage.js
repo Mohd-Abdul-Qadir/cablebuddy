@@ -161,10 +161,6 @@ const ProfilePage = () => {
         />
 
         <ProfileImage />
-        {/* <IconButton aria-label="upload picture" component="label" sx={{ position: 'absolute', bottom: 5, right: 5 }}>
-          <input hidden accept="image/*" type="file" onChange={handleImageChange} />
-          <PhotoCamera sx={{ color: 'blue', fontSize: '28px' }} />
-        </IconButton> */}
       </Stack>
 
       <Box sx={{ width: '100%', mt: '4rem' }}>

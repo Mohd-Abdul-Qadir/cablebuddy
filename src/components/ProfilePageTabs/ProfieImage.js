@@ -62,6 +62,7 @@ export default function ProfileImage() {
   const [open, setOpen] = useState(false);
   const [profileImg, setProfileImg] = useState('');
   const [id, setId] = useState('');
+  const [selectedImage, setSelectedImage] = useState(null);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -90,6 +91,7 @@ export default function ProfileImage() {
   };
   const handleClose = () => {
     setOpen(false);
+    setSelectedImage(null);
   };
 
   const handleSubmit = (e) => {
@@ -110,7 +112,9 @@ export default function ProfileImage() {
       })
         .then((res) => res.json())
         .then((data) => {
-          //   toast.success('User updated successfully');
+          toast.success('User updated successfully');
+          setSelectedImage(false);
+          handleClose();
           setMessage(data.message);
           props.onUpdate();
         })
@@ -118,23 +122,17 @@ export default function ProfileImage() {
     }
   };
 
-  //   const props = {
-  //     name: 'file',
-  //     multiple: true,
-  //     action: '/api/user-update/5cc8019d300000980a055e76',
-  //     onChange(info) {
-  //       const { status, originFileObj } = info.file;
-  //       if (status === 'done') {
-  //         message.success(`${info.file[0]} file uploaded successfully.`);
-  //         setProfileImg(originFileObj);
-  //       } else if (status === 'error') {
-  //         message.error(`${info.file[0]} file upload failed.`);
-  //       }
-  //     },
-  //     onDrop(e) {
-  //       console.log('Dropped files', e.dataTransfer.files);
-  //     },
-  //   };
+  const handleImageChange = (event) => {
+    const file = event.target.files[0];
+    setProfileImg(file);
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        setSelectedImage(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
   console.log(profileImg, 'this is profile image');
   return (
     <div>
@@ -144,29 +142,29 @@ export default function ProfileImage() {
         sx={{ position: 'absolute', bottom: 5, right: 5 }}
         onClick={handleClickOpen}
       >
-        {/* <input hidden accept="image/*" type="file" onChange={handleImageChange} /> */}
         <PhotoCamera sx={{ color: 'blue', fontSize: '28px' }} />
       </IconButton>
 
       <BootstrapDialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>
         <BootstrapDialogTitle id="customized-dialog-title" onClose={handleClose}>
-          Update image .....................
+          Update Image
         </BootstrapDialogTitle>
         <Box sx={{ width: '100%', padding: '10px' }}>
-          {/* <Dragger {...props}>
-            <p className="ant-upload-drag-icon">
-              <InboxOutlined />
-            </p>
-            <p className="ant-upload-text">Click or drag file to this area to upload</p>
-            <p className="ant-upload-hint">
-              Support for a single or bulk upload. Strictly prohibited from uploading company data or other banned
-              files.
-            </p>
-          </Dragger> */}
-          <Button variant="contained" component="label" sx={{ width: 'fit-content', padding: '12px' }}>
-            Choose File
-            <input hidden accept="image/*" multiple type="file" onChange={(e) => setProfileImg(e.target.files[0])} />
-          </Button>
+          <div style={{ display: 'flex', flexDirection: 'column' }}>
+            {/* <input type="file" accept="image/*" onChange={handleImageChange} />
+             */}
+            <Button variant="contained" component="label" style={{ backgroundColor: 'red', color: 'white' }}>
+              Choose File
+              <input type="file" accept="image/*" onChange={handleImageChange} hidden />
+            </Button>
+            {selectedImage && (
+              <img
+                src={selectedImage}
+                alt="Selected"
+                style={{ maxWidth: '450px', marginTop: '10px', height: '400px' }}
+              />
+            )}
+          </div>
         </Box>
 
         <Button
@@ -192,6 +190,18 @@ export default function ProfileImage() {
           />
         </DialogActions>
       </BootstrapDialog>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
     </div>
   );
 }

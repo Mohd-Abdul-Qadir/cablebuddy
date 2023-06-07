@@ -24,30 +24,39 @@ import PaymentLink from '../Customer/PaymentLink';
 const PaymentMode = [
   {
     value: 'CASH',
+    type: 'cash',
   },
   {
     value: 'Cheque',
+    type: 'online',
   },
   {
     value: 'BHIM',
+    type: 'online',
   },
   {
     value: 'PayTM',
+    type: 'online',
   },
   {
     value: 'UPI',
+    type: 'online',
   },
   {
     value: 'Coupon',
+    type: 'online',
   },
   {
     value: 'Portal',
+    type: 'online',
   },
   {
     value: 'Bank Transfer',
+    type: 'online',
   },
   {
     value: 'Others',
+    type: 'online',
   },
 ];
 
@@ -55,15 +64,19 @@ const CollectPayment = (props) => {
   const [price, setPrice] = useState(0);
   const [totalAmount, setTotalAmount] = useState(0);
   const [discountAmount, setDiscountAmount] = useState(0);
-  const [paymentMode, setPaymentMode] = useState('CASH');
+  const [paymentMode, setPaymentMode] = useState('cash');
   const [recordDate, setRecordDate] = useState(dayjs(new Date()));
   const [data, setData] = useState(null);
   const [name, setName] = useState('');
   const [collectedBy, setCollectedBy] = useState('');
+  const [stbNo, setStbNo] = useState('');
+  const [cardNo, setCardNo] = useState('');
 
   useEffect(() => {
     setData(props.allData);
     setName(props.allData.name);
+    setStbNo(props.allData.stbNumber);
+    setCardNo(props.allData.cardNumber);
   }, [props]);
 
   useEffect(() => {
@@ -111,6 +124,8 @@ const CollectPayment = (props) => {
       paymentMode,
       name,
       collectedBy,
+      stbNo,
+      cardNo,
     };
     try {
       const response = await fetch(url, {
@@ -266,7 +281,7 @@ const CollectPayment = (props) => {
               id="paymentMode"
             >
               {PaymentMode.map((option) => (
-                <MenuItem key={option.value} value={option.value}>
+                <MenuItem key={option.value} value={option.type}>
                   {' '}
                   {option.value}
                 </MenuItem>
