@@ -25,6 +25,22 @@ import Expenses from './pages/Expenses';
 import RechargeRenew from './pages/RechargeRenew';
 import LandingPage from './pages/LandingPage';
 import Dashboard from './components/Agent/AgentDashboard/Dashboard';
+import AgentCustomer from './components/Agent/AgentCustomer/AgentCustomer';
+import AgentAddCustomer from './components/Agent/AgentAddCustomer/AgentAddCustomer';
+import AgentCustomerDetails from './components/Agent/AgentCustomerDetails/AgentCustomerDetails';
+import AgentProducts from './components/Agent/AgentProducts/AgentProducts';
+import AgentAddProduct from './components/Agent/AgentAddProduct.js/AgentAddProduct';
+import AgentBlog from './components/Agent/AgentBlog/AgentBlog';
+import AgentProfile from './components/Agent/AgentProfile/AgentProfile';
+import AgentCollection from './components/Agent/AgentCollection/AgentCollection';
+import AgentCompanies from './components/Agent/AgentCompanies/AgentCompanies';
+import AgentReports from './components/Agent/AgentReports/AgentReports';
+import AgentagentDetails from './components/Agent/AgentagentDetails/AgentagentDetails';
+import AgentComplaints from './components/Agent/AgentComplaints/AgentComplaints';
+import AgentSmsWallet from './components/Agent/AgentSmsWallet/AgentSmsWallet';
+import AgentExpenses from './components/Agent/AgentExpenses/AgentExpenses';
+import AgentRechargeRenew from './components/Agent/AgentRechargeRenew/AgentRechargeRenew';
+import DashboardGym from './layouts/dashboard/DashboardGym';
 
 // ----------------------------------------------------------------------
 
@@ -35,8 +51,7 @@ export default function Router() {
       element: <LandingPage />,
     },
     {
-      path: '/dashboard',
-      element: <DashboardLayout />,
+      path: '/dashboard', element: <DashboardLayout />,
       children: [
         // { element: <Navigate to="/" />, index: true },
         { path: 'app', element: <DashboardAppPage /> },
@@ -61,8 +76,30 @@ export default function Router() {
     },
 
     {
-      path: '/agent',
-      element: <DashboardAgent />,
+      path: '/agent', element: <DashboardAgent />,
+      children: [
+        { path: 'dashboard', element: <Dashboard /> },
+        { path: 'customer', element: <AgentCustomer /> },
+        { path: 'addcustomer', element: <AgentAddCustomer /> },
+        { path: 'customer-details/:id', element: <AgentCustomerDetails /> },
+        { path: 'products', element: <AgentProducts /> },
+        { path: 'addproduct', element: <AgentAddProduct /> },
+        { path: 'details/:id', element: <AgentDetails /> },
+        { path: 'blog', element: <AgentBlog /> },
+        { path: 'profile', element: <AgentProfile /> },
+        { path: 'collection', element: <AgentCollection /> },
+        { path: 'companies', element: <AgentCompanies /> },
+        { path: 'reports', element: <AgentReports /> },
+        { path: 'details/:id', element: <AgentagentDetails /> },
+        { path: 'complaints', element: <AgentComplaints /> },
+        { path: 'smswallet', element: <AgentSmsWallet /> },
+        { path: 'expenses', element: <AgentExpenses /> },
+        { path: 'rechargeRenew', element: <AgentRechargeRenew /> },
+      ],
+    },
+
+    {
+      path: '/gym', element: <DashboardGym />,
       children: [
         { path: 'dashboard', element: <Dashboard /> },
         { path: 'customer', element: <UserPage /> },
@@ -81,7 +118,6 @@ export default function Router() {
         { path: 'smswallet', element: <SmsWallet /> },
         { path: 'expenses', element: <Expenses /> },
         { path: 'rechargeRenew', element: <RechargeRenew /> },
-        { path: 'agent-dashboard', element: <Dashboard /> },
       ],
     },
     {
