@@ -7,17 +7,7 @@ import { Grid, Container, Typography } from '@mui/material';
 // components
 import Iconify from '../../iconify';
 // sections
-import {
-  AppTasks,
-  AppNewsUpdate,
-  AppOrderTimeline,
-  AppCurrentVisits,
-  AppWebsiteVisits,
-  AppTrafficBySite,
-  AppWidgetSummary,
-  AppCurrentSubject,
-  AppConversionRates,
-} from '../../../sections/@dashboard/app';
+import { AppTrafficBySite, AppWidgetSummary } from '../../../sections/@dashboard/app';
 
 import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
 // ----------------------------------------------------------------------
@@ -73,7 +63,7 @@ export default function DashboardAppPage() {
       </Helmet>
 
       <Container maxWidth="xl">
-        <Typography sx={{ mb: 5, fontSize: '48px' }}> Agent Dashboard</Typography>
+        <Typography sx={{ mb: 5, fontSize: '48px' }}>Agent Dashboard</Typography>
 
         <Grid container gap={4}>
           <Grid container spacing={3}>
