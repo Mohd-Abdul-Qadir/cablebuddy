@@ -3,8 +3,8 @@ import { Outlet } from 'react-router-dom';
 // @mui
 import { styled } from '@mui/material/styles';
 //
-import Header from './header';
 import NavAgent from './nav/agentIndex';
+import HeaderAgent from './header/indexAgent';
 
 // ----------------------------------------------------------------------
 
@@ -37,7 +37,7 @@ export default function DashboardAgent() {
 
   return (
     <StyledRoot>
-      <Header onOpenNav={() => setOpen(true)} />
+      <HeaderAgent onOpenNav={() => setOpen(true)} />
 
       <NavAgent openNav={open} onCloseNav={() => setOpen(false)} />
 

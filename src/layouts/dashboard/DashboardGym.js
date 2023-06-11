@@ -3,8 +3,8 @@ import { Outlet } from 'react-router-dom';
 // @mui
 import { styled } from '@mui/material/styles';
 //
-import Header from './header';
-import NavAgent from './nav/agentIndex';
+import NavGym from './nav/gymIndex';
+import HeaderGym from './header/indexGym';
 
 // ----------------------------------------------------------------------
 
@@ -37,9 +37,9 @@ export default function DashboardGym() {
 
   return (
     <StyledRoot>
-      <Header onOpenNav={() => setOpen(true)} />
+      <HeaderGym onOpenNav={() => setOpen(true)} />
 
-      <NavAgent openNav={open} onCloseNav={() => setOpen(false)} />
+      <NavGym openNav={open} onCloseNav={() => setOpen(false)} />
 
       <Main>
         <Outlet />

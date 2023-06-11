@@ -1,24 +1,15 @@
 import { useState } from 'react';
 import { Box, Typography, Button, Stack, InputAdornment, IconButton, TextField, Pagination } from '@mui/material'
-import FormControl from '@mui/material/FormControl';
-import MenuItem from '@mui/material/MenuItem';
-import Select from '@mui/material/Select';
-import Paper from '@mui/material/Paper';
-import InputBase from '@mui/material/InputBase';
-import SearchIcon from '@mui/icons-material/Search';
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
-import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
-import ChatIcon from '@mui/icons-material/Chat';
 import dayjs from 'dayjs';
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import SendSms from './SendSms';
-import SmsTemplates from './SmsTemplates';
-import SmsReport from './SmsReport';
-import SendSmsTable from './SendSmsTable';
-import SmsReportTable from './SmsReportTable';
+import GymSendSMS from './GymSendSMS';
+import GymSMSTemplates from './GymSMSTemplates';
+import GymSMSReport from './GymSMSReport';
+import GymSendSMSTable from './GymSendSMSTable';
+import GymSMSReportTable from './GymSMSReportTable';
 
 
 
@@ -43,8 +34,8 @@ const unactiveStyle = {
     }
 }
 
-const SmsWalletContent = () => {
-    
+const GymSmsWallet = () => {
+
     const [activeTab, setActiveTab] = useState('Send SMS')
     const [status, setStatus] = useState('');
     const [area, setArea] = useState('');
@@ -93,16 +84,16 @@ const SmsWalletContent = () => {
                         </Stack>
                     </Stack>
                     {
-                        activeTab === 'Send SMS' ? <SendSms /> : activeTab === 'Sms Templates' ? <SmsTemplates /> : activeTab === 'Sms Report' ? <SmsReport /> : null
+                        activeTab === 'Send SMS' ? <GymSendSMS /> : activeTab === 'Sms Templates' ? <GymSMSTemplates /> : activeTab === 'Sms Report' ? <GymSMSReport /> : null
                     }
                 </Stack>
                 <Stack sx={{ width: '100%' }}>
                     {
-                        activeTab === 'Send SMS' ? <SendSmsTable /> : activeTab === 'Sms Report' ? <SmsReportTable /> : null
+                        activeTab === 'Send SMS' ? <GymSendSMSTable /> : activeTab === 'Sms Report' ? <GymSMSReportTable /> : null
                     }
                 </Stack>
             </Stack>
         </Box >
     )
 }
-export default SmsWalletContent
+export default GymSmsWallet

@@ -22,7 +22,7 @@ import {
 import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
 // ----------------------------------------------------------------------
 
-export default function DashboardAppPage() {
+export default function GymDashboard() {
     const theme = useTheme();
     const navigate = useNavigate();
 
@@ -83,7 +83,7 @@ export default function DashboardAppPage() {
                             sm={6}
                             md={3}
                             onClick={() => {
-                                goToMonthlyCollection();
+                                goToTotalCustomers();
                             }}
                             sx={{
                                 cursor: 'pointer',
@@ -95,7 +95,7 @@ export default function DashboardAppPage() {
                                 },
                             }}
                         >
-                            <AppWidgetSummary title="Monthly Total Collection" total={503685} icon={'ic:outline-currency-rupee'} />
+                            <AppWidgetSummary title="Total Customers" total={1} icon={'fa:group'} />
                         </Grid>
 
                         <Grid
@@ -117,11 +117,33 @@ export default function DashboardAppPage() {
                             }}
                         >
                             <AppWidgetSummary
-                                title="Todays Collection"
+                                title="Total Active Customers"
                                 total={2008}
                                 color="error"
                                 icon={'ic:outline-currency-rupee'}
                             />
+                        </Grid>
+
+                        <Grid
+                            item
+                            xs={12}
+                            sm={6}
+                            md={3}
+                            onClick={() => {
+                                goToMonthlyCollection();
+                            }}
+                            sx={{
+                                cursor: 'pointer',
+                                '&:hover': {
+                                    transform: 'scale(1.1)',
+                                    transitionDelay: '0.2s',
+                                    transitionDuration: '0.3s',
+                                    transitionTimingFunction: 'linear',
+                                },
+                            }}
+                        >
+                            <AppWidgetSummary title="Monthly Total Collection"
+                                color='info' total={503685} icon={'ic:outline-currency-rupee'} />
                         </Grid>
 
                         <Grid
@@ -145,34 +167,13 @@ export default function DashboardAppPage() {
                             <AppWidgetSummary
                                 title="Total Pending Amount"
                                 total={2765690}
-                                color="info"
+                                color="warning"
                                 icon={'ic:outline-currency-rupee'}
                             />
                         </Grid>
-
-                        <Grid
-                            item
-                            xs={12}
-                            sm={6}
-                            md={3}
-                            onClick={() => {
-                                goToTotalCustomers();
-                            }}
-                            sx={{
-                                cursor: 'pointer',
-                                '&:hover': {
-                                    transform: 'scale(1.1)',
-                                    transitionDelay: '0.2s',
-                                    transitionDuration: '0.3s',
-                                    transitionTimingFunction: 'linear',
-                                },
-                            }}
-                        >
-                            <AppWidgetSummary title="Total Customers" total={1} icon={'fa:group'} />
-                        </Grid>
                     </Grid>
 
-                    <Grid container spacing={3}>
+                    {/* <Grid container spacing={3}>
                         <Grid
                             item
                             xs={12}
@@ -326,7 +327,7 @@ export default function DashboardAppPage() {
                                 icon={'fluent:chat-bubbles-question-20-filled'}
                             />
                         </Grid>
-                    </Grid>
+                    </Grid> */}
 
                     <Grid container spacing={3}></Grid>
                 </Grid>

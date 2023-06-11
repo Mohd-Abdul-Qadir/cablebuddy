@@ -4,7 +4,6 @@ import { useLocation } from 'react-router-dom';
 // @mui
 import { styled, alpha } from '@mui/material/styles';
 import { Box, Link, Button, Drawer, Typography, Avatar, Stack } from '@mui/material';
-import ReplyAllOutlinedIcon from '@mui/icons-material/ReplyAllOutlined';
 // mock
 import account from '../../../_mock/account';
 // hooks
@@ -14,8 +13,7 @@ import Logo from '../../../components/logo';
 import Scrollbar from '../../../components/scrollbar';
 import NavSection from '../../../components/nav-section';
 //
-import navConfig from './config';
-import navConfigAgent from './configAgent';
+import navConfigGym from './configGym';
 
 // ----------------------------------------------------------------------
 
@@ -56,10 +54,9 @@ export default function NavGym({ openNav, onCloseNav }) {
       }}
     >
       <Box sx={{ px: 2.5, py: 3, display: 'inline-flex' }}>
-        <Typography variant="h2" color="#2065D1">
-          BillBook
-        </Typography>
+        <Typography variant='h2' color='#2065D1'>BillBook</Typography>
       </Box>
+
 
       {/* <Box sx={{ mb: 5, mx: 2.5 }}>
         <Link underline="none">
@@ -78,14 +75,11 @@ export default function NavGym({ openNav, onCloseNav }) {
           </StyledAccount>
         </Link>
       </Box> */}
-      <NavSection data={navConfigAgent} />
-      <Box sx={{ px: 2.5, pb: 3, mt: 10 }}>
-        <Button href="/dashboard/app" startIcon={<ReplyAllOutlinedIcon />} variant="contained">
-          Back to Admin
-        </Button>
-      </Box>
+
+      <NavSection data={navConfigGym} />
 
       <Box sx={{ flexGrow: 1 }} />
+
     </Scrollbar>
   );
 

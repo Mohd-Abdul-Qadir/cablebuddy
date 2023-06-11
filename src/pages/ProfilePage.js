@@ -13,7 +13,7 @@ import AccountDetails from '../components/ProfilePageTabs/AccountDetails';
 import ProfileBgImg from '../assets/images/CableBackground.png';
 // import ProfilePicture from '../assets/Images/ProfilePicture.jpg';
 import ProfilePicture from '../assets/images/ProfilePicture.jpg';
-import ProfileImage from '../components/ProfilePageTabs/ProfieImage';
+import ProfileImage from '../components/ProfilePageTabs/ProfileImage';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
