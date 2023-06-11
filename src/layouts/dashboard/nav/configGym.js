@@ -5,7 +5,7 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import SupportAgentIcon from '@mui/icons-material/SupportAgent';
 import BusinessIcon from '@mui/icons-material/Business';
 import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
-import AssessmentIcon from '@mui/icons-material/Assessment';
+import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
 import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
 import ContactMailIcon from '@mui/icons-material/ContactMail';
 import PaidIcon from '@mui/icons-material/Paid';
@@ -18,44 +18,44 @@ const icon = (name) => <SvgColor src={`/assets/icons/navbar/${name}.svg`} sx={{ 
 const navConfigGym = [
     {
         title: 'Home',
-        path: '/gym/dashboard',
+        path: '/gym/gymdashboard',
         icon: <HomeIcon />,
     },
     {
         title: 'Customers',
-        path: '/gym/customer',
+        path: '/gym/customers',
         icon: <Groups2Icon />,
     },
     {
         title: 'Products',
         path: '/gym/products',
-        icon: <ShoppingCartIcon />,
+        icon: <FitnessCenterIcon />,
     },
-    {
-        title: 'Agents/Supervisor',
-        path: '/gym/blog',
-        icon: <SupportAgentIcon />,
-    },
-    {
-        title: 'Companys',
-        path: '/gym/companies',
-        icon: <BusinessIcon />,
-    },
+    // {
+    //     title: 'Agents/Supervisor',
+    //     path: '/gym/blog',
+    //     icon: <SupportAgentIcon />,
+    // },
+    // {
+    //     title: 'Companys',
+    //     path: '/gym/companies',
+    //     icon: <BusinessIcon />,
+    // },
     {
         title: 'Collection',
         path: '/gym/collection',
         icon: <AccountBalanceWalletIcon />,
     },
-    {
-        title: 'Reports',
-        path: '/gym/reports',
-        icon: <AssessmentIcon />,
-    },
-    {
-        title: 'Complaints',
-        path: '/gym/complaints',
-        icon: <QuestionAnswerIcon />,
-    },
+    // {
+    //     title: 'Reports',
+    //     path: '/gym/reports',
+    //     icon: <AssessmentIcon />,
+    // },
+    // {
+    //     title: 'Complaints',
+    //     path: '/gym/complaints',
+    //     icon: <QuestionAnswerIcon />,
+    // },
     {
         title: 'SMS~Wallet',
         path: '/gym/smswallet',

@@ -31,7 +31,7 @@ import AgentCustomerDetails from './components/Agent/AgentCustomerDetails/AgentC
 import AgentProducts from './components/Agent/AgentProducts/AgentProducts';
 import AgentAddProduct from './components/Agent/AgentAddProduct.js/AgentAddProduct';
 import AgentBlog from './components/Agent/AgentBlog/AgentBlog';
-import AgentProfile from './components/Agent/AgentProfile/AgentProfile';
+import AgentProfile from './components/Agent/AgentProfile/AgentProfilePage';
 import AgentCollection from './components/Agent/AgentCollection/AgentCollection';
 import AgentCompanies from './components/Agent/AgentCompanies/AgentCompanies';
 import AgentReports from './components/Agent/AgentReports/AgentReports';
@@ -41,6 +41,16 @@ import AgentSmsWallet from './components/Agent/AgentSmsWallet/AgentSmsWallet';
 import AgentExpenses from './components/Agent/AgentExpenses/AgentExpenses';
 import AgentRechargeRenew from './components/Agent/AgentRechargeRenew/AgentRechargeRenew';
 import DashboardGym from './layouts/dashboard/DashboardGym';
+import GymDashboard from './components/Gym/GymDashboard/GymDashboard';
+import GymCustomers from './components/Gym/GymCustomers/GymCustomers';
+import GymAddCustomer from './components/Gym/GymCustomers/GymAddCustomer';
+import GymCustomerDetails from './components/Gym/GymCustomers/GymCustomerDetails';
+import GymProducts from './components/Gym/GymProducts/GymProducts';
+import GymAddProducts from './components/Gym/GymProducts/GymAddProducts';
+import GymCollectionContent from './components/Gym/GymCollection/GymCollectionContent';
+import GymSmsWallet from './components/Gym/GymSmsWallet/GymSmsWallet';
+import GymProfilePage from './components/Gym/GymProfile/GymProfilePage';
+import GymExpensesContent from './components/Gym/GymExpenses/GymExpensesContent';
 
 // ----------------------------------------------------------------------
 
@@ -101,22 +111,19 @@ export default function Router() {
     {
       path: '/gym', element: <DashboardGym />,
       children: [
-        { path: 'dashboard', element: <Dashboard /> },
-        { path: 'customer', element: <UserPage /> },
-        { path: 'add-customer', element: <AddCustomers /> },
-        { path: 'customer-details/:id', element: <CustomerDetails /> },
-        { path: 'products', element: <ProductsPage /> },
-        { path: 'add-product', element: <AddProduct /> },
+        { path: 'gymdashboard', element: <GymDashboard /> },
+        { path: 'customers', element: <GymCustomers /> },
+        { path: 'addcustomers', element: <GymAddCustomer /> },
+        { path: 'customerdetails', element: <GymCustomerDetails /> },
+        { path: 'products', element: <GymProducts /> },
+        { path: 'addproducts', element: <GymAddProducts /> },
         { path: 'details/:id', element: <Details /> },
-        { path: 'blog', element: <BlogPage /> },
-        { path: 'profile', element: <ProfilePage /> },
-        { path: 'collection', element: <Collection /> },
+        { path: 'profile', element: <GymProfilePage /> },
+        { path: 'collection', element: <GymCollectionContent /> },
         { path: 'companies', element: <Companies /> },
-        { path: 'reports', element: <Reports /> },
         { path: 'agent-details/:id', element: <AgentDetails /> },
-        { path: 'complaints', element: <Complaints /> },
-        { path: 'smswallet', element: <SmsWallet /> },
-        { path: 'expenses', element: <Expenses /> },
+        { path: 'smswallet', element: <GymSmsWallet /> },
+        { path: 'expenses', element: <GymExpensesContent /> },
         { path: 'rechargeRenew', element: <RechargeRenew /> },
       ],
     },
