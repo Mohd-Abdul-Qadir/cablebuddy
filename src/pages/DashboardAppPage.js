@@ -7,23 +7,20 @@ import { Grid, Container, Typography } from '@mui/material';
 // components
 import Iconify from '../components/iconify';
 // sections
-import {
-  AppTasks,
-  AppNewsUpdate,
-  AppOrderTimeline,
-  AppCurrentVisits,
-  AppWebsiteVisits,
-  AppTrafficBySite,
-  AppWidgetSummary,
-  AppCurrentSubject,
-  AppConversionRates,
-} from '../sections/@dashboard/app';
+import { AppWidgetSummary } from '../sections/@dashboard/app';
 
-import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 // ----------------------------------------------------------------------
 
 export default function DashboardAppPage() {
+  const [balanceHistories, setBalanceHistories] = useState([]);
+  const [totalTransactionAmount, setTotalTransactionAmount] = useState(0);
+  const [balanceHistoriesOnline, setBalanceHistoriesOnline] = useState([balanceHistories.length - 1]);
+  const [totalTransactionAmountOnline, setTotalTransactionAmountOnline] = useState(0);
+  const [totalCustomer, setTotalCustomer] = useState('');
+
+  // console.log(balanceHistoriesOnline?.remainingAmount, 'this is last element of reaming amount');
+
   const theme = useTheme();
   const navigate = useNavigate();
 
@@ -75,12 +72,65 @@ export default function DashboardAppPage() {
           headers: { 'x-access-token': `${localStorage.getItem('accessToken')}`, 'Content-Type': 'application/json' },
         });
         const data = await response.json();
-        console.log(data, 'DASHBOARD DATA');
+        // console.log(data, 'DASHBOARD DATA');
       } catch (error) {
         console.log(error);
       }
     })();
   }, []);
+
+  useEffect(() => {
+    fetchBalanceHistory();
+    fetchBalanceHistoryOnline();
+    fetchTotalCustomer();
+  }, []);
+
+  const fetchBalanceHistory = async () => {
+    try {
+      const response = await fetch('/api/total-paid'); // Replace with your API endpoint URL
+      const data = await response.json();
+
+      if (response.ok) {
+        setBalanceHistories(data.balanceHistories);
+        setTotalTransactionAmount(data.totalTransactionAmount);
+      } else {
+        console.error(data.message);
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+
+  const fetchBalanceHistoryOnline = async () => {
+    try {
+      const response = await fetch('/api/total-paid-online');
+      const data = await response.json();
+
+      if (response.ok) {
+        setBalanceHistoriesOnline(data.balanceHistories);
+        setTotalTransactionAmountOnline(data.totalTransactionAmount);
+      } else {
+        console.error(data.message);
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+
+  const fetchTotalCustomer = async () => {
+    try {
+      const response = await fetch('/api/customer-totalcustomer');
+      const data = await response.json();
+
+      if (response.ok) {
+        setTotalCustomer(data.totalCustomers);
+      } else {
+        console.error(data.message);
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
 
   return (
     <>
@@ -111,7 +161,11 @@ export default function DashboardAppPage() {
                 },
               }}
             >
-              <AppWidgetSummary title="Monthly Total Collection" total={503685} icon={'ic:outline-currency-rupee'} />
+              <AppWidgetSummary
+                title="Monthly Total Collection"
+                total={totalTransactionAmount}
+                icon={'ic:outline-currency-rupee'}
+              />
             </Grid>
 
             <Grid
@@ -134,7 +188,7 @@ export default function DashboardAppPage() {
             >
               <AppWidgetSummary
                 title="Todays Collection"
-                total={2008}
+                total={'0'}
                 color="error"
                 icon={'ic:outline-currency-rupee'}
               />
@@ -160,7 +214,7 @@ export default function DashboardAppPage() {
             >
               <AppWidgetSummary
                 title="Total Pending Amount"
-                total={2765690}
+                total={balanceHistories.remainingAmount}
                 color="info"
                 icon={'ic:outline-currency-rupee'}
               />
@@ -186,7 +240,7 @@ export default function DashboardAppPage() {
             >
               <AppWidgetSummary
                 title="Monthly Online Collection"
-                total={174990}
+                total={totalTransactionAmountOnline}
                 color="warning"
                 icon={'ic:outline-currency-rupee'}
               />
@@ -233,7 +287,7 @@ export default function DashboardAppPage() {
                 },
               }}
             >
-              <AppWidgetSummary title="Upcoming Renewals" total={1697} color="error" icon={'bi:router'} />
+              <AppWidgetSummary title="Upcoming Renewals" total={'0'} color="error" icon={'bi:router'} />
             </Grid>
 
             <Grid
@@ -254,7 +308,7 @@ export default function DashboardAppPage() {
                 },
               }}
             >
-              <AppWidgetSummary title="Expired Renewals" total={254} color="info" icon={'bi:router'} />
+              <AppWidgetSummary title="Expired Renewals" total={'0'} color="info" icon={'bi:router'} />
             </Grid>
 
             <Grid
@@ -275,7 +329,7 @@ export default function DashboardAppPage() {
                 },
               }}
             >
-              <AppWidgetSummary title="Recharged / Renewed" total={673745} color="warning" icon={'bi:router'} />
+              <AppWidgetSummary title="Recharged / Renewed" total={'0'} color="warning" icon={'bi:router'} />
             </Grid>
           </Grid>
 
@@ -298,7 +352,7 @@ export default function DashboardAppPage() {
                 },
               }}
             >
-              <AppWidgetSummary title="Total Customers" total={1} icon={'fa:group'} />
+              <AppWidgetSummary title="Total Customers" total={totalCustomer} icon={'fa:group'} />
             </Grid>
 
             <Grid
@@ -319,7 +373,7 @@ export default function DashboardAppPage() {
                 },
               }}
             >
-              <AppWidgetSummary title="Total Active Customers" total={1697} color="error" icon={'fa:group'} />
+              <AppWidgetSummary title="Total Active Customers" total={'0'} color="error" icon={'fa:group'} />
             </Grid>
 
             <Grid
@@ -340,7 +394,7 @@ export default function DashboardAppPage() {
                 },
               }}
             >
-              <AppWidgetSummary title="Total Inactive Customers" total={254} color="info" icon={'fa:group'} />
+              <AppWidgetSummary title="Total Inactive Customers" total={'0'} color="info" icon={'fa:group'} />
             </Grid>
 
             <Grid
@@ -361,7 +415,7 @@ export default function DashboardAppPage() {
                 },
               }}
             >
-              <AppWidgetSummary title="This Month New Customers" total={673745} color="warning" icon={'fa:group'} />
+              <AppWidgetSummary title="This Month New Customers" total={1} color="warning" icon={'fa:group'} />
             </Grid>
           </Grid>
 
@@ -386,7 +440,7 @@ export default function DashboardAppPage() {
             >
               <AppWidgetSummary
                 title="Total Pending Complaints"
-                total={36}
+                total={'0'}
                 color="warning"
                 icon={'fluent:chat-bubbles-question-20-filled'}
               />

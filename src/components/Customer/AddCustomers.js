@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Box,
   Stack,
   Typography,
   TextField,
-  Select,
   MenuItem,
   Button,
   FormControl,
@@ -13,7 +12,6 @@ import {
   RadioGroup,
   InputAdornment,
   FormLabel,
-  InputLabel,
   Divider,
 } from '@mui/material';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
@@ -24,7 +22,6 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
-import moment from 'moment';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -95,10 +92,6 @@ const AddCustomers = () => {
   const [selectedValue, setSelectedValue] = useState('outstanding');
   const [selectedValue2, setSelectedValue2] = useState('additionalcharge');
   const [month, setMonth] = useState('Every 1 Month');
-  // const [stbName, setStbName] = React.useState(null);
-  // const [stbNumber, setStbNumber] = useState(null);
-  // const [cardNumber, setCardNumber] = useState(null);
-  // const [membershipNo, setMembershipNo] = useState(null);
   const [showCard, setShowCard] = useState(false);
 
   const [inputData, setInputData] = useState({
@@ -180,7 +173,6 @@ const AddCustomers = () => {
   // .........................addButton.........................
 
   const handleAddSubmit = async (e) => {
-    console.log(inputData);
     e.preventDefault();
     const {
       name,
@@ -210,6 +202,13 @@ const AddCustomers = () => {
       gstTypeRadio,
     } = inputData;
 
+    let generatedCustomerCode = customerCode;
+    if (!generatedCustomerCode) {
+      const min = 1000;
+      const max = 9999;
+      generatedCustomerCode = `${Math.floor(Math.random() * (max - min + 1)) + min}`;
+    }
+
     const res = await fetch('/api/add-customer', {
       method: 'POST',
       headers: { 'x-access-token': `${localStorage.getItem('accessToken')}`, 'Content-Type': 'application/json' },
@@ -224,7 +223,7 @@ const AddCustomers = () => {
         securityDeposit,
         address,
         gstNo,
-        customerCode,
+        customerCode: generatedCustomerCode,
         remark,
         stbName,
         stbNumber,
@@ -418,6 +417,7 @@ const AddCustomers = () => {
                 autoComplete="off"
                 name="customerCode"
                 value={inputData.customerCode}
+                // value={`C${randomNumber}`}
                 onChange={handleInputs}
                 sx={{ bgcolor: '#F8F8F8', height: 'fit-content' }}
               />
@@ -580,15 +580,6 @@ const AddCustomers = () => {
           <Stack direction="row" gap="1rem" fullWidth sx={{ width: '100%', padding: '1rem' }}>
             <Stack sx={{ border: '1px solid #D8D8D8', borderRadius: '10px', padding: '1rem', width: '50%' }}>
               <Stack fullWidth gap="2rem">
-                {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                    <DatePicker
-                                        label="Select Date"
-                                        value={inputData.startDate}
-                                        onChange={(newValue) => setInputData(newValue)}
-                                        renderInput={(props) => <TextField {...props} />}
-                                        format='DD/MM/YYYY'
-                                    />
-                                </LocalizationProvider> */}
                 <LocalizationProvider dateAdapter={AdapterDayjs} locale="en">
                   <DemoItem label="Start Date">
                     <DatePicker

@@ -1,16 +1,10 @@
 import { Helmet } from 'react-helmet-async';
-import { useNavigate } from 'react-router-dom';
-import { faker } from '@faker-js/faker';
+import { useNavigate, useParams } from 'react-router-dom';
 // @mui
 import { useTheme } from '@mui/material/styles';
 import { Grid, Container, Typography } from '@mui/material';
-// components
-import Iconify from '../../iconify';
 // sections
 import { AppTrafficBySite, AppWidgetSummary } from '../../../sections/@dashboard/app';
-
-import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
-// ----------------------------------------------------------------------
 
 export default function DashboardAppPage() {
   const theme = useTheme();

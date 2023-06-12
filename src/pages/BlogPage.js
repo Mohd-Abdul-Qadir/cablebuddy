@@ -80,7 +80,6 @@ function applySortFilter(array, comparator, query) {
 }
 export default function BlogPage() {
   const [open, setOpen] = useState(null);
-
   const [page, setPage] = useState(0);
 
   const [order, setOrder] = useState('asc');
@@ -100,7 +99,6 @@ export default function BlogPage() {
   const handleCloseMenu = () => {
     setOpen(null);
   };
-
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
     setOrder(isAsc ? 'desc' : 'asc');

@@ -61,7 +61,8 @@ export default function Router() {
       element: <LandingPage />,
     },
     {
-      path: '/dashboard', element: <DashboardLayout />,
+      path: '/dashboard',
+      element: <DashboardLayout />,
       children: [
         // { element: <Navigate to="/" />, index: true },
         { path: 'app', element: <DashboardAppPage /> },
@@ -86,7 +87,8 @@ export default function Router() {
     },
 
     {
-      path: '/agent', element: <DashboardAgent />,
+      path: '/agent',
+      element: <DashboardAgent />,
       children: [
         { path: 'dashboard', element: <Dashboard /> },
         { path: 'customer', element: <AgentCustomer /> },
@@ -109,7 +111,8 @@ export default function Router() {
     },
 
     {
-      path: '/gym', element: <DashboardGym />,
+      path: '/gym',
+      element: <DashboardGym />,
       children: [
         { path: 'gymdashboard', element: <GymDashboard /> },
         { path: 'customers', element: <GymCustomers /> },

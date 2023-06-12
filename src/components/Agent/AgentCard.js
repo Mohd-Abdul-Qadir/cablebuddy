@@ -12,7 +12,9 @@ const AgentCard = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('/api/total-agents');
+        const response = await fetch('/api/total-agents', {
+          headers: { 'x-access-token': `${localStorage.getItem('accessToken')}`, 'Content-Type': 'application/json' },
+        });
         const data = await response.json();
         setTotal(data.totalAgents);
       } catch (error) {
@@ -22,7 +24,6 @@ const AgentCard = () => {
 
     fetchData();
   }, []);
-
   return (
     <Box
       sx={{
@@ -70,7 +71,7 @@ const AgentCard = () => {
                 borderRadius: '8px',
               }}
             >
-              <Typography sx={{ fontWeight: '500', fontSize: '20px', color: '#0C3547' }}>10</Typography>
+              <Typography sx={{ fontWeight: '500', fontSize: '20px', color: '#0C3547' }}>{total}</Typography>
               <Typography>Agent Used</Typography>
               <SupportAgentOutlinedIcon
                 sx={{ position: 'absolute', right: 10, top: 30, fontSize: '60px', color: '#0C3547' }}

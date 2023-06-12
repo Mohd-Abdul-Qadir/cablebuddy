@@ -1,6 +1,5 @@
 import { Helmet } from 'react-helmet-async';
 import { useState, useEffect } from 'react';
-import PersonAddAltOutlinedIcon from '@mui/icons-material/PersonAddAltOutlined';
 import AddIcon from '@mui/icons-material/Add';
 import SystemUpdateAltOutlinedIcon from '@mui/icons-material/SystemUpdateAltOutlined';
 import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
@@ -14,11 +13,8 @@ import {
   Checkbox,
   Container,
   FormControl,
-  IconButton,
-  InputBase,
   InputLabel,
   MenuItem,
-  Paper,
   Select,
   Stack,
   Table,
@@ -30,14 +26,11 @@ import {
   Typography,
 } from '@mui/material';
 // components
-import { sentenceCase } from 'change-case';
 import { filter } from 'lodash';
 import { useNavigate } from 'react-router-dom';
 
 import Label from '../components/label';
-import { ProductSort, ProductList, ProductCartWidget, ProductFilterSidebar } from '../sections/@dashboard/products';
 // mock
-import PRODUCTS from '../_mock/products';
 import { UserListHead, UserListToolbar } from '../sections/@dashboard/user';
 import USERLIST from '../_mock/user';
 import Scrollbar from '../components/scrollbar';
@@ -166,7 +159,7 @@ export default function ProductsPage() {
   };
 
   const handleDownload = () => {
-    fetch('/api/agent-download')
+    fetch('/api/product-download')
       .then((response) => response.blob())
       .then((blob) => {
         const url = window.URL.createObjectURL(blob);
