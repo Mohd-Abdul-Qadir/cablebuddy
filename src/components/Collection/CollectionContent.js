@@ -13,11 +13,12 @@ import { SingleInputDateRangeField } from '@mui/x-date-pickers-pro/SingleInputDa
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import SummaryTable from './SummaryTable';
 import OnlineTransaction from './OnlineTransaction';
+import Marquee from 'react-fast-marquee';
 
 const scrollingText = {
   textTransform: 'capitalize',
   fontWeight: '500',
-  fontSize: '16px',
+  fontSize: '18px',
   color: '#c10d0d',
   animationName: 'example',
   animationDuration: '5s',
@@ -129,9 +130,9 @@ const CollectionContent = () => {
       <Stack direction="column" justifyContent="center" alignItems="center" padding="1rem" width="100%" gap="2rem">
         <Stack sx={{ width: '100%', bgcolor: 'white', border: '1px solid #D8D8D8', borderRadius: '12px' }}>
           <Box sx={{ border: '1px solid #D8D8D8', padding: '14px', borderRadius: '10px 10px 0 0' }}>
-            {/* <marquee> */}
-            <Typography sx={scrollingText}>Payment will reach to your bank account by 7pm to 7am</Typography>
-            {/* </marquee> */}
+            <Marquee>
+              <Typography sx={scrollingText}>Payment will reach to your bank account by 7pm to 7am</Typography>
+            </Marquee>
           </Box>
           <Box sx={{ padding: '1rem' }}>
             <Stack sx={{ border: '1px solid #D8D8D8', borderRadius: '10px', bgcolor: 'white', width: '100%' }}>

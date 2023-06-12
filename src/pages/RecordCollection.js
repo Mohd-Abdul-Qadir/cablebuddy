@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Button from '@mui/material/Button';
 import { styled } from '@mui/material/styles';
@@ -8,26 +8,9 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
-import Typography from '@mui/material/Typography';
-import SupportAgentIcon from '@mui/icons-material/SupportAgent';
 import TelegramIcon from '@mui/icons-material/Telegram';
-import {
-  Box,
-  Checkbox,
-  FormControl,
-  FormControlLabel,
-  FormLabel,
-  InputAdornment,
-  InputLabel,
-  MenuItem,
-  OutlinedInput,
-  Select,
-  TextField,
-} from '@mui/material';
-import EditIcon from '@mui/icons-material/Edit';
-import AddIcon from '@mui/icons-material/Add';
-// import Textarea from '@mui/joy/Textarea';
-
+import { FormControl, TextField } from '@mui/material';
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -73,10 +56,7 @@ BootstrapDialogTitle.propTypes = {
 };
 
 export default function RecordCollection() {
-  const [open, setOpen] = React.useState(false);
-  const [name, setName] = React.useState('');
-  const [number, setNumber] = React.useState('');
-  const [password, setPassword] = React.useState('');
+  const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -85,56 +65,19 @@ export default function RecordCollection() {
     setOpen(false);
   };
 
-  const handleName = (e) => {
-    setName(e.target.value);
-  };
-  const handleNumber = (e) => {
-    setNumber(e.target.value);
-  };
-
-  const handlePassword = (e) => {
-    setPassword(e.target.value);
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    try {
-      const response = await fetch('/api/add-agent', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ name, number, password }),
-      });
-
-      const data = await response.json();
-      if (response.ok) {
-        toast.success('Add successful!');
-      }
-      console.log(data);
-    } catch (error) {
-      console.error(error);
-      toast.error(`Not Add`);
-    }
-  };
   return (
     <div>
-      {/* <Button variant="outlined" onClick={handleClickOpen}>
-        Open dialog
-      </Button> */}
       <Button
         variant="outlined"
         onClick={handleClickOpen}
-        startIcon={<EditIcon />}
+        startIcon={<AddCircleOutlineIcon />}
         sx={{ textTransform: 'capitalize', color: '#0C3547', border: '1px solid #0C3547' }}
-        // onClick={() => navigate('/dashboard/add-product')}
       >
-        Profile
+        Record Collection
       </Button>
       <BootstrapDialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>
         <BootstrapDialogTitle id="customized-dialog-title" onClose={handleClose}>
-          Update Profile
+          RecordCollection Payment
         </BootstrapDialogTitle>
         <DialogContent dividers>
           <FormControl
@@ -150,13 +93,13 @@ export default function RecordCollection() {
               label="Name"
               variant="outlined"
               // value={name}
-              onChange={handleName}
+              // onChange={handleName}
               sx={{ bgcolor: '#F8F8F8', width: '100%' }}
               autoComplete="off"
             />
             <TextField
               // value={price}
-              onChange={handleNumber}
+              // onChange={handleNumber}
               id="outlined-basic"
               label="Mobile Number"
               variant="outlined"
