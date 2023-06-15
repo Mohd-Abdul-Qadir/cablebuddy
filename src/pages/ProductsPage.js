@@ -217,10 +217,10 @@ export default function ProductsPage() {
             mt: '25px',
           }}
         >
-          <Box sx={{ bgcolor: '#F5F5F5', border: '1px solid white', padding: '14px', borderRadius: '10px 10px 0 0' }}>
+          <Box sx={{ bgcolor: '#F5F5F5', borderBottom: '1px solid #D8D8D8', padding: '14px', borderRadius: '10px 10px 0 0' }}>
             <Typography sx={{ fontWeight: '600', fontSize: '16px' }}>Filters And Option</Typography>
           </Box>
-          <Stack padding="1rem" gap="10px">
+          <Stack padding='2%' gap="10px">
             <Stack>
               <Stack direction="row" alignItems="center">
                 <FormControl sx={{ m: 1, width: '100%' }} size="small">

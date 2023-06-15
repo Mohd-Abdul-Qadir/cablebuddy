@@ -1,7 +1,7 @@
 import {
   Box,
   Button,
-  Checkbox,
+  Stack,
   FormControl,
   FormControlLabel,
   FormLabel,
@@ -99,14 +99,14 @@ const AddProduct = () => {
       <Helmet>
         <title> Dashboard: Add Products </title>
       </Helmet>
-      <div
-        style={{ backgroundColor: '#F9FAFB', height: '100%', width: '100%', paddingRight: '10px', paddingLeft: '10px' }}
+      <Stack
+        sx={{ backgroundColor: '#F9FAFB', height: '100%', width: '100%', paddingRight: '10px', paddingLeft: '10px' }}
       >
         <h2> Add Product</h2>
         <Box
           sx={{
             width: '100%',
-            // height: 00,
+            border: '1px solid #D8D8D8',
             borderRadius: '10px',
             backgroundColor: 'white',
           }}
@@ -123,36 +123,38 @@ const AddProduct = () => {
             Product Details
           </div>
           <div style={{ padding: '20px' }}>
-            <FormControl fullWidth sx={{ display: 'flex', flexDirection: 'row', gap: '12px' }}>
+            <FormControl fullWidth sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, gap: '12px' }}>
               <TextField
                 required
+                fullWidth
                 id="outlined-basic"
                 label="Name"
                 type="text"
                 variant="outlined"
                 value={name}
                 onChange={handleName}
-                sx={{ bgcolor: '#F8F8F8', width: '50%' }}
+                sx={{ bgcolor: '#F8F8F8' }}
                 autoComplete="off"
               />
               <TextField
                 required
+                fullWidth
                 type="number"
                 value={price}
                 onChange={handlePrice}
                 id="outlined-basic"
                 label="Price"
                 variant="outlined"
-                sx={{ bgcolor: '#F8F8F8', width: '50%' }}
+                sx={{ bgcolor: '#F8F8F8' }}
               />
               <Select
                 required
+                fullWidth
                 value={select}
                 onChange={handleSelect1}
                 displayEmpty
                 inputProps={{ 'aria-label': 'Without label' }}
                 sx={{
-                  width: '50%',
                   backgroundColor: '#F8F8F8',
                   color: '#A5A4A4',
                   borderColor: '#ccc',
@@ -168,43 +170,47 @@ const AddProduct = () => {
                 <MenuItem value="Base Pack">Base Pack</MenuItem>
               </Select>
             </FormControl>
-            <FormControl fullWidth sx={{ display: 'flex', flexDirection: 'row', gap: '12px', paddingTop: '20px' }}>
+            <FormControl fullWidth sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, gap: '12px', paddingTop: '20px' }}>
               <TextField
+                fullWidth
                 id="outlined-basic"
                 onChange={handleGst}
                 label="GST Rate"
                 variant="outlined"
                 type="number"
                 defaultValue={gst}
-                sx={{ bgcolor: '#F8F8F8', width: '50%' }}
-                // autoComplete="off"
+                sx={{ bgcolor: '#F8F8F8'}}
+              // autoComplete="off"
               />
               <TextField
+                fullWidth
                 id="outlined-basic"
                 value={product}
                 onChange={handleProduct}
                 label="Product Code"
                 variant="outlined"
                 type="text"
-                sx={{ bgcolor: '#F8F8F8', width: '50%' }}
+                sx={{ bgcolor: '#F8F8F8'}}
               />
               <TextField
+                fullWidth
                 id="outlined-basic"
                 value={additional}
                 onChange={handleAdditional}
                 label="Additional Charge"
                 variant="outlined"
                 type="text"
-                sx={{ bgcolor: '#F8F8F8', width: '50%' }}
+                sx={{ bgcolor: '#F8F8F8'}}
               />
               <TextField
+                fullWidth
                 id="outlined-basic"
                 value={hsn}
                 onChange={handleHsn}
                 label="HSN"
                 variant="outlined"
                 type="text"
-                sx={{ bgcolor: '#F8F8F8', width: '50%' }}
+                sx={{ bgcolor: '#F8F8F8'}}
               />
             </FormControl>
 
@@ -260,7 +266,7 @@ const AddProduct = () => {
               // variant="outlined"
               variant="contained"
               sx={{
-                marginTop: '10px',
+                marginTop: '15px',
               }}
             >
               Add
@@ -279,7 +285,7 @@ const AddProduct = () => {
             />
           </div>
         </Box>
-      </div>
+      </Stack>
     </>
   );
 };
