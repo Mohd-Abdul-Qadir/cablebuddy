@@ -32,6 +32,7 @@ import AgentCard from '../components/Agent/AgentCard';
 // ----------------------------------------------------------------------
 
 const TABLE_HEAD = [
+  { id: 'S.No.', label: 'S.No.', alignRight: false },
   { id: 'name', label: 'Name', alignRight: false },
   { id: 'company', label: 'Mobile', alignRight: false },
   { id: 'role', label: 'Total Collection', alignRight: false },
@@ -66,18 +67,6 @@ function getComparator(order, orderBy) {
     : (a, b) => -descendingComparator(a, b, orderBy);
 }
 
-function applySortFilter(array, comparator, query) {
-  const stabilizedThis = array.map((el, index) => [el, index]);
-  stabilizedThis.sort((a, b) => {
-    const order = comparator(a[0], b[0]);
-    if (order !== 0) return order;
-    return a[1] - b[1];
-  });
-  if (query) {
-    return filter(array, (_user) => _user.name.toLowerCase().indexOf(query.toLowerCase()) !== -1);
-  }
-  return stabilizedThis.map((el) => el[0]);
-}
 export default function BlogPage() {
   const [open, setOpen] = useState(null);
   const [page, setPage] = useState(0);
@@ -94,6 +83,7 @@ export default function BlogPage() {
   const [agents, setAgents] = useState([]);
   const [agent, setAgent] = useState('');
   const [tabs, setTabs] = useState('Summary');
+  const [searchQuery, setSearchQuery] = useState('');
   const navigate = useNavigate();
 
   const handleCloseMenu = () => {
@@ -114,33 +104,9 @@ export default function BlogPage() {
     setSelected([]);
   };
 
-  // const handleClick = (event, name) => {
-  //   const selectedIndex = selected.indexOf(name);
-  //   let newSelected = [];
-  //   if (selectedIndex === -1) {
-  //     newSelected = newSelected.concat(selected, name);
-  //   } else if (selectedIndex === 0) {
-  //     newSelected = newSelected.concat(selected.slice(1));
-  //   } else if (selectedIndex === selected.length - 1) {
-  //     newSelected = newSelected.concat(selected.slice(0, -1));
-  //   } else if (selectedIndex > 0) {
-  //     newSelected = newSelected.concat(selected.slice(0, selectedIndex), selected.slice(selectedIndex + 1));
-  //   }
-  //   setSelected(newSelected);
-  // };
-
   const handleClick = (tab) => {
     setTabs(tab);
   };
-  const handleAgent = (event) => {
-    setAgent(event.target.value);
-    console.log(`e.target ${event.target.value}`);
-  };
-
-  const handleReset = () => {
-    setAgent('');
-  };
-
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -150,16 +116,11 @@ export default function BlogPage() {
     setRowsPerPage(parseInt(event.target.value, 10));
   };
 
-  const handleFilterByName = (event) => {
-    setPage(0);
-    setFilterName(event.target.value);
-  };
+  // const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - agents.length) : 0;
 
-  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - USERLIST.length) : 0;
+  // const filteredUsers = applySortFilter(agents, getComparator(order, orderBy), filterName);
 
-  const filteredUsers = applySortFilter(USERLIST, getComparator(order, orderBy), filterName);
-
-  const isNotFound = !filteredUsers.length && !!filterName;
+  // const isNotFound = !filteredUsers.length && !!filterName;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -193,6 +154,15 @@ export default function BlogPage() {
       console.log(error);
     }
   };
+
+  const handleSearch = (event) => {
+    setSearchQuery(event.target.value);
+  };
+
+  const filteredData = agents.filter(
+    (item) => item.name.toLowerCase().includes(searchQuery.toLowerCase()) || item.number.includes(searchQuery)
+  );
+
   return (
     <>
       <Helmet>
@@ -224,47 +194,40 @@ export default function BlogPage() {
           <StyledButton
             variant={tabs === 'Summary' ? 'contained' : 'text'}
             selected={tabs === 'Summary'}
-            // startIcon={<SummarizeOutlinedIcon />}
             onClick={() => handleClick('Summary')}
           >
             General Details
           </StyledButton>
-          <StyledButton
+          {/* <StyledButton
             variant={tabs === 'OnlineTransaction' ? 'contained' : 'text'}
             selected={tabs === 'OnlineTransaction'}
-            // startIcon={<PaymentsOutlinedIcon />}
             onClick={() => handleClick('OnlineTransaction')}
           >
             Present/Absent
-          </StyledButton>
+          </StyledButton> */}
         </Paper>
 
         <Card>
-          <UserListToolbar numSelected={selected.length} filterName={filterName} onFilterName={handleFilterByName} />
+          <UserListToolbar value={searchQuery} onChange={handleSearch} onFilterName={handleSearch} />
 
           <Scrollbar>
             <TableContainer sx={{ minWidth: 800 }}>
               <Table>
                 <UserListHead
-                  order={order}
-                  orderBy={orderBy}
                   headLabel={TABLE_HEAD}
-                  rowCount={USERLIST.length}
-                  numSelected={selected.length}
                   onRequestSort={handleRequestSort}
                   onSelectAllClick={handleSelectAllClick}
                 />
                 <TableBody>
-                  {agents.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
+                  {filteredData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row, index) => {
                     return (
                       <TableRow hover tabIndex={-1} role="checkbox" key={row._id}>
-                        <TableCell padding="checkbox">
-                          <Checkbox />
-                        </TableCell>
+                        <TableCell padding="checkbox"></TableCell>
+
+                        <TableCell align="left">{index + 1}</TableCell>
 
                         <TableCell component="th" scope="row" padding="none">
                           <Stack direction="row" alignItems="center" spacing={2}>
-                            {/* <Avatar alt={name} src={avatarUrl} /> */}
                             <Typography variant="subtitle2" noWrap>
                               {row.name}
                             </Typography>
@@ -283,8 +246,6 @@ export default function BlogPage() {
                           <Button
                             variant="outlined"
                             sx={{ marginLeft: '10px' }}
-                            // onClick={() => agentNumber(row._id)}
-
                             onClick={() => handleLogin(row.number)}
                           >
                             Login
@@ -293,14 +254,14 @@ export default function BlogPage() {
                       </TableRow>
                     );
                   })}
-                  {emptyRows > 0 && (
+                  {/* {emptyRows > 0 && (
                     <TableRow style={{ height: 53 * emptyRows }}>
                       <TableCell colSpan={6} />
                     </TableRow>
-                  )}
+                  )} */}
                 </TableBody>
 
-                {isNotFound && (
+                {/* {isNotFound && (
                   <TableBody>
                     <TableRow>
                       <TableCell align="center" colSpan={6} sx={{ py: 3 }}>
@@ -322,7 +283,7 @@ export default function BlogPage() {
                       </TableCell>
                     </TableRow>
                   </TableBody>
-                )}
+                )} */}
               </Table>
             </TableContainer>
           </Scrollbar>

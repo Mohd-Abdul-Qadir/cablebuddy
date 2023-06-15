@@ -270,7 +270,7 @@ const AgentDetails = () => {
                 Agent Area
               </div>
               <div style={{ padding: '20px' }}>
-                <FormControl>
+                {/* <FormControl>
                   <RadioGroup
                     aria-labelledby="demo-radio-buttons-group-label"
                     defaultValue="female"
@@ -283,9 +283,10 @@ const AgentDetails = () => {
                     <FormControlLabel value="other" control={<Radio />} label="Gangineni" />
                     <FormControlLabel value="other" control={<Radio />} label="Gangineni SSLC" />
                   </RadioGroup>
-                </FormControl>
+                </FormControl> */}
+                <h2> Soon</h2>
               </div>
-              <Button
+              {/* <Button
                 variant="contained"
                 // onClick={handleSubmit}
                 startIcon={<TelegramIcon />}
@@ -295,7 +296,7 @@ const AgentDetails = () => {
                 }}
               >
                 Update
-              </Button>
+              </Button> */}
             </Box>
           </Grid>
           <Grid item xs={6}>
@@ -318,7 +319,7 @@ const AgentDetails = () => {
                 Agent Permission
               </div>
               <div style={{ padding: '20px' }}>
-                {agetntPermission.map((agent, index) => {
+                {/* {agetntPermission.map((agent, index) => {
                   return (
                     <FormGroup key={index}>
                       <FormControlLabel
@@ -334,9 +335,10 @@ const AgentDetails = () => {
                       />
                     </FormGroup>
                   );
-                })}
+                })} */}
+                <h2> soon</h2>
               </div>
-              <Button
+              {/* <Button
                 variant="contained"
                 // onClick={handleSubmit}
                 startIcon={<TelegramIcon />}
@@ -346,7 +348,7 @@ const AgentDetails = () => {
                 }}
               >
                 Update
-              </Button>
+              </Button> */}
             </Box>
           </Grid>
         </Grid>

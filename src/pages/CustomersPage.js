@@ -8,7 +8,28 @@ import SystemUpdateAltOutlinedIcon from '@mui/icons-material/SystemUpdateAltOutl
 import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
 
 // @mui
-import { TextField, Card, Table, Stack, Paper, Avatar, Button, Popover, Checkbox, TableRow, MenuItem, TableBody, TableCell, Container, Typography, IconButton, TableContainer, TablePagination, Box, FormControl } from '@mui/material';
+import {
+  TextField,
+  Card,
+  Table,
+  Stack,
+  Paper,
+  Avatar,
+  Button,
+  Popover,
+  Checkbox,
+  TableRow,
+  MenuItem,
+  TableBody,
+  TableCell,
+  Container,
+  Typography,
+  IconButton,
+  TableContainer,
+  TablePagination,
+  Box,
+  FormControl,
+} from '@mui/material';
 import InputLabel from '@mui/material/InputLabel';
 import Select from '@mui/material/Select';
 import InputBase from '@mui/material/InputBase';
@@ -84,11 +105,12 @@ export default function CustomersPage() {
   const [filterName, setFilterName] = useState('');
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [customers, setCustomers] = useState([]);
-  const [action, setAction] = useState('bulkAction');
-  const [date, setDate] = useState(null);
-  const [status, setStatus] = useState('active');
-  const [area, setArea] = useState('largeArea');
-  const [balance, setBalance] = useState('balance1');
+  const [action, setAction] = useState('');
+  const [date, setDate] = useState('');
+  const [status, setStatus] = useState('');
+  const [area, setArea] = useState('');
+  const [balance, setBalance] = useState('');
+  const [searchQuery, setSearchQuery] = useState('');
 
   const handleChange = (event) => {
     setAction(event.target.value);
@@ -202,6 +224,11 @@ export default function CustomersPage() {
       .catch((error) => console.error('Error:', error));
   };
 
+  const handleSearch = (event) => {
+    setSearchQuery(event.target.value);
+  };
+
+  const filteredData = customers.filter((item) => item.name.toLowerCase().includes(searchQuery.toLowerCase()));
   return (
     <>
       <Helmet>
@@ -248,21 +275,24 @@ export default function CustomersPage() {
             >
               <Typography sx={{ fontWeight: '600', fontSize: '16px' }}>Filters And Option</Typography>
             </Box>
-            <Stack padding='2%' gap="10px">
-              <Stack gap='15px' flexWrap={{ xs: 'wrap', lg: 'nowrap' }} direction={{ xs: 'column', sm: 'row' }} alignItems="center" justifyContent="space-between">
+            <Stack padding="2%" gap="10px">
+              <Stack
+                gap="15px"
+                flexWrap={{ xs: 'wrap', lg: 'nowrap' }}
+                direction={{ xs: 'column', sm: 'row' }}
+                alignItems="center"
+                justifyContent="space-between"
+              >
                 {/* <Stack direction='row' justifyContent='space-between'> */}
-                <TextField
-                  fullWidth
-                  select
-                  value={action}
-                  onChange={handleChange}
-                >
+                <TextField fullWidth select value={action} onChange={handleChange}>
                   <MenuItem value={'bulkAction'}>Bulk Action</MenuItem>
                   <MenuItem value={'clearBalance'}>Clear Balance</MenuItem>
                   <MenuItem value={'renew'}>Renew</MenuItem>
                 </TextField>
 
-                <Button fullWidth variant="outlined" sx={{ px: '0px' }}>Apply (0)</Button>
+                <Button fullWidth variant="outlined" sx={{ px: '0px' }}>
+                  Apply (0)
+                </Button>
                 {/* </Stack> */}
 
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -280,40 +310,24 @@ export default function CustomersPage() {
 
                 {/* <Stack direction='row'> */}
 
-                <TextField
-                  fullWidth
-                  select
-                  value={status}
-                  onChange={handleStatus}
-                >
-                  <MenuItem value='active'>Active</MenuItem>
-                  <MenuItem value='inActive'>Inactive</MenuItem>
+                <TextField fullWidth select value={status} onChange={handleStatus}>
+                  <MenuItem value="active">Active</MenuItem>
+                  <MenuItem value="inActive">Inactive</MenuItem>
                 </TextField>
 
-                <TextField
-                  fullWidth
-                  select
-                  value={area}
-                  onChange={handleArea}
-                >
-                  <MenuItem value='largeArea'>Large Area</MenuItem>
-                  <MenuItem value='smallArea'>Small Area</MenuItem>
+                <TextField fullWidth select value={area} onChange={handleArea}>
+                  <MenuItem value="largeArea">Large Area</MenuItem>
+                  <MenuItem value="smallArea">Small Area</MenuItem>
                 </TextField>
 
                 {/* </Stack> */}
 
-                <TextField
-                  fullWidth
-                  select
-                  value={balance}
-                  onChange={handleBalance}
-                >
-                  <MenuItem value='balance1'>Balance 1</MenuItem>
-                  <MenuItem value='balance2'>Balance 2</MenuItem>
+                <TextField fullWidth select value={balance} onChange={handleBalance}>
+                  <MenuItem value="balance1">Balance 1</MenuItem>
+                  <MenuItem value="balance2">Balance 2</MenuItem>
                 </TextField>
-
               </Stack>
-              <Stack direction={{ xs: 'column', md: 'row' }} alignItems='center' gap='15px' sx={{ width: '100%' }}>
+              <Stack direction={{ xs: 'column', md: 'row' }} alignItems="center" gap="15px" sx={{ width: '100%' }}>
                 <Paper
                   elevation={2}
                   component="form"
@@ -342,12 +356,8 @@ export default function CustomersPage() {
 
         <Card sx={{ border: '1px solid #D8D8D8' }}>
           <Card>
-            <Box sx={{ display: 'flex', justifyContent: 'space-between', flexDirection: { xs: 'column', sm: 'row' } }}>
-              <UserListToolbar
-                numSelected={selected.length}
-                filterName={filterName}
-                onFilterName={handleFilterByName}
-              />
+            <div style={{ display: 'flex', justifyContent: 'space-between', flexDirection: 'row' }}>
+              <UserListToolbar value={searchQuery} onChange={handleSearch} onFilterName={handleSearch} />
               <Button
                 startIcon={<FileDownloadOutlinedIcon />}
                 onClick={handleDownload}
@@ -357,7 +367,7 @@ export default function CustomersPage() {
               >
                 Download Excel
               </Button>
-            </Box>
+            </div>
           </Card>
 
           <Scrollbar>
@@ -373,7 +383,7 @@ export default function CustomersPage() {
                   onSelectAllClick={handleSelectAllClick}
                 />
                 <TableBody>
-                  {customers.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
+                  {filteredData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
                     return (
                       <TableRow hover key={row.scode} tabIndex={-1} role="checkbox">
                         <TableCell padding="checkbox">
@@ -397,7 +407,14 @@ export default function CustomersPage() {
                           <Label color={(status === 'banned' && 'error') || 'success'}>{sentenceCase(status)}</Label>
                         </TableCell> */}
                         <TableCell>{row.name}</TableCell>
-                        <TableCell align="left">DSNW20e8c240</TableCell>
+                        <TableCell align="left">
+                          <Typography variant="caption" display="block" gutterBottom>
+                            STB: {row.stbNumber}
+                          </Typography>
+                          <Typography variant="caption" display="block" gutterBottom>
+                            Card: {row.cardNumber}
+                          </Typography>
+                        </TableCell>
                         <TableCell>{row.subdcriptionAmount}</TableCell>
                         <TableCell>{row.address}</TableCell>
                         <TableCell align="center">15</TableCell>
@@ -467,7 +484,7 @@ export default function CustomersPage() {
             onRowsPerPageChange={handleChangeRowsPerPage}
           />
         </Card>
-      </Container >
+      </Container>
 
       <Popover
         open={Boolean(open)}

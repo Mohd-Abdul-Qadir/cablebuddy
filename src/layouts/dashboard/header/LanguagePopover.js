@@ -21,6 +21,11 @@ const LANGS = [
     label: 'French',
     icon: '/assets/icons/ic_flag_fr.svg',
   },
+  {
+    value: 'in',
+    label: 'Hindi',
+    icon: '/assets/icons/ic_flag_in.svg',
+  },
 ];
 
 // ----------------------------------------------------------------------

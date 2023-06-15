@@ -50,13 +50,19 @@ export default function Nav({ openNav, onCloseNav }) {
     <Scrollbar
       sx={{
         height: 1,
-        '& .simplebar-content': { height: 1, display: 'flex', flexDirection: 'column' },
+        '& .simplebar-content': {
+          height: 1,
+          display: 'flex',
+          flexDirection: 'column',
+          backgroundColor: 'rgb(12, 53, 71)',
+        },
       }}
     >
       <Box sx={{ px: 2.5, py: 3, display: 'inline-flex' }}>
-        <Typography variant='h2' color='#2065D1'>BillBook</Typography>
+        <Typography variant="h2" color="White">
+          BillBook
+        </Typography>
       </Box>
-
 
       {/* <Box sx={{ mb: 5, mx: 2.5 }}>
         <Link underline="none">
@@ -79,7 +85,6 @@ export default function Nav({ openNav, onCloseNav }) {
       <NavSection data={navConfig} />
 
       <Box sx={{ flexGrow: 1 }} />
-
     </Scrollbar>
   );
 
