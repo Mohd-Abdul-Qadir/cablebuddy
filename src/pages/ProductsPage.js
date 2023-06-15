@@ -42,7 +42,6 @@ const TABLE_HEAD = [
   { id: 'role', label: 'Rate', alignRight: false },
   { id: 'status', label: 'Status', alignRight: false },
   { id: 'isVerified', label: 'Action', alignRight: false },
-  // { id: '' },
 ];
 export default function ProductsPage() {
   const [openFilter, setOpenFilter] = useState(false);
@@ -56,6 +55,7 @@ export default function ProductsPage() {
   const [products, setProducts] = useState([]);
   const [popup, setPopup] = useState(false);
   const [filterPackage, setFilterPackage] = useState('');
+  const [searchQuery, setSearchQuery] = useState('');
 
   const handleOpenMenu = (event) => {
     setOpen(event.currentTarget);
@@ -81,24 +81,7 @@ export default function ProductsPage() {
     }
     setSelected([]);
   };
-  const handleClick = (event, name) => {
-    const selectedIndex = selected.indexOf(name);
-    let newSelected = [];
-    if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, name);
-    } else if (selectedIndex === 0) {
-      newSelected = newSelected.concat(selected.slice(1));
-    } else if (selectedIndex === selected.length - 1) {
-      newSelected = newSelected.concat(selected.slice(0, -1));
-    } else if (selectedIndex > 0) {
-      newSelected = newSelected.concat(selected.slice(0, selectedIndex), selected.slice(selectedIndex + 1));
-    }
-    setSelected(newSelected);
-  };
-  const handleFilterByName = (event) => {
-    setPage(0);
-    setFilterName(event.target.value);
-  };
+
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -152,8 +135,6 @@ export default function ProductsPage() {
       .catch((error) => console.error(error));
   }, []);
 
-  // console.log(products._id);
-
   const details = (id) => {
     navigate(`/dashboard/details/${id}`);
   };
@@ -174,9 +155,11 @@ export default function ProductsPage() {
       .catch((error) => console.error('Error:', error));
   };
 
-  const filterData = () => {
-    return products.filter((product) => product.select.toLowerCase().includes(filterPackage.toLocaleLowerCase()));
+  const handleSearch = (event) => {
+    setSearchQuery(event.target.value);
   };
+
+  const filteredData = products.filter((item) => item.name.toLowerCase().includes(searchQuery.toLowerCase()));
 
   return (
     <>
@@ -232,9 +215,7 @@ export default function ProductsPage() {
                     value={filterPackage}
                     onChange={(e) => setFilterPackage(e.target.value)}
                     id="demo-select-small"
-                    // value={packagetype}
                     label="Select Package Type"
-                    // onChange={handlePackage}
                   >
                     <MenuItem value="">Please Select One</MenuItem>
                     <MenuItem value="Channel">Channel</MenuItem>
@@ -253,7 +234,7 @@ export default function ProductsPage() {
 
         <Card>
           <div style={{ display: 'flex', justifyContent: 'space-between', flexDirection: 'row' }}>
-            <UserListToolbar numSelected={selected.length} filterName={filterName} onFilterName={handleFilterByName} />
+            <UserListToolbar value={searchQuery} onChange={handleSearch} onFilterName={handleSearch} />
             <Button
               startIcon={<FileDownloadOutlinedIcon />}
               onClick={handleDownload}
@@ -278,56 +259,54 @@ export default function ProductsPage() {
                   onSelectAllClick={handleSelectAllClick}
                 />
                 <TableBody>
-                  {filterData()
-                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                    .map((row, index) => {
-                      return (
-                        <TableRow hover tabIndex={-1} role="checkbox" key={row._id}>
-                          <TableCell padding="checkbox">
-                            <Checkbox />
-                          </TableCell>
-                          <TableCell align="left">{index + 2231}</TableCell>
+                  {filteredData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row, index) => {
+                    return (
+                      <TableRow hover tabIndex={-1} role="checkbox" key={row._id}>
+                        <TableCell padding="checkbox">
+                          <Checkbox />
+                        </TableCell>
+                        <TableCell align="left">{index + 2231}</TableCell>
 
-                          <TableCell component="th" scope="row" padding="none">
-                            <Stack
-                              direction="row"
-                              alignItems="center"
-                              spacing={2}
-                              sx={{ display: 'flex', justifyContent: 'space-between', marginLeft: '20px' }}
-                            >
-                              {/* <Avatar alt={name} src={avatarUrl} /> */}
-                              <Typography variant="subtitle2" noWrap>
-                                {row.name}
+                        <TableCell component="th" scope="row" padding="none">
+                          <Stack
+                            direction="row"
+                            alignItems="center"
+                            spacing={2}
+                            sx={{ display: 'flex', justifyContent: 'space-between', marginLeft: '20px' }}
+                          >
+                            {/* <Avatar alt={name} src={avatarUrl} /> */}
+                            <Typography variant="subtitle2" noWrap>
+                              {row.name}
+                            </Typography>
+                            {row.select === 'Broadcaster Bouqet' && (
+                              <Typography>
+                                <AddChannels />
                               </Typography>
-                              {row.select === 'Broadcaster Bouqet' && (
-                                <Typography>
-                                  <AddChannels />
-                                </Typography>
-                              )}
-                            </Stack>
-                          </TableCell>
+                            )}
+                          </Stack>
+                        </TableCell>
 
-                          <TableCell align="left">{row.price}</TableCell>
-                          <TableCell align="left">
-                            <Label color={'success'}>
-                              {/* {sentenceCase(status)} */}
-                              Active
-                            </Label>
-                          </TableCell>
+                        <TableCell align="left">{row.price}</TableCell>
+                        <TableCell align="left">
+                          <Label color={'success'}>
+                            {/* {sentenceCase(status)} */}
+                            Active
+                          </Label>
+                        </TableCell>
 
-                          <TableCell align="left" sx={{ cursor: 'pointer' }} onClick={() => details(row._id)}>
-                            {/* <Label>Details</Label> */}
-                            <Button variant="outlined">Details</Button>
-                          </TableCell>
+                        <TableCell align="left" sx={{ cursor: 'pointer' }} onClick={() => details(row._id)}>
+                          {/* <Label>Details</Label> */}
+                          <Button variant="outlined">Details</Button>
+                        </TableCell>
 
-                          {/* <TableCell align="right">
+                        {/* <TableCell align="right">
                           <IconButton size="large" color="inherit" onClick={handleOpenMenu}>
                             <Iconify icon={'eva:more-vertical-fill'} />
                           </IconButton>
                         </TableCell> */}
-                        </TableRow>
-                      );
-                    })}
+                      </TableRow>
+                    );
+                  })}
                   {emptyRows > 0 && (
                     <TableRow style={{ height: 53 * emptyRows }}>
                       <TableCell colSpan={6} />

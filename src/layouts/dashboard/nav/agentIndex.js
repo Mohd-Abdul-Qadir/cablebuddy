@@ -3,18 +3,14 @@ import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 // @mui
 import { styled, alpha } from '@mui/material/styles';
-import { Box, Link, Button, Drawer, Typography, Avatar, Stack } from '@mui/material';
+import { Box, Button, Drawer, Typography } from '@mui/material';
 import ReplyAllOutlinedIcon from '@mui/icons-material/ReplyAllOutlined';
-// mock
-import account from '../../../_mock/account';
 // hooks
 import useResponsive from '../../../hooks/useResponsive';
 // components
-import Logo from '../../../components/logo';
 import Scrollbar from '../../../components/scrollbar';
 import NavSection from '../../../components/nav-section';
 //
-import navConfig from './config';
 import navConfigAgent from './configAgent';
 
 // ----------------------------------------------------------------------
@@ -52,11 +48,16 @@ export default function NavAgent({ openNav, onCloseNav }) {
     <Scrollbar
       sx={{
         height: 1,
-        '& .simplebar-content': { height: 1, display: 'flex', flexDirection: 'column' },
+        '& .simplebar-content': {
+          height: 1,
+          display: 'flex',
+          flexDirection: 'column',
+          backgroundColor: 'rgb(12, 53, 71)',
+        },
       }}
     >
       <Box sx={{ px: 2.5, py: 3, display: 'inline-flex' }}>
-        <Typography variant="h2" color="#2065D1">
+        <Typography variant="h2" color="white">
           BillBook
         </Typography>
       </Box>
@@ -80,8 +81,19 @@ export default function NavAgent({ openNav, onCloseNav }) {
       </Box> */}
       <NavSection data={navConfigAgent} />
       <Box sx={{ px: 2.5, pb: 3, mt: 10 }}>
-        <Button href="/dashboard/app" startIcon={<ReplyAllOutlinedIcon />} variant="contained">
-          Back to Admin
+        <Button
+          href="/dashboard/app"
+          startIcon={<ReplyAllOutlinedIcon />}
+          // variant="contained"
+          sx={{
+            backgroundColor: 'white',
+            color: 'rgb(12, 53, 71)',
+            '&:hover': {
+              background: 'white',
+            },
+          }}
+        >
+          Back To Admin
         </Button>
       </Box>
 

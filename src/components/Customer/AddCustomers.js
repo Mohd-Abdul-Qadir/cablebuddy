@@ -24,6 +24,7 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { Select } from 'antd';
 
 const BillingArea = [
   {
@@ -93,7 +94,9 @@ const AddCustomers = () => {
   const [selectedValue2, setSelectedValue2] = useState('additionalcharge');
   const [month, setMonth] = useState('Every 1 Month');
   const [showCard, setShowCard] = useState(false);
-
+  const [customer, setCustomers] = useState([]);
+  const [selectedTags, setSelectedTags] = useState('');
+  const [billingArea, setBillingArea] = useState('');
   const [inputData, setInputData] = useState({
     name: '',
     billingName: '',
@@ -122,25 +125,20 @@ const AddCustomers = () => {
     gstTypeRadio: '',
   });
 
-  // const handleInputs = (e) => {
-  //     const { name, value } = e.target;
-  //     setInputData((prevData) => ({ ...prevData, [name]: value }));
-  // }
-
   const handleInputs = (e) => {
     const { name, value } = e.target;
-    const startDate = inputData.startDate; // Get the startDate value
+    const startDate = inputData.startDate;
 
     if (startDate instanceof Date) {
-      const date = startDate.getDate(); // Get the date
-      const month = startDate.getMonth(); // Get the month (0-based index)
-      const year = startDate.getFullYear(); // Get the year
+      const date = startDate.getDate();
+      const month = startDate.getMonth();
+      const year = startDate.getFullYear();
 
       setInputData((prevData) => ({
         ...prevData,
         [name]: value,
         startDay: date,
-        startMonth: month + 1, // Adding 1 to the month to convert it to 1-12 format
+        startMonth: month + 1,
         startYear: year,
       }));
     } else {
@@ -238,6 +236,7 @@ const AddCustomers = () => {
         billDurationSelect,
         billTypeRadio,
         gstTypeRadio,
+        selectedTags,
       }),
     });
 
@@ -249,6 +248,28 @@ const AddCustomers = () => {
       toast.success('Add successful!');
     }
   };
+
+  // useEffect(() => {
+  //   fetch('/api/customers', {
+  //     method: 'GET',
+  //     headers: {
+  //       'x-access-token': `${localStorage.getItem('accessToken')}`,
+  //     },
+  //   })
+  //     .then((response) => response.json())
+  //     .then((data) => setCustomers(data))
+  //     .catch((error) => console.error(error));
+  // }, []);
+
+  // const options = customer.map((customer) => ({
+  //   value: customer.billingArea,
+  //   label: customer.billingArea,
+  // }));
+
+  // const handleChange = (value) => {
+  //   console.log(`selected ${value}`);
+  //   selectedTags(value);
+  // };
 
   return (
     <Box sx={{ padding: '1%', width: '100%' }}>
@@ -317,6 +338,7 @@ const AddCustomers = () => {
                   </MenuItem>
                 ))}
               </TextField>
+
               <TextField
                 fullWidth
                 type="number"
@@ -472,7 +494,6 @@ const AddCustomers = () => {
               />
               <TextField
                 fullWidth
-                type="number"
                 id="outlined-basic"
                 label="STB Number"
                 placeholder="STB Number"
@@ -483,6 +504,17 @@ const AddCustomers = () => {
                 onChange={handleInputs}
                 sx={{ bgcolor: '#F8F8F8', width: '100%' }}
               />
+
+              {/* <Select
+                mode="tags"
+                style={{
+                  width: '100%',
+                }}
+                value={billingArea}
+                placeholder="Tags Mode"
+                onChange={handleChange}
+                options={options}
+              /> */}
             </Stack>
             <Stack fullWidth direction="row" gap="1rem">
               <TextField
@@ -500,7 +532,6 @@ const AddCustomers = () => {
               />
               <TextField
                 fullWidth
-                type="number"
                 id="outlined-basic"
                 label="Membership Number"
                 placeholder="Membership/Account Number"

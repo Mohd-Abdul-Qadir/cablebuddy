@@ -6,8 +6,9 @@ import InputBase from '@mui/material/InputBase';
 import IconButton from '@mui/material/IconButton';
 import SearchIcon from '@mui/icons-material/Search';
 
-const AgentCard = () => {
+const AgentCard = (props) => {
   const [total, setTotal] = useState();
+  const agent = props.agents;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -24,6 +25,7 @@ const AgentCard = () => {
 
     fetchData();
   }, []);
+
   return (
     <Box
       sx={{
@@ -96,7 +98,7 @@ const AgentCard = () => {
               <AddCircleOutlinedIcon sx={{ fontSize: '60px' }} />
             </Paper>
           </Stack>
-          <Stack sx={{ border: '1px solid #D8D8D8', borderRadius: '10px' }}>
+          {/* <Stack sx={{ border: '1px solid #D8D8D8', borderRadius: '10px' }}>
             <Box
               sx={{ bgcolor: '#F5F5F5', border: '1px solid #D8D8D8', padding: '14px', borderRadius: '10px 10px 0 0' }}
             >
@@ -134,7 +136,7 @@ const AgentCard = () => {
                 </IconButton>
               </Box>
             </Stack>
-          </Stack>
+          </Stack> */}
         </Stack>
       </Stack>
     </Box>

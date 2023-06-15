@@ -108,6 +108,7 @@ export default function CustomersPage() {
   const [status, setStatus] = useState('');
   const [area, setArea] = useState('');
   const [balance, setBalance] = useState('');
+  const [searchQuery, setSearchQuery] = useState('');
 
   const handleChange = (event) => {
     setAction(event.target.value);
@@ -221,6 +222,11 @@ export default function CustomersPage() {
       .catch((error) => console.error('Error:', error));
   };
 
+  const handleSearch = (event) => {
+    setSearchQuery(event.target.value);
+  };
+
+  const filteredData = customers.filter((item) => item.name.toLowerCase().includes(searchQuery.toLowerCase()));
   return (
     <>
       <Helmet>
@@ -381,11 +387,7 @@ export default function CustomersPage() {
         <Card sx={{ border: '1px solid #D8D8D8' }}>
           <Card>
             <div style={{ display: 'flex', justifyContent: 'space-between', flexDirection: 'row' }}>
-              <UserListToolbar
-                numSelected={selected.length}
-                filterName={filterName}
-                onFilterName={handleFilterByName}
-              />
+              <UserListToolbar value={searchQuery} onChange={handleSearch} onFilterName={handleSearch} />
               <Button
                 startIcon={<FileDownloadOutlinedIcon />}
                 onClick={handleDownload}
@@ -411,7 +413,7 @@ export default function CustomersPage() {
                   onSelectAllClick={handleSelectAllClick}
                 />
                 <TableBody>
-                  {customers.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
+                  {filteredData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
                     return (
                       <TableRow hover key={row.scode} tabIndex={-1} role="checkbox">
                         <TableCell padding="checkbox">
@@ -435,7 +437,14 @@ export default function CustomersPage() {
                           <Label color={(status === 'banned' && 'error') || 'success'}>{sentenceCase(status)}</Label>
                         </TableCell> */}
                         <TableCell>{row.name}</TableCell>
-                        <TableCell align="left">DSNW20e8c240</TableCell>
+                        <TableCell align="left">
+                          <Typography variant="caption" display="block" gutterBottom>
+                            STB: {row.stbNumber}
+                          </Typography>
+                          <Typography variant="caption" display="block" gutterBottom>
+                            Card: {row.cardNumber}
+                          </Typography>
+                        </TableCell>
                         <TableCell>{row.subdcriptionAmount}</TableCell>
                         <TableCell>{row.address}</TableCell>
                         <TableCell align="center">15</TableCell>

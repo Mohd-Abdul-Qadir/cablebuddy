@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { styled } from '@mui/material/styles';
 import Dialog from '@mui/material/Dialog';
@@ -94,6 +94,7 @@ export default function AddChannels() {
   const [totalPrice, setTotalPrice] = useState(0);
   const [products, setProducts] = useState([]);
   const [popup, setPopup] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -111,22 +112,7 @@ export default function AddChannels() {
     setOrder(isAsc ? 'desc' : 'asc');
     setOrderBy(property);
   };
-  const handleOpenFilter = () => {
-    setOpenFilter(true);
-  };
-  React;
-  React;
-  React;
-  React;
-  React;
-  React;
-  React;
-  React;
-  React;
-  React;
-  const handleCloseFilter = () => {
-    setOpenFilter(false);
-  };
+
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
       const newSelecteds = USERLIST.map((n) => n.name);
@@ -212,7 +198,7 @@ export default function AddChannels() {
   const isNotFound = !filteredUsers.length && !!filterName;
   const navigate = useNavigate();
 
-  React.useEffect(() => {
+  useEffect(() => {
     fetch('/api/products', {
       headers: { 'x-access-token': `${localStorage.getItem('accessToken')}`, 'Content-Type': 'application/json' },
     })
@@ -230,14 +216,13 @@ export default function AddChannels() {
       })
       .catch((error) => console.error(error));
   }, []);
+  const handleSearch = (event) => {
+    setSearchQuery(event.target.value);
+  };
 
-  console.log(products, 'it is addchanel');
-
+  const filteredData = products.filter((item) => item.name.toLowerCase().includes(searchQuery.toLowerCase()));
   return (
     <div>
-      {/* <Button variant="outlined" onClick={handleClickOpen}>
-        Open dialog
-      </Button> */}
       <Label onClick={handleClickOpen} style={{ cursor: 'pointer' }} startIcon={<FolderIcon />}>
         Bouquet
       </Label>
@@ -246,42 +231,8 @@ export default function AddChannels() {
           Add Channels
         </BootstrapDialogTitle>
 
-        <DialogContent dividers sx={{ '& .MuiDialog-paper': { width: '100%' } }}>
-          <Typography gutterBottom>
-            Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget
-            quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
-          </Typography>
-          {/* <Select
-            // value={genre}
-            // onChange={handleGener}
-            displayEmpty
-            inputProps={{ 'aria-label': 'Without label' }}
-            sx={{
-              width: '33%',
-              backgroundColor: '#F8F8F8',
-              color: '#A5A4A4',
-              borderColor: '#ccc',
-              ':active': {
-                borderColor: 'red', // Set border color to red when clicked
-              },
-            }}
-          >
-            <MenuItem value="">Select Genre</MenuItem>
-            <MenuItem value="Business News">Business News</MenuItem>
-            <MenuItem value="Entertainment">Entertainment</MenuItem>
-            <MenuItem value="Cooking">Cooking</MenuItem>
-            <MenuItem value="Music">Music</MenuItem>
-            <MenuItem value="News">News</MenuItem>
-            <MenuItem value="Movies">Movies</MenuItem>
-            <MenuItem value="Religious">Religious</MenuItem>
-            <MenuItem value="Infotainment">Infotainment</MenuItem>
-            <MenuItem value="Lifestyle">Lifestyle</MenuItem>
-            <MenuItem value="Kids">Kids</MenuItem>
-            <MenuItem value="Shopping">Shopping</MenuItem>
-            <MenuItem value="Sports">Sports</MenuItem>
-            <MenuItem value="Other">Other</MenuItem>
-          </Select> */}
-          <UserListToolbar numSelected={selected.length} filterName={filterName} onFilterName={handleFilterByName} />
+        <DialogContent dividers sx={{ width: '850px' }}>
+          <UserListToolbar value={searchQuery} onChange={handleSearch} onFilterName={handleSearch} />
 
           <Scrollbar>
             <TableContainer sx={{ minWidth: '100%' }}>
@@ -296,15 +247,10 @@ export default function AddChannels() {
                   onSelectAllClick={handleSelectAllClick}
                 />
                 <TableBody>
-                  {products.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
-                    const { id, name, role, status, company, avatarUrl, isVerified } = row;
-                    const selectedUser = selected.indexOf(name) !== -1;
-
+                  {filteredData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
                     return (
-                      <TableRow hover key={id} tabIndex={-1} role="checkbox" selected={selectedUser}>
-                        <TableCell padding="checkbox">
-                          <Checkbox checked={selectedUser} onChange={(event) => handleClick(event, name)} />
-                        </TableCell>
+                      <TableRow hovertabIndex={-1} role="checkbox">
+                        <TableCell padding="checkbox"></TableCell>
 
                         <TableCell component="th" scope="row" padding="none">
                           <Stack direction="row" alignItems="center" spacing={2}>
@@ -348,7 +294,7 @@ export default function AddChannels() {
                   )}
                 </TableBody>
 
-                {isNotFound && (
+                {/* {isNotFound && (
                   <TableBody>
                     <TableRow>
                       <TableCell align="center" colSpan={6} sx={{ py: 3 }}>
@@ -370,7 +316,7 @@ export default function AddChannels() {
                       </TableCell>
                     </TableRow>
                   </TableBody>
-                )}
+                )} */}
               </Table>
             </TableContainer>
           </Scrollbar>
