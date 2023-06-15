@@ -168,7 +168,7 @@ const GymAddCustomer = () => {
                                 label="Email"
                                 variant="outlined"
                                 autoComplete="off"
-                                sx={{ bgcolor: '#F8F8F8', height: 'fit-content' }}
+                                   sx={{ bgcolor: '#F8F8F8', height: 'fit-content' }}
                                 name='email'
                                 onChange={onChangeForm}
                             />

@@ -9,6 +9,7 @@ import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
 
 // @mui
 import {
+  TextField,
   Card,
   Table,
   Stack,
@@ -36,6 +37,7 @@ import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 
 // components
 import Label from '../components/label';
@@ -273,112 +275,80 @@ export default function CustomersPage() {
             >
               <Typography sx={{ fontWeight: '600', fontSize: '16px' }}>Filters And Option</Typography>
             </Box>
-            <Stack padding="1rem" gap="10px">
-              <Stack direction="row" alignItems="center" justifyContent="space-between">
-                <FormControl sx={{ m: 1, minWidth: 125 }} size="small">
-                  <InputLabel id="demo-select-small" sx={{ color: 'black', fontWeight: '400', fontSize: '15px' }}>
-                    Bulk Action
-                  </InputLabel>
-                  <Select
-                    labelId="demo-select-small"
-                    id="demo-select-small"
-                    value={action}
-                    label="Bulk Action"
-                    onChange={handleChange}
-                  >
-                    <MenuItem value={10}>Bulk Action</MenuItem>
-                    <MenuItem value={20}>Clear Balance</MenuItem>
-                    <MenuItem value={30}>Renew</MenuItem>
-                  </Select>
-                </FormControl>
-                <Button variant="outlined">Apply (0)</Button>
-                <FormControl sx={{ m: 1, minWidth: 200 }} size="small">
-                  <LocalizationProvider dateAdapter={AdapterDayjs}>
-                    <DatePicker label="Select Date Follow Up" />
-                  </LocalizationProvider>
-                </FormControl>
-                <FormControl sx={{ m: 1, minWidth: 140 }} size="small">
-                  <InputLabel id="demo-select-small" sx={{ color: 'black', fontWeight: '400', fontSize: '15px' }}>
-                    Select Status
-                  </InputLabel>
-                  <Select
-                    labelId="demo-select-small"
-                    id="demo-select-small"
-                    value={status}
-                    label="Select Status"
-                    onChange={handleStatus}
-                  >
-                    <MenuItem value={10}>Active</MenuItem>
-                    <MenuItem value={20}>Inactive</MenuItem>
-                  </Select>
-                </FormControl>
-                <FormControl sx={{ m: 1, minWidth: 140 }} size="small">
-                  <InputLabel id="demo-select-small" sx={{ color: 'black', fontWeight: '400', fontSize: '15px' }}>
-                    Select Area
-                  </InputLabel>
-                  <Select
-                    labelId="demo-select-small"
-                    id="demo-select-small"
-                    value={area}
-                    label="Select Area"
-                    onChange={handleArea}
-                  >
-                    <MenuItem value={10}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
-                  </Select>
-                </FormControl>
-                <FormControl sx={{ m: 1, minWidth: 150 }} size="small">
-                  <InputLabel id="demo-select-small" sx={{ color: 'black', fontWeight: '400', fontSize: '15px' }}>
-                    Select Balance
-                  </InputLabel>
-                  <Select
-                    labelId="demo-select-small"
-                    id="demo-select-small"
-                    value={balance}
-                    label="Select Balance"
-                    onChange={handleBalance}
-                  >
-                    <MenuItem value={10}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
-                  </Select>
-                </FormControl>
+            <Stack padding="2%" gap="10px">
+              <Stack
+                gap="15px"
+                flexWrap={{ xs: 'wrap', lg: 'nowrap' }}
+                direction={{ xs: 'column', sm: 'row' }}
+                alignItems="center"
+                justifyContent="space-between"
+              >
+                {/* <Stack direction='row' justifyContent='space-between'> */}
+                <TextField fullWidth select value={action} onChange={handleChange}>
+                  <MenuItem value={'bulkAction'}>Bulk Action</MenuItem>
+                  <MenuItem value={'clearBalance'}>Clear Balance</MenuItem>
+                  <MenuItem value={'renew'}>Renew</MenuItem>
+                </TextField>
+
+                <Button fullWidth variant="outlined" sx={{ px: '0px' }}>
+                  Apply (0)
+                </Button>
+                {/* </Stack> */}
+
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <DemoContainer components={['DatePicker']} sx={{ width: '100%', padding: '0px' }}>
+                    <Box fullWidth>
+                      <DatePicker
+                        label="Select Date Follow Up"
+                        value={date}
+                        onChange={(newValue) => setValue(newValue)}
+                        sx={{ width: '100%' }}
+                      />
+                    </Box>
+                  </DemoContainer>
+                </LocalizationProvider>
+
+                {/* <Stack direction='row'> */}
+
+                <TextField fullWidth select value={status} onChange={handleStatus}>
+                  <MenuItem value="active">Active</MenuItem>
+                  <MenuItem value="inActive">Inactive</MenuItem>
+                </TextField>
+
+                <TextField fullWidth select value={area} onChange={handleArea}>
+                  <MenuItem value="largeArea">Large Area</MenuItem>
+                  <MenuItem value="smallArea">Small Area</MenuItem>
+                </TextField>
+
+                {/* </Stack> */}
+
+                <TextField fullWidth select value={balance} onChange={handleBalance}>
+                  <MenuItem value="balance1">Balance 1</MenuItem>
+                  <MenuItem value="balance2">Balance 2</MenuItem>
+                </TextField>
               </Stack>
-              <Stack direction="row" justifyContent="space-between" gap="2rem" px="5px">
-                {/* <Paper component="form" sx={{
-                                height: '40px', display: 'flex', alignItems: 'center', width: '50%', bgcolor: '#F8F8F8'
-                            }}>
-                                <InputBase
-                                    sx={{ ml: 1, flex: 1 }}
-                                    placeholder="Search For..."
-                                    inputProps={{ 'aria-label': 'search google maps' }}
-                                />
-                                <IconButton type="button" sx={{ height: 'fit-content', color: 'white', bgcolor: '#2065D1', borderRadius: '2px', '&:hover': { bgcolor: '#0C3547' } }} aria-label="search">
-                                    <SearchIcon />
-                                </IconButton>
-                            </Paper> */}
-                <Box sx={{ display: 'flex', gap: '20px', width: '50%' }}>
-                  <Paper
-                    component="form"
-                    sx={{
-                      height: '40px',
-                      display: 'flex',
-                      alignItems: 'center',
-                      width: '100%',
-                      bgcolor: '#F8F8F8',
-                    }}
-                  >
-                    <InputBase
-                      sx={{ ml: 1, flex: 1, textTransform: 'capitalize' }}
-                      placeholder="Select Date For Renewal/Expired"
-                      inputProps={{ 'aria-label': 'search google maps' }}
-                    />
-                  </Paper>
-                  <Button variant="contained" startIcon={<RestartAltIcon />} sx={{ width: 'fit-content' }}>
-                    Reset
-                  </Button>
-                </Box>
+              <Stack direction={{ xs: 'column', md: 'row' }} alignItems="center" gap="15px" sx={{ width: '100%' }}>
+                <Paper
+                  elevation={2}
+                  component="form"
+                  sx={{
+                    height: '40px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    width: '100%',
+                    px: '10px',
+                    bgcolor: '#F8F8F8',
+                  }}
+                >
+                  <InputBase
+                    sx={{ flex: 1, textTransform: 'capitalize' }}
+                    placeholder="Select Date For Renewal/Expired"
+                    inputProps={{ 'aria-label': 'search google maps' }}
+                  />
+                </Paper>
+                <Button variant="contained" startIcon={<RestartAltIcon />} sx={{ ml: 'auto', width: 'fit-content' }}>
+                  Reset
+                </Button>
               </Stack>
             </Stack>
           </Stack>

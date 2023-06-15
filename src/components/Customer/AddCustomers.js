@@ -272,8 +272,8 @@ const AddCustomers = () => {
   // };
 
   return (
-    <Box sx={{ padding: '1%', width: '100%' }}>
-      <Typography variant="h4">Add Customer</Typography>
+    <Box sx={{ padding: { xs: '4%', md: '1%' }, width: '100%' }}>
+      <Typography variant="h4" sx={{ mb: '5px' }}>Add Customer</Typography>
       <Stack gap={5}>
         <Stack
           direction="column"
@@ -297,7 +297,7 @@ const AddCustomers = () => {
             General Detail
           </Typography>
           <Stack gap="1rem" sx={{ width: '100%', padding: '1rem' }}>
-            <Stack fullWidth direction="row" gap="1rem">
+            <Stack fullWidth direction={{ xs: 'column', md: 'row' }} gap="1rem">
               <TextField
                 variant="outlined"
                 fullWidth
@@ -321,7 +321,7 @@ const AddCustomers = () => {
                 sx={{ bgcolor: '#F8F8F8', width: '100%' }}
               />
             </Stack>
-            <Stack fullWidth direction="row" gap="1rem">
+            <Stack fullWidth direction={{ xs: 'column', md: 'row' }} gap="1rem">
               <TextField
                 select
                 fullWidth
@@ -352,7 +352,7 @@ const AddCustomers = () => {
                 sx={{ bgcolor: '#F8F8F8' }}
               />
             </Stack>
-            <Stack fullWidth direction="row" gap="1rem">
+            <Stack fullWidth direction={{ xs: 'column', md: 'row' }} gap="1rem">
               <TextField
                 fullWidth
                 type="number"
@@ -378,7 +378,7 @@ const AddCustomers = () => {
                 sx={{ bgcolor: '#F8F8F8', width: '100%' }}
               />
             </Stack>
-            <Stack fullWidth direction="row" gap="1rem">
+            <Stack fullWidth direction={{ xs: 'column', md: 'row' }} gap="1rem">
               <TextField
                 fullWidth
                 type="email"
@@ -405,7 +405,7 @@ const AddCustomers = () => {
                 sx={{ bgcolor: '#F8F8F8' }}
               />
             </Stack>
-            <Stack fullWidth direction="row" gap="1rem">
+            <Stack fullWidth direction={{ xs: 'column', md: 'row' }} gap="1rem">
               <TextField
                 fullWidth
                 multiline
@@ -430,7 +430,7 @@ const AddCustomers = () => {
                 sx={{ bgcolor: '#F8F8F8', height: 'fit-content' }}
               />
             </Stack>
-            <Stack fullWidth direction="row" gap="1rem">
+            <Stack fullWidth direction={{ xs: 'column', md: 'row' }} gap="1rem">
               <TextField
                 fullWidth
                 id="outlined-basic"
@@ -479,7 +479,7 @@ const AddCustomers = () => {
             Hardware Detail
           </Typography>
           <Stack gap="1rem" sx={{ width: '100%', padding: '1rem' }}>
-            <Stack fullWidth direction="row" gap="1rem">
+            <Stack fullWidth direction={{ xs: 'column', md: 'row' }} gap="1rem">
               <TextField
                 fullWidth
                 id="outlined-basic"
@@ -516,7 +516,7 @@ const AddCustomers = () => {
                 options={options}
               /> */}
             </Stack>
-            <Stack fullWidth direction="row" gap="1rem">
+            <Stack fullWidth direction={{ xs: 'column', md: 'row' }} gap="1rem">
               <TextField
                 fullWidth
                 type="number"
@@ -608,8 +608,8 @@ const AddCustomers = () => {
           >
             Billing Detail
           </Typography>
-          <Stack direction="row" gap="1rem" fullWidth sx={{ width: '100%', padding: '1rem' }}>
-            <Stack sx={{ border: '1px solid #D8D8D8', borderRadius: '10px', padding: '1rem', width: '50%' }}>
+          <Stack direction={{ xs: 'column', md: 'row' }} gap="1rem" fullWidth sx={{ width: '100%', padding: '1rem' }}>
+            <Stack sx={{ border: '1px solid #D8D8D8', borderRadius: '10px', padding: '1rem', width: '100%' }}>
               <Stack fullWidth gap="2rem">
                 <LocalizationProvider dateAdapter={AdapterDayjs} locale="en">
                   <DemoItem label="Start Date">
@@ -649,7 +649,7 @@ const AddCustomers = () => {
                     name="openingBalanceAmount"
                     value={inputData.openingBalanceAmount}
                     onChange={handleInputs}
-                    sx={{ m: 1, width: '25ch' }}
+                    sx={{ m: 1, width: { xs: '100%', sm: '25ch' } }}
                     InputProps={{
                       startAdornment: <InputAdornment position="start">₹</InputAdornment>,
                     }}
@@ -657,7 +657,7 @@ const AddCustomers = () => {
                 </Stack>
               </Stack>
             </Stack>
-            <Stack sx={{ border: '1px solid #D8D8D8', borderRadius: '10px', padding: '1rem', width: '50%' }}>
+            <Stack sx={{ border: '1px solid #D8D8D8', borderRadius: '10px', padding: '1rem', width: '100%' }}>
               <Stack fullWidth gap="1rem">
                 <DemoItem label="Additional Charge/Discount per month">
                   <TextField
@@ -714,8 +714,8 @@ const AddCustomers = () => {
           >
             Additional Details
           </Typography>
-          <Stack direction="row" gap="1rem" fullWidth sx={{ width: '100%', padding: '1rem' }}>
-            <Stack sx={{ border: '1px solid #D8D8D8', borderRadius: '10px', padding: '1rem', width: '50%' }}>
+          <Stack direction={{ xs: 'column', md: 'row' }} gap="1rem" fullWidth sx={{ width: '100%', padding: '1rem' }}>
+            <Stack sx={{ border: '1px solid #D8D8D8', borderRadius: '10px', padding: '1rem', width: '100%' }}>
               <Stack fullWidth gap="2rem">
                 <FormControl>
                   <FormLabel id="demo" sx={{ color: 'black', fontWeight: '600', fontSize: '20px' }}>
@@ -735,8 +735,6 @@ const AddCustomers = () => {
                 </FormControl>
                 <TextField
                   select
-                  id="outlined-select-currency"
-                  defaultValue="Every 1 Month"
                   name="billDurationSelect"
                   value={inputData.billDurationSelect}
                   onChange={handleInputs}
@@ -749,7 +747,7 @@ const AddCustomers = () => {
                 </TextField>
               </Stack>
             </Stack>
-            <Stack sx={{ border: '1px solid #D8D8D8', borderRadius: '10px', padding: '1rem', width: '50%' }}>
+            <Stack sx={{ border: '1px solid #D8D8D8', borderRadius: '10px', padding: '1rem', width: '100%' }}>
               <Stack fullWidth gap="1rem">
                 <FormControl>
                   <FormLabel sx={{ color: 'black', fontWeight: '600', fontSize: '20px' }}>Bill Type</FormLabel>
@@ -765,7 +763,7 @@ const AddCustomers = () => {
                 </FormControl>
               </Stack>
             </Stack>
-            <Stack sx={{ border: '1px solid #D8D8D8', borderRadius: '10px', padding: '1rem', width: '50%' }}>
+            <Stack sx={{ border: '1px solid #D8D8D8', borderRadius: '10px', padding: '1rem', width: '100%' }}>
               <Stack fullWidth gap="1rem">
                 <FormControl>
                   <FormLabel sx={{ color: 'black', fontWeight: '600', fontSize: '20px' }}>GST Type</FormLabel>
@@ -792,7 +790,7 @@ const AddCustomers = () => {
           variant="contained"
           endIcon={<TelegramIcon />}
           onClick={handleAddSubmit}
-          sx={{ fontSize: '17px', mx: 'auto', px: '20px', width: '12%', height: '50px' }}
+          sx={{ fontSize: '17px', mx: 'auto', px: '5%', height: '50px' }}
         >
           Add
         </Button>
