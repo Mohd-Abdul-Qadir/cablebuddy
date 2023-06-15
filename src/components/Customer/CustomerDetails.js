@@ -38,6 +38,7 @@ import HardwareDetails from '../PaymentTabs/HardwareDetails';
 import { useParams } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 // .................................switchButton.................................//
 
@@ -123,9 +124,11 @@ function a11yProps(index) {
   };
 }
 
-// ................................................Main Function CustomerDetails............................................//
+// ..................................MainFunction-CustomerDetails......................................//
 
 const CustomerDetails = () => {
+  const isMobile = useMediaQuery('(max-width:600px)');
+
   const { id } = useParams();
   const [value, setValue] = useState(0);
   const [active, setActive] = useState(false);
@@ -169,13 +172,15 @@ const CustomerDetails = () => {
 
   return (
     <>
-      <Box sx={{ padding: '1%', width: '100%', position: 'relative' }}>
-        <Stack direction="row" alignItems="center" gap="1rem">
-          <Typography variant="h2" sx={{ fontWeight: '300' }}>
-            {allData.name}
-          </Typography>
-          <Chip label="Active" sx={{ bgcolor: '#28a745', color: 'white', height: '20px' }} />
-          <Stack direction="row" alignItems="center" sx={{ position: 'absolute', right: 15, top: 0 }}>
+      <Box sx={{ padding: '2%', width: '100%', position: 'relative' }}>
+        <Stack direction={{ xs: 'column', sm: 'row' }} alignItems="center" justifyContent='space-between' gap="1rem">
+          <Stack direction="row" alignItems="center" gap='16px' sx={{ mr: 'auto', order: { xs: 2, sm: 1 } }}>
+            <Typography variant="h2" sx={{ fontWeight: '300' }}>
+              {allData.name}
+            </Typography>
+            <Chip label="Active" sx={{ bgcolor: '#28a745', color: 'white', height: '20px' }} />
+          </Stack>
+          <Stack direction="row" sx={{ ml: 'auto', order: { xs: 1, sm: 2 } }}>
             <FormControlLabel control={<IOSSwitch sx={{ m: 1 }} defaultChecked />} />
             <Button
               variant="outlined"
@@ -218,8 +223,8 @@ const CustomerDetails = () => {
             >
               Additional Details
             </Typography>
-            <Stack direction="row" gap="1rem" sx={{ width: '100%', padding: '1rem' }}>
-              <Stack sx={{ border: '1px solid #D8D8D8', borderRadius: '10px', width: '50%' }}>
+            <Stack direction={{ xs: 'column', sm: 'row' }} gap="1rem" sx={{ width: '100%', padding: '1rem' }}>
+              <Stack sx={{ border: '1px solid #D8D8D8', borderRadius: '10px', width: '100%' }}>
                 <Typography
                   sx={{
                     py: '4%',
@@ -236,7 +241,7 @@ const CustomerDetails = () => {
                   ₹ {allData.balanceAmount}
                 </Typography>
               </Stack>
-              <Stack sx={{ border: '1px solid #D8D8D8', borderRadius: '10px', width: '50%' }}>
+              <Stack sx={{ border: '1px solid #D8D8D8', borderRadius: '10px', width: '100%' }}>
                 <Typography
                   sx={{
                     py: '4%',
@@ -251,7 +256,7 @@ const CustomerDetails = () => {
                 </Typography>
                 <Typography sx={{ textAlign: 'center', py: '1rem', fontWeight: 600 }}>31-May-2023</Typography>
               </Stack>
-              <Stack sx={{ border: '1px solid #D8D8D8', borderRadius: '10px', width: '50%' }}>
+              <Stack sx={{ border: '1px solid #D8D8D8', borderRadius: '10px', width: '100%' }}>
                 <Typography
                   sx={{
                     py: '4%',
@@ -266,7 +271,7 @@ const CustomerDetails = () => {
                 </Typography>
                 <Typography sx={{ textAlign: 'center', py: '1rem', fontWeight: 600 }}>{allData.billingArea}</Typography>
               </Stack>
-              <Stack sx={{ border: '1px solid #D8D8D8', borderRadius: '10px', width: '50%' }}>
+              <Stack sx={{ border: '1px solid #D8D8D8', borderRadius: '10px', width: '100%' }}>
                 <Typography
                   sx={{
                     py: '4%',
@@ -305,10 +310,10 @@ const CustomerDetails = () => {
               Hardware Details
             </Typography>
             <Stack direction="row" gap="1rem" sx={{ width: '100%', padding: '1rem' }}>
-              <TableContainer component={Paper}>
+              <TableContainer>
                 <Table sx={{ minWidth: 650 }} aria-label="simple table">
                   <TableHead>
-                    <TableRow sx={{ border: '1px solid #D8D8D8' }}>
+                    <TableRow sx={{ border: '1px solid #D8D8D8', borderRadius: '10px' }}>
                       <TableCell sx={{ border: '1px solid #D8D8D8', color: 'black', fontWeight: '600' }}>
                         STB NAME
                       </TableCell>
@@ -350,15 +355,15 @@ const CustomerDetails = () => {
             gap="2rem"
             sx={{ width: '100%', border: '1px solid #D8D8D8', bgcolor: 'white', borderRadius: '10px' }}
           >
-            <Stack direction="row" gap="1rem" sx={{ width: '100%', padding: '1rem' }}>
+            <Stack direction={isMobile ? 'column' : 'row'} gap="1rem" sx={{ width: '100%', padding: '1rem' }}>
               <Box sx={{ flexGrow: 1, bgcolor: 'background.paper', display: 'flex', height: 'fit-content' }}>
                 <Tabs
-                  orientation="vertical"
-                  variant="scrollable"
+                  orientation={isMobile ? 'horizontal' : 'vertical'} // Change orientation based on screen size
+                  variant={isMobile ? 'fullWidth' : 'scrollable'} // Adjust variant for mobile screens
+                  scrollButtons={isMobile ? 'auto' : 'on'} // Adjust scroll buttons for mobile screens
                   value={value}
                   onChange={handleChange}
-                  aria-label="Vertical tabs example"
-                  sx={{ borderRight: 1, borderColor: 'divider', width: '180px' }}
+                  sx={{ borderRight: isMobile ? 0 : 1, borderColor: 'divider', width: isMobile ? '100%' : '180px' }}
                 >
                   <Tab
                     label="Collect Payment"
