@@ -81,9 +81,8 @@ const AgentDetails = () => {
 
   return (
     <>
-      {/* <Container> */}
-      <Box sx={{ marginBottom: '20px' }}>
-        <Typography sx={{ color: '#0C3547', fontWeight: '400', fontSize: '48px' }}>Agent Name</Typography>
+      <Box sx={{ marginBottom: '20px', padding: '10px' }}>
+        <Typography sx={{ color: '#0C3547', fontWeight: '400', fontSize: { xs: '40px', sm: '48px' } }}>Agent Name</Typography>
         <Box sx={{ display: 'flex', gap: '1rem' }}>
           <Button
             variant="outlined"
@@ -107,8 +106,8 @@ const AgentDetails = () => {
       </Box>
 
       <Container maxWidth="xl">
-        <Grid container spacing={2}>
-          <Grid item xs={6}>
+        <Grid container spacing={2} rowGap='16px'>
+          <Grid item xs={12} lg={6}>
             <Box
               sx={{
                 width: '100%',
@@ -116,27 +115,30 @@ const AgentDetails = () => {
                 backgroundColor: 'white',
               }}
             >
-              <div
-                style={{
+              <Box
+                sx={{
                   borderRadius: '10px 10px 0 0',
                   padding: '0rem 1rem 2px',
                   display: 'flex',
-                  flexDirection: 'row',
+                  flexDirection: { xs: 'column', sm: 'row' },
                   justifyContent: 'space-between',
+                  alignItems: 'center'
                 }}
               >
-                <h3>Transaction Activity</h3>
+                <h3 style={{ marginRight: 'auto' }}>Transaction Activity</h3>
 
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
-                  <DemoContainer components={['SingleInputDateRangeField']}>
-                    <DateRangePicker slots={{ field: SingleInputDateRangeField }} />
-                  </DemoContainer>
+                  <Box sx={{ overflow: 'hidden', width: '100%', mb: { xs: '10px', sm: '0px' } }}>
+                    <DemoContainer components={['SingleInputDateRangeField']} sx={{ overflow: 'hidden', width: '100%' }}>
+                      <DateRangePicker slots={{ field: SingleInputDateRangeField }} />
+                    </DemoContainer>
+                  </Box>
                 </LocalizationProvider>
-              </div>
+              </Box>
               <AgentTable />
             </Box>
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={12} lg={6}>
             <Box
               sx={{
                 width: '100%',
@@ -249,7 +251,7 @@ const AgentDetails = () => {
             </Card>
           </Grid>
 
-          <Grid item xs={6}>
+          <Grid item xs={12} lg={6}>
             <Box
               sx={{
                 width: '100%',
@@ -299,7 +301,7 @@ const AgentDetails = () => {
               </Button> */}
             </Box>
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={12} lg={6}>
             <Box
               sx={{
                 width: '100%',
@@ -352,7 +354,7 @@ const AgentDetails = () => {
             </Box>
           </Grid>
         </Grid>
-      </Container>
+      </Container >
     </>
   );
 };

@@ -149,15 +149,15 @@ const CollectPayment = (props) => {
 
   return (
     <Box sx={{ width: '100%' }}>
-      <Stack direction="row" alignItems="center" justifyContent="space-between" width="100%">
-        <Typography>
+      <Stack direction={{ xs: 'column', sm: 'row' }} alignItems="center" justifyContent="space-between" width="100%" gap='15px'>
+        <Typography sx={{ textAlign: 'left' }}>
           <b>Collect Payment</b>
         </Typography>
         <PaymentLink data={data} />
       </Stack>
-      <Stack direction="row" gap="1rem" padding="1rem" sx={{ width: '100%' }}>
+      <Stack direction={{ xs: 'column', md: 'row' }} gap="1rem" px="5px" py='16px' sx={{ width: '100%' }}>
         <Stack gap="1rem">
-          <Stack sx={{ border: '1px solid #D8D8D8', borderRadius: '10px', width: '220px' }}>
+          <Stack sx={{ border: '1px solid #D8D8D8', borderRadius: '10px', width: { xs: '100%', md: '220px' } }}>
             <Typography
               sx={{
                 py: '4%',
@@ -186,7 +186,7 @@ const CollectPayment = (props) => {
               Till Date : <CalenderPop />
             </Typography>
           </Stack>
-          <Stack sx={{ border: '1px solid #D8D8D8', borderRadius: '10px', width: '220px' }}>
+          <Stack sx={{ border: '1px solid #D8D8D8', borderRadius: '10px', width: { xs: '100%', md: '220px' } }}>
             <Typography
               sx={{
                 py: '4%',
@@ -203,7 +203,7 @@ const CollectPayment = (props) => {
               ₹<span>250</span>
             </Typography>
           </Stack>
-          <Stack sx={{ border: '1px solid #D8D8D8', borderRadius: '10px', width: '220px' }}>
+          <Stack sx={{ border: '1px solid #D8D8D8', borderRadius: '10px', width: { xs: '100%', md: '220px' } }}>
             <Typography
               sx={{
                 py: '4%',
@@ -235,13 +235,13 @@ const CollectPayment = (props) => {
           sx={{
             border: '1px solid #D8D8D8',
             borderRadius: '10px',
-            gap: '12px',
-            width: '500px',
+            gap: { xs: '16px', md: '12px' },
+            width: { xs: '100%', md: '500px' },
             py: '10px',
             px: '15px',
           }}
         >
-          <Stack direction="row" alignItems="center">
+          <Stack direction={{ xs: 'column', md: 'row' }} alignItems="center">
             <Stack sx={{ width: '50%' }}>
               <Typography>Paid Amount</Typography>
             </Stack>
@@ -255,7 +255,7 @@ const CollectPayment = (props) => {
               }}
             />
           </Stack>
-          <Stack direction="row" alignItems="center">
+          <Stack direction={{ xs: 'column', md: 'row' }} alignItems="center">
             <Stack sx={{ width: '50%' }}>
               <Typography>Discount</Typography>
             </Stack>
@@ -269,7 +269,7 @@ const CollectPayment = (props) => {
               }}
             />
           </Stack>
-          <Stack direction="row" alignItems="center">
+          <Stack direction={{ xs: 'column', md: 'row' }} alignItems="center">
             <Stack sx={{ width: '50%' }}>
               <Typography>Mode</Typography>
             </Stack>
@@ -288,7 +288,7 @@ const CollectPayment = (props) => {
               ))}
             </TextField>
           </Stack>
-          <Stack direction="row" alignItems="center">
+          <Stack direction={{ xs: 'column', md: 'row' }} alignItems="center">
             <Stack sx={{ width: '50%' }}>
               <Typography>Record Time</Typography>
             </Stack>
@@ -303,14 +303,14 @@ const CollectPayment = (props) => {
               {/* </DemoItem> */}
             </LocalizationProvider>
           </Stack>
-          <Stack direction="row" alignItems="center">
+          <Stack direction={{ xs: 'column', md: 'row' }} alignItems="center">
             <Stack sx={{ width: '50%' }}>
               <Typography>Comment</Typography>
             </Stack>
             <TextField fullWidth id="outlined-multiline-flexible" placeholder="Comment" multiline rows={3} />
           </Stack>
-          <Stack direction="row" alignItems="center" gap="2rem">
-            <Stack direction="row" alignItems="center" gap="40px">
+          <Stack direction={{ xs: 'column', sm: 'row' }} alignItems="center" gap="2rem">
+            <Stack direction="row" alignItems="center" gap={{ xs: '25px', sm: '40px' }}>
               <Stack sx={{ width: '100%' }}>
                 <Typography>Total Payment</Typography>
               </Stack>
@@ -322,12 +322,12 @@ const CollectPayment = (props) => {
                   textAlign: 'center',
                   borderRadius: '5px',
                 }}
-                // onChange={(e) => setTotalPayment(e.target.value)}
+              // onChange={(e) => setTotalPayment(e.target.value)}
               >
                 ₹ <span>{price + discountAmount}</span>
               </Typography>
             </Stack>
-            <Stack direction="row" alignItems="center" gap="40px">
+            <Stack direction="row" alignItems="center" gap={{ xs: '25px', sm: '40px' }}>
               <Stack sx={{ width: '100%' }}>
                 <Typography>New Balance</Typography>
               </Stack>

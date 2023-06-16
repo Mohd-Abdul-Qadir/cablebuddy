@@ -355,15 +355,126 @@ const CustomerDetails = () => {
             gap="2rem"
             sx={{ width: '100%', border: '1px solid #D8D8D8', bgcolor: 'white', borderRadius: '10px' }}
           >
-            <Stack direction={isMobile ? 'column' : 'row'} gap="1rem" sx={{ width: '100%', padding: '1rem' }}>
+            <Stack direction="row" gap="1rem" sx={{ display: { xs: 'none', lg: 'block' }, width: '100%', padding: '1rem' }}>
               <Box sx={{ flexGrow: 1, bgcolor: 'background.paper', display: 'flex', height: 'fit-content' }}>
                 <Tabs
-                  orientation={isMobile ? 'horizontal' : 'vertical'} // Change orientation based on screen size
-                  variant={isMobile ? 'fullWidth' : 'scrollable'} // Adjust variant for mobile screens
-                  scrollButtons={isMobile ? 'auto' : 'on'} // Adjust scroll buttons for mobile screens
+                  orientation="vertical"
+                  variant="scrollable"
                   value={value}
                   onChange={handleChange}
-                  sx={{ borderRight: isMobile ? 0 : 1, borderColor: 'divider', width: isMobile ? '100%' : '180px' }}
+                  aria-label="Vertical tabs example"
+                  sx={{ borderRight: 1, borderColor: 'divider', width: '180px' }}
+                >
+                  <Tab
+                    label="Collect Payment"
+                    icon={<PaymentIcon />}
+                    {...a11yProps(0)}
+                    sx={{ color: 'black', fontWeight: '400' }}
+                  />
+                  <Tab
+                    label="Renew"
+                    icon={<AutorenewIcon />}
+                    {...a11yProps(1)}
+                    sx={{ color: 'black', fontWeight: '400' }}
+                  />
+                  <Tab
+                    label="Subscription"
+                    icon={<SubscriptionIcon />}
+                    {...a11yProps(2)}
+                    sx={{ color: 'black', fontWeight: '400' }}
+                  />
+                  <Tab
+                    label="Adjust Balance"
+                    icon={<BalanceIcon />}
+                    {...a11yProps(3)}
+                    sx={{ color: 'black', fontWeight: '400' }}
+                  />
+                  <Tab
+                    label="Add On Bill"
+                    icon={<AddIcon />}
+                    {...a11yProps(4)}
+                    sx={{ color: 'black', fontWeight: '400' }}
+                  />
+                  <Tab
+                    label="Active/Inactive"
+                    icon={<ActiveIcon />}
+                    {...a11yProps(5)}
+                    sx={{ color: 'black', fontWeight: '400' }}
+                  />
+                  <Tab
+                    label="Additional Charge"
+                    icon={<ChargeIcon />}
+                    {...a11yProps(6)}
+                    sx={{ color: 'black', fontWeight: '400' }}
+                  />
+                  <Tab
+                    label="Balance History"
+                    icon={<HistoryIcon />}
+                    {...a11yProps(7)}
+                    sx={{ color: 'black', fontWeight: '400' }}
+                  />
+                  <Tab
+                    label="Hardware Details"
+                    icon={<HardwareIcon />}
+                    {...a11yProps(8)}
+                    sx={{ color: 'black', fontWeight: '400' }}
+                  />
+                  <Tab
+                    label="Customer Follow Up"
+                    icon={<FollowUpIcon />}
+                    {...a11yProps(9)}
+                    sx={{ color: 'black', fontWeight: '400' }}
+                  />
+                  <Tab
+                    label="Customer Edit"
+                    icon={<EditIcon />}
+                    {...a11yProps(10)}
+                    sx={{ color: 'black', fontWeight: '400' }}
+                  />
+                </Tabs>
+                <TabPanel value={value} index={0}>
+                  <CollectPayment allData={allData} />
+                </TabPanel>
+                <TabPanel value={value} index={1}>
+                  <Renew allData={allData} />
+                </TabPanel>
+                <TabPanel value={value} index={2}>
+                  <Subscription allData={allData} />
+                </TabPanel>
+                <TabPanel value={value} index={3}>
+                  <AdjustBalance />
+                </TabPanel>
+                <TabPanel value={value} index={4}>
+                  <AddOnBill allData={allData} />
+                </TabPanel>
+                <TabPanel value={value} index={5}>
+                  <ActiveInactive />
+                </TabPanel>
+                <TabPanel value={value} index={6}>
+                  <AdditionalCharge />
+                </TabPanel>
+                <TabPanel value={value} index={7}>
+                  <BalanceHistory allData={allData} />
+                </TabPanel>
+                <TabPanel value={value} index={8}>
+                  <HardwareDetails allData={allData} />
+                </TabPanel>
+                <TabPanel value={value} index={9}>
+                  <CustomerFollowUp />
+                </TabPanel>
+                <TabPanel value={value} index={10}>
+                  <CustomerEdit allData={allData} />
+                </TabPanel>
+              </Box>
+            </Stack>
+            <Stack direction="column" gap="1rem" sx={{ display: { xs: 'block', lg: 'none' }, width: '100%', padding: '2%' }}>
+              <Box sx={{ bgcolor: 'background.paper', height: 'fit-content' }}>
+                <Tabs
+                  variant="scrollable"
+                  scrollButtons
+                  allowScrollButtonsMobile
+                  value={value}
+                  onChange={handleChange}
                 >
                   <Tab
                     label="Collect Payment"

@@ -139,7 +139,7 @@ const CustomerEdit = (props) => {
   };
 
   return (
-    <Stack gap="3rem" sx={{ width: '55vw' }}>
+    <Stack gap="3rem" sx={{ width: { xs: '100%', lg: '55vw' } }}>
       <Stack
         direction="column"
         justifyContent="center"
@@ -162,8 +162,8 @@ const CustomerEdit = (props) => {
           General Detail
         </Typography>
         <Stack gap="1rem" fullWidth sx={{ width: '100%', padding: '1rem' }}>
-          <Stack direction="row" alignItems="center">
-            <Typography sx={{ width: '50%' }}>Customer Name* :</Typography>
+          <Stack direction={{ xs: 'column', sm: 'row' }} alignItems="center">
+            <Typography sx={{ width: { xs: '100%', sm: '50%' } }}>Customer Name* :</Typography>
             <TextField
               fullWidth
               id="outlined-basic"
@@ -174,8 +174,8 @@ const CustomerEdit = (props) => {
               autoComplete="off"
             />
           </Stack>
-          <Stack direction="row" alignItems="center">
-            <Typography sx={{ width: '50%' }}>Customer Billing Name* :</Typography>
+          <Stack direction={{ xs: 'column', sm: 'row' }} alignItems="center">
+            <Typography sx={{ width: { xs: '100%', sm: '50%' } }}>Customer Billing Name* :</Typography>
             <TextField
               fullWidth
               id="outlined-basic"
@@ -186,8 +186,8 @@ const CustomerEdit = (props) => {
               autoComplete="off"
             />
           </Stack>
-          <Stack direction="row" alignItems="center">
-            <Typography sx={{ width: '50%' }}>Billing Area :</Typography>
+          <Stack direction={{ xs: 'column', sm: 'row' }} alignItems="center">
+            <Typography sx={{ width: { xs: '100%', sm: '50%' } }}>Billing Area :</Typography>
             <TextField fullWidth label="Billing Area" id="outlined-select-currency" select sx={{ bgcolor: '#F8F8F8' }}>
               {BillingArea.map((option) => (
                 <MenuItem key={option.value} value={option.value}>
@@ -196,8 +196,8 @@ const CustomerEdit = (props) => {
               ))}
             </TextField>
           </Stack>
-          <Stack direction="row" alignItems="center">
-            <Typography sx={{ width: '50%' }}>Billing No :</Typography>
+          <Stack direction={{ xs: 'column', sm: 'row' }} alignItems="center">
+            <Typography sx={{ width: { xs: '100%', sm: '50%' } }}>Billing No :</Typography>
             <TextField
               type="number"
               fullWidth
@@ -209,8 +209,8 @@ const CustomerEdit = (props) => {
               autoComplete="off"
             />
           </Stack>
-          <Stack direction="row" alignItems="center">
-            <Typography sx={{ width: '50%' }}>GST No :</Typography>
+          <Stack direction={{ xs: 'column', sm: 'row' }} alignItems="center">
+            <Typography sx={{ width: { xs: '100%', sm: '50%' } }}>GST No :</Typography>
             <TextField
               type="number"
               fullWidth
@@ -222,8 +222,8 @@ const CustomerEdit = (props) => {
               autoComplete="off"
             />
           </Stack>
-          <Stack direction="row" alignItems="center">
-            <Typography sx={{ width: '50%' }}>Mobile Number 1 :</Typography>
+          <Stack direction={{ xs: 'column', sm: 'row' }} alignItems="center">
+            <Typography sx={{ width: { xs: '100%', sm: '50%' } }}>Mobile Number 1 :</Typography>
             <TextField
               type="number"
               fullWidth
@@ -235,8 +235,8 @@ const CustomerEdit = (props) => {
               autoComplete="off"
             />
           </Stack>
-          <Stack direction="row" alignItems="center">
-            <Typography sx={{ width: '50%' }}>Mobile Number 2 :</Typography>
+          <Stack direction={{ xs: 'column', sm: 'row' }} alignItems="center">
+            <Typography sx={{ width: { xs: '100%', sm: '50%' } }}>Mobile Number 2 :</Typography>
             <TextField
               type="number"
               fullWidth
@@ -248,8 +248,8 @@ const CustomerEdit = (props) => {
               autoComplete="off"
             />
           </Stack>
-          <Stack direction="row" alignItems="center">
-            <Typography sx={{ width: '50%' }}>Email :</Typography>
+          <Stack direction={{ xs: 'column', sm: 'row' }} alignItems="center">
+            <Typography sx={{ width: { xs: '100%', sm: '50%' } }}>Email :</Typography>
             <TextField
               type="email"
               onChange={(e) => setEmail(e.target.value)}
@@ -261,8 +261,8 @@ const CustomerEdit = (props) => {
               autoComplete="off"
             />
           </Stack>
-          <Stack direction="row" alignItems="center">
-            <Typography sx={{ width: '50%' }}>Address :</Typography>
+          <Stack direction={{ xs: 'column', sm: 'row' }} alignItems="center">
+            <Typography sx={{ width: { xs: '100%', sm: '50%' } }}>Address :</Typography>
             <TextField
               fullWidth
               onChange={(e) => setAddress(e.target.value)}
@@ -274,8 +274,8 @@ const CustomerEdit = (props) => {
               sx={{ bgcolor: '#F8F8F8' }}
             />
           </Stack>
-          <Stack direction="row" alignItems="center">
-            <Typography sx={{ width: '50%' }}>Security Deposit :</Typography>
+          <Stack direction={{ xs: 'column', sm: 'row' }} alignItems="center">
+            <Typography sx={{ width: { xs: '100%', sm: '50%' } }}>Security Deposit :</Typography>
             <TextField
               fullWidth
               id="outlined-basic"
@@ -286,8 +286,8 @@ const CustomerEdit = (props) => {
               autoComplete="off"
             />
           </Stack>
-          <Stack direction="row" alignItems="center">
-            <Typography sx={{ width: '50%' }}>Customer Code :</Typography>
+          <Stack direction={{ xs: 'column', sm: 'row' }} alignItems="center">
+            <Typography sx={{ width: { xs: '100%', sm: '50%' } }}>Customer Code :</Typography>
             <TextField
               fullWidth
               id="outlined-basic"
@@ -298,8 +298,8 @@ const CustomerEdit = (props) => {
               autoComplete="off"
             />
           </Stack>
-          <Stack direction="row" alignItems="center">
-            <Typography sx={{ width: '50%' }}>Remark :</Typography>
+          <Stack direction={{ xs: 'column', sm: 'row' }} alignItems="center">
+            <Typography sx={{ width: { xs: '100%', sm: '50%' } }}>Remark :</Typography>
             <TextField
               fullWidth
               onChange={(e) => setRemark(e.target.value)}
@@ -333,8 +333,8 @@ const CustomerEdit = (props) => {
         >
           Billing Detail
         </Typography>
-        <Stack direction="row" gap="1rem" fullWidth sx={{ width: '100%', padding: '1rem' }}>
-          <Stack sx={{ border: '1px solid #D8D8D8', borderRadius: '10px', padding: '1rem', width: '50%' }}>
+        <Stack direction={{xs: 'column', md: 'row'}} gap="1rem" fullWidth sx={{ width: '100%', padding: '1rem' }}>
+          <Stack sx={{ border: '1px solid #D8D8D8', borderRadius: '10px', padding: '1rem', width: '100%' }}>
             <Stack fullWidth gap="2rem">
               <FormControl>
                 <FormLabel id="demo" sx={{ color: 'black', fontWeight: '600', fontSize: '20px' }}>
@@ -355,7 +355,7 @@ const CustomerEdit = (props) => {
               </TextField>
             </Stack>
           </Stack>
-          <Stack sx={{ border: '1px solid #D8D8D8', borderRadius: '10px', padding: '1rem', width: '50%' }}>
+          <Stack sx={{ border: '1px solid #D8D8D8', borderRadius: '10px', padding: '1rem', width: '100%' }}>
             <Stack fullWidth gap="1rem">
               <FormControl>
                 <FormLabel sx={{ color: 'black', fontWeight: '600', fontSize: '20px' }}>Bill Type</FormLabel>
@@ -366,7 +366,7 @@ const CustomerEdit = (props) => {
               </FormControl>
             </Stack>
           </Stack>
-          <Stack sx={{ border: '1px solid #D8D8D8', borderRadius: '10px', padding: '1rem', width: '50%' }}>
+          <Stack sx={{ border: '1px solid #D8D8D8', borderRadius: '10px', padding: '1rem', width: '100%' }}>
             <Stack fullWidth gap="1rem">
               <FormControl>
                 <FormLabel sx={{ color: 'black', fontWeight: '600', fontSize: '20px' }}>GST Type</FormLabel>
@@ -388,7 +388,7 @@ const CustomerEdit = (props) => {
         <Button
           variant="contained"
           endIcon={<TelegramIcon />}
-          sx={{ fontSize: '15px', height: '50px', width: '15%' }}
+          sx={{ fontSize: '15px', height: '50px', px: '8%' }}
           onClick={updateCustomer}
         >
           Update

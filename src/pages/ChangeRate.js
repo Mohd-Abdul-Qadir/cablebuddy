@@ -1,17 +1,20 @@
 import React, { useState } from 'react';
-import { FormControl, TextField, Button, Box } from '@mui/material';
+import { FormControl, TextField, Button, Box, Stack } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import TelegramIcon from '@mui/icons-material/Telegram';
 
 const ChangeRate = () => {
   return (
     <>
-      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+      <Stack direction={{ xs: 'column', sm: 'row' }} justifyContent='space-between'>
         <h2>BCN Basic RYP</h2>
         <Button
           variant="outlined"
+          onClick={() => handleDelete(props.id)}
           startIcon={<DeleteIcon />}
           sx={{
+            ml: 'auto',
+            width: 'fit-content',
             height: 'fit-content',
             borderColor: '#ff3333',
             color: '#ff3333',
@@ -24,7 +27,7 @@ const ChangeRate = () => {
         >
           Delete
         </Button>
-      </div>
+      </Stack>
       <div
         style={{ backgroundColor: '#F9FAFB', height: '100%', width: '100%', paddingRight: '10px', paddingLeft: '10px' }}
       >
@@ -33,6 +36,8 @@ const ChangeRate = () => {
             width: '100%',
             borderRadius: '10px',
             backgroundColor: 'white',
+            border: '1px solid rgba(0,0,0,.125)',
+            mt: '12px'
           }}
         >
           <div

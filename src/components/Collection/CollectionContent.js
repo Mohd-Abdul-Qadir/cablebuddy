@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
-import { Box, Typography, Paper, Stack, styled, Button, Slide } from '@mui/material';
+import { Box, Typography, Paper, Stack, styled, Button, TextField, MenuItem } from '@mui/material';
 import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import SummarizeOutlinedIcon from '@mui/icons-material/SummarizeOutlined';
@@ -18,7 +17,7 @@ import Marquee from 'react-fast-marquee';
 const scrollingText = {
   textTransform: 'capitalize',
   fontWeight: '500',
-  fontSize: '18px',
+  fontSize: { xs: '13px', sm: '18px' },
   color: '#c10d0d',
   animationName: 'example',
   animationDuration: '5s',
@@ -28,6 +27,8 @@ const scrollingText = {
 };
 
 const StyledButton = styled(Button)(({ theme, selected }) => ({
+  // fontSize: { xs: '10px', sm: '16px' },
+  lineHeight: '14px',
   padding: '14px',
   color: selected ? '#fff' : theme.palette.text.primary,
   backgroundColor: selected ? '#2065D1' : 'transparent',
@@ -143,27 +144,24 @@ const CollectionContent = () => {
               </Box>
               <Stack padding="1rem" gap="10px">
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
-                  <DemoContainer components={['SingleInputDateRangeField']}>
-                    <DateRangePicker slots={{ field: SingleInputDateRangeField }} />
-                  </DemoContainer>
+                  <Box sx={{ overflow: 'hidden', width: '100%', mb: { xs: '10px', sm: '0px' } }}>
+                    <DemoContainer components={['SingleInputDateRangeField']} sx={{ overflow: 'hidden', width: '100%' }}>
+                      <DateRangePicker slots={{ field: SingleInputDateRangeField }} />
+                    </DemoContainer>
+                  </Box>
                 </LocalizationProvider>
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: '1rem', mt: '5px' }}>
-                  <FormControl sx={{ width: '100%' }} size="small">
-                    <InputLabel id="demo-select-small" sx={{ color: 'black', fontWeight: '400', fontSize: '15px' }}>
-                      Select Agent
-                    </InputLabel>
-                    <Select
-                      labelId="demo-select-small"
-                      id="demo-select-small"
-                      value={agent}
-                      label="Select Agent"
-                      //   onChange={handleAgent}
-                    >
-                      {agent.map((item) => (
-                        <MenuItem value={'KK Cable Network-(Admin)'}>{console.log(item, 'this is item')}</MenuItem>
-                      ))}
-                    </Select>
-                  </FormControl>
+                  <TextField
+                    fullWidth
+                    select
+                    size='small'
+                    value={agent}
+                  // onChange={handleAgent}
+                  >
+                    <MenuItem value={'agent1'}>Agent 1</MenuItem>
+                    <MenuItem value={'agent2'}>Agent 2</MenuItem>
+                    <MenuItem value={'agent3'}>Agent 3</MenuItem>
+                  </TextField>
                   <Button variant="contained" onClick={handleReset} sx={{ px: '5%', py: '8px' }}>
                     Reset
                   </Button>
@@ -209,27 +207,27 @@ const CollectionContent = () => {
             >
               <Typography sx={{ textTransform: 'capitalize', fontWeight: '500', fontSize: '16px' }}>Summary</Typography>
             </Box>
-            <Stack direction="column" padding="1rem" gap="1rem">
-              <Stack direction="row" gap="24px">
+            <Stack direction="column" padding="15px" gap="1rem">
+              <Stack direction={{ xs: 'column', md: 'row' }} gap="24px">
                 <Stack
                   justifyContent="center"
                   alignItems="center"
                   sx={{ height: '200px', flex: 1, border: '1px solid #D8D8D8', borderRadius: '8px' }}
                 >
-                  <Typography sx={{ fontWeight: '400', fontSize: '40px', color: '#F7941D' }}>
+                  <Typography sx={{ fontWeight: '400', fontSize: { xs: '25px', sm: '30px', md: '40px' }, color: '#F7941D' }}>
                     ₹ {totalTransactionAmount}
                   </Typography>
-                  <Typography sx={{ fontWeight: '400', fontSize: '40px', color: '#0C3547' }}>Total Paid</Typography>
+                  <Typography sx={{ fontWeight: '400', fontSize: { xs: '25px', sm: '30px', md: '40px' }, color: '#0C3547' }}>Total Paid</Typography>
                 </Stack>
                 <Stack
                   justifyContent="center"
                   alignItems="center"
                   sx={{ height: '200px', flex: 1, border: '1px solid #D8D8D8', borderRadius: '8px' }}
                 >
-                  <Typography sx={{ fontWeight: '400', fontSize: '40px', color: '#F7941D' }}>
+                  <Typography sx={{ fontWeight: '400', fontSize: { xs: '25px', sm: '30px', md: '40px' }, color: '#F7941D' }}>
                     ₹ {totalTransactionAmount}
                   </Typography>
-                  <Typography sx={{ fontWeight: '400', fontSize: '40px', color: '#0C3547' }}>Total Payments</Typography>
+                  <Typography sx={{ fontWeight: '400', fontSize: { xs: '25px', sm: '30px', md: '40px' }, color: '#0C3547' }}>Total Payments</Typography>
                 </Stack>
               </Stack>
               <Stack sx={{ overflowX: 'auto', whiteSpace: 'nowrap' }}>

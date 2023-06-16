@@ -13,13 +13,13 @@ const HardwareDetails = (props) => {
 
   console.log(data, ' it is props');
   return (
-    <Box sx={{ width: '55vw' }}>
+    <Box sx={{ width: { xs: '100%', md: '55vw' } }}>
       <Stack mb="2rem">
         <Typography>
           <b>Add On Bill</b>
         </Typography>
       </Stack>
-      <Stack gap="20px" sx={{ border: '1px solid #D8D8D8', padding: '2rem', borderRadius: '10px', width: '20rem' }}>
+      <Stack gap="20px" sx={{ border: '1px solid #D8D8D8', padding: {xs: '5%', md: '20px'}, borderRadius: '10px', width: { xs: '100%', md: '20rem' } }}>
         <Stack>
           <Typography>STB NAME</Typography>
           <Input type="text" value={stbName} />
@@ -43,7 +43,7 @@ const HardwareDetails = (props) => {
           </ButtonBase>
         </Stack>
       </Stack>
-    </Box>
+    </Box >
   );
 };
 

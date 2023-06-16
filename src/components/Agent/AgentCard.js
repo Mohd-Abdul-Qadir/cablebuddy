@@ -38,7 +38,7 @@ const AgentCard = (props) => {
     >
       <Stack direction="column" justifyContent="center" alignItems="center" width="100%" marginBottom="20px">
         <Stack sx={{ borderRadius: '10px', width: '100%', gap: '20px' }}>
-          <Stack direction="row" gap="2%">
+          <Stack direction={{ xs: 'column', sm: 'row' }} gap="2%" rowGap='10px'>
             <Paper
               elevation={2}
               sx={{
