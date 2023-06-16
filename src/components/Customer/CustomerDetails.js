@@ -131,9 +131,9 @@ const CustomerDetails = () => {
 
   const { id } = useParams();
   const [value, setValue] = useState(0);
-  const [active, setActive] = useState(false);
-
   const [allData, setAllData] = useState([]);
+  const [isToggled, setToggle] = useState(true);
+  const [unit, setUnit] = useState('c');
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -169,19 +169,28 @@ const CustomerDetails = () => {
         toast.error('Server error');
       });
   };
+  const toggle = () => {
+    setToggle(!isToggled);
+    isToggled ? setUnit('inactive') : setUnit('active');
+  };
 
+  console.log(unit, 'this is toggle');
   return (
     <>
       <Box sx={{ padding: '2%', width: '100%', position: 'relative' }}>
-        <Stack direction={{ xs: 'column', sm: 'row' }} alignItems="center" justifyContent='space-between' gap="1rem">
-          <Stack direction="row" alignItems="center" gap='16px' sx={{ mr: 'auto', order: { xs: 2, sm: 1 } }}>
+        <Stack direction={{ xs: 'column', sm: 'row' }} alignItems="center" justifyContent="space-between" gap="1rem">
+          <Stack direction="row" alignItems="center" gap="16px" sx={{ mr: 'auto', order: { xs: 2, sm: 1 } }}>
             <Typography variant="h2" sx={{ fontWeight: '300' }}>
               {allData.name}
             </Typography>
-            <Chip label="Active" sx={{ bgcolor: '#28a745', color: 'white', height: '20px' }} />
+            {isToggled ? (
+              <Chip label="Active" sx={{ bgcolor: '#28a745', color: 'white', height: '20px' }} />
+            ) : (
+              <Chip label="Inactive" sx={{ bgcolor: 'red', color: 'white', height: '20px' }} />
+            )}
           </Stack>
           <Stack direction="row" sx={{ ml: 'auto', order: { xs: 1, sm: 2 } }}>
-            <FormControlLabel control={<IOSSwitch sx={{ m: 1 }} defaultChecked />} />
+            <FormControlLabel control={<IOSSwitch sx={{ m: 1 }} defaultChecked />} onClick={toggle} />
             <Button
               variant="outlined"
               startIcon={<DeleteIcon />}
