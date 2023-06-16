@@ -34,7 +34,7 @@ const CompaniesContent = () => {
         mt="20px"
       >
         <Stack sx={{ borderRadius: '10px', width: '100%', gap: '20px' }}>
-          <Stack direction="row" gap="2%">
+          <Stack direction={{ xs: 'column', sm: 'row' }} gap="2%" rowGap='12px'>
             <Paper
               elevation={6}
               sx={{

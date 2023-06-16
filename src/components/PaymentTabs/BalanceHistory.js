@@ -47,7 +47,7 @@ const BalanceHistory = (props) => {
   };
 
   return (
-    <Box sx={{ width: '55vw' }}>
+    <Box sx={{ width: { xs: '100%', md: '55vw' } }}>
       <Stack direction="row" alignItems="center" justifyContent="space-between" width="100%">
         <Typography>
           <b>Balance History</b>

@@ -52,7 +52,7 @@ const AddOnBill = (props) => {
           <b>Add On Bill</b>
         </Typography>
       </Stack>
-      <Stack direction="row" gap="1rem" padding="1rem" sx={{ width: '100%' }}>
+      <Stack direction={{ xs: 'column', md: 'row' }} gap="1rem" px='5px' py='15px' sx={{ width: '100%' }}>
         <Stack sx={{ border: '1px solid #D8D8D8', borderRadius: '10px', width: '220px' }}>
           <Typography
             sx={{
@@ -78,18 +78,18 @@ const AddOnBill = (props) => {
             border: '1px solid #D8D8D8',
             borderRadius: '10px',
             gap: '12px',
-            width: '500px',
+            width: { xs: '100%', md: '500px' },
             py: '10px',
             px: '15px',
           }}
         >
-          <Stack direction="row" alignItems="center">
+          <Stack direction={{ xs: 'column', md: 'row' }} alignItems="center">
             <Stack sx={{ width: '50%' }}>
               <Typography>Item Name</Typography>
             </Stack>
             <TextField fullWidth placeholder="Item" id="outlined-start-adornment" />
           </Stack>
-          <Stack direction="row" alignItems="center">
+          <Stack direction={{ xs: 'column', md: 'row' }} alignItems="center">
             <Stack sx={{ width: '50%' }}>
               <Typography>Price</Typography>
             </Stack>
@@ -103,8 +103,8 @@ const AddOnBill = (props) => {
               }}
             />
           </Stack>
-          <Stack direction="row" alignItems="center" gap="2rem">
-            <Stack sx={{ width: '28%' }}>
+          <Stack direction='row' alignItems="center" gap="2rem">
+            <Stack sx={{ width: { xs: '60%', md: '28%' } }}>
               <Typography>New Balance</Typography>
             </Stack>
             <Typography

@@ -65,21 +65,20 @@ const Renew = (props) => {
   const [data, setData] = useState(props.allData);
   return (
     <Box sx={{ width: '100%' }}>
-      <Stack direction="row" padding="1rem" sx={{ width: '100%' }}>
-        <Stack direction="column" gap="2rem">
-          <Stack direction="row">
+      <Stack direction={{ xs: 'column', md: 'row' }} justifyContent='space-between' rowGap='12px' px='5px' py='15px' sx={{ width: '100%' }}>
+        <Stack direction="column" gap="2rem" width={{ xs: '100%', md: '50%' }}>
+          <Stack direction="row" justifyContent='space-between'>
             <Typography sx={{ width: '40%' }}>Customer: </Typography>
             <Typography>{data.name}</Typography>
           </Stack>
-          <Stack direction="row">
+          <Stack direction="row" justifyContent='space-between'>
             <Typography sx={{ width: '40%' }}>Current Balance: </Typography>
-            <Typography
-              sx={{ bgcolor: '#072534', color: 'white', width: '50px', textAlign: 'center', borderRadius: '5px' }}
+            <Typography sx={{ bgcolor: '#072534', color: 'white', width: '50px', textAlign: 'center', borderRadius: '5px' }}
             >
               ₹ <span> {data.subdcriptionAmount}</span>
             </Typography>
           </Stack>
-          <Stack direction="row">
+          <Stack direction="row" justifyContent='space-between'>
             <Typography sx={{ width: '40%' }}>Last Bill Date: </Typography>
             <Typography>
               31-May-2023
@@ -89,19 +88,19 @@ const Renew = (props) => {
           </Stack>
           <Stack>
             <Typography>Date:</Typography>
-            <Stack direction="row" alignItems="center" gap="15px" sx={{}}>
+            <Stack direction={{ xs: 'column', sm: 'row' }} alignItems="center" justifyContent='space-between' gap="15px" mt='5px'>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DatePicker fullWidth defaultValue={dayjs('2022-04-17')} sx={{ bgcolor: '#F8F8F8', width: '35%' }} />
+                <DatePicker label='Start Date' sx={{ bgcolor: '#F8F8F8', width: '100%' }} />
               </LocalizationProvider>
               <Typography>
                 <b>To</b>
               </Typography>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DatePicker fullWidth defaultValue={dayjs('2022-04-17')} sx={{ bgcolor: '#F8F8F8', width: '35%' }} />
+                <DatePicker label='End Date' sx={{ bgcolor: '#F8F8F8', width: '100%' }} />
               </LocalizationProvider>
             </Stack>
           </Stack>
-          <Stack direction="row" alignItems="center">
+          <Stack direction="row" alignItems="center" justifyContent='space-between'>
             <Typography sx={{ width: '40%' }}>Period:</Typography>
             <TextField select id="Months" defaultValue="1 Month" sx={{ minWidth: '45%' }}>
               {Months.map((option) => (
@@ -113,7 +112,7 @@ const Renew = (props) => {
           </Stack>
         </Stack>
         <Divider orientation="vertical" flexItem sx={{ marginRight: '30px' }} />
-        <Stack sx={{ width: '30%' }}>
+        <Stack sx={{ width: { xs: '100%', md: '30%' } }}>
           <Table sx={{ padding: '0px' }}>
             <TableHead>
               <TableRow sx={{ color: 'black', borderTop: '1px solid #D8D8D8', borderBottom: '1px solid #D8D8D8' }}>
@@ -132,7 +131,7 @@ const Renew = (props) => {
           </Table>
         </Stack>
       </Stack>
-      <Stack direction="row" justifyContent="space-between" py="1rem" borderTop="1px solid #D8D8D8" mt="10px">
+      <Stack direction="row" justifyContent="space-between" flexWrap='wrap' rowGap='14px'  py="1rem" borderTop="1px solid #D8D8D8" mt="10px">
         <RenewPopup data={data} />
         <Button variant="contained" endIcon={<TelegramIcon />}>
           Renew From Today

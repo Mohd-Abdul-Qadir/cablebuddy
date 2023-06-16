@@ -8,6 +8,7 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
+import CloseIcon from '@mui/icons-material/Close';
 import { useNavigate } from 'react-router-dom';
 
 const theme = createTheme({
@@ -83,6 +84,14 @@ const NavbarLandingPage = () => {
         navigate('/login')
     }
 
+    const toggleDrawer = (anchor, open) => (event) => {
+        if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+            return;
+        }
+
+        setState({ ...state, [anchor]: open });
+    };
+
     return (
         <>
             <ThemeProvider theme={theme}>
@@ -135,8 +144,11 @@ const NavbarLandingPage = () => {
                     <AppBar elevation={0} position='static' sx={{ width: '280px', bgcolor: 'white' }}>
                         <Toolbar disableGutters>
                             <Stack direction='column' spacing={3} width='100%'>
-                                <Stack mt={4} px='1rem'>
-                                    <Box component="img" src={CableBuddyLogo} alt='cablebuddy' sx={{ width: '70%' }} />
+                                <Stack mt={4} px='1rem' direction='row' justifyContent='space-between' alignItems='center'>
+                                    <Box component="img" src={CableBuddyLogo} alt='cablebuddy' sx={{ width: '11rem', height: '24px' }} />
+                                    <IconButton onClick={() => { setIsDrawerOpen(false) }}>
+                                        <CloseIcon sx={{ color: 'black' }} />
+                                    </IconButton>
                                 </Stack>
                                 <Stack direction='column' spacing={2}>
                                     <List sx={{ width: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
@@ -163,10 +175,14 @@ const NavbarLandingPage = () => {
                                     </List>
                                 </Stack>
                                 <Stack direction='row' alignItems='center' px='1rem'>
-                                    <Button size='small' sx={{
-                                        fontSize: '15px', textTransform: 'capitalize', border: '1px solid #F7941D', color: '#F7941D',
-                                        '&:hover': { bgcolor: '#F7941D', color: 'white' }
-                                    }}>Login</Button>
+                                    <Button size='small'
+                                        onClick={goToLogin}
+                                        sx={{
+                                            fontSize: '15px', textTransform: 'capitalize', border: '1px solid #F7941D', color: '#F7941D',
+                                            '&:hover': { bgcolor: '#F7941D', color: 'white' }
+                                        }}>
+                                        Login
+                                    </Button>
                                 </Stack>
                             </Stack>
                         </Toolbar>

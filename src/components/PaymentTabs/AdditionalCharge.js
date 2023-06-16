@@ -8,14 +8,14 @@ const AdditionalCharge = () => {
 
   const handleRadio = (event) => {
     setRadio(event.target.value)
-  }                                         
+  }
   return (
-    <Stack width='55vw'>
+    <Stack width={{ xs: '100%', md: '55vw' }}>
       <Typography><b>Additional Charge and Discount</b></Typography>
       <Stack gap='2rem' mt='2rem'>
         <Stack direction='row' alignItems='center'>
           <Stack sx={{ width: '50%' }}>
-            <Typography>Additional Charge/Discount:- </Typography>
+            <Typography sx={{ whiteSpace: 'normal' }}>Additional Charge/Discount:- </Typography>
           </Stack>
           <TextField
             fullWidth

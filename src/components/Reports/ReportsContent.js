@@ -26,7 +26,7 @@ const ReportsContent = () => {
       <Box sx={{ width: '100%', px: '20px' }}>
         <Typography sx={{ color: '#0C3547', fontWeight: '400', fontSize: '48px' }}>Reports</Typography>
       </Box>
-      <Stack direction="row" padding="1rem" width="100%" gap="2rem">
+      <Stack direction={{ xs: 'column', md: 'row' }} padding="1rem" width="100%" gap="2rem">
         <List
           sx={{
             border: '1px solid #D8D8D8',
@@ -69,20 +69,6 @@ const ReportsContent = () => {
             </ListItemIcon>
             <ListItemText primary="Gst Invoice" />
           </ListItemButton>
-          {/* <ListItemButton onClick={() => handleTabClick('Downloads')}
-                        sx={{
-                            display: 'flex',
-                            gap: '10px',
-                            bgcolor: activeTab === 'Downloads' ? '#2065D1' : 'initial',
-                            color: activeTab === 'Downloads' ? 'white' : 'initial',
-                            borderRadius: '8px 8px 0 0',
-                            '&:hover': { bgcolor: activeTab === 'Downloads' ? '#2065D1' : '#f5f5f5' }
-                        }}>
-                        <ListItemIcon sx={{ minWidth: 0 }}>
-                            <Icon icon="ph:download-simple" width='24px' color={activeTab === 'Downloads' ? 'white' : 'grey'} />
-                        </ListItemIcon>
-                        <ListItemText primary="Downloads" />
-                    </ListItemButton> */}
           <ListItemButton
             onClick={() => handleTabClick('AreaSummary')}
             sx={{
@@ -121,15 +107,17 @@ const ReportsContent = () => {
             <ListItemText primary="Profit And Loss Statement" />
           </ListItemButton>
         </List>
-        {activeTab === 'Excel&Pdf' ? (
-          <ExcelandPdf />
-        ) : activeTab === 'GstInvoice' ? (
-          <GstInvoice />
-        ) : activeTab === 'AreaSummary' ? (
-          <AreaSummary />
-        ) : activeTab === 'Profit&Loss' ? (
-          <ProfitAndLoss />
-        ) : null}
+        <Stack>
+          {activeTab === 'Excel&Pdf' ? (
+            <ExcelandPdf />
+          ) : activeTab === 'GstInvoice' ? (
+            <GstInvoice />
+          ) : activeTab === 'AreaSummary' ? (
+            <AreaSummary />
+          ) : activeTab === 'Profit&Loss' ? (
+            <ProfitAndLoss />
+          ) : null}
+        </Stack>
       </Stack>
     </Box>
   );

@@ -5,7 +5,7 @@ import TelegramIcon from '@mui/icons-material/Telegram';
 
 const AdjustBalance = () => {
     return (
-        <Box sx={{ width: '55vw' }}>
+        <Box sx={{ width: {xs: '100%', md: '55vw'} }}>
             <Stack mb='1rem'>
                 <Typography><b>Adjust Balance</b></Typography>
             </Stack>

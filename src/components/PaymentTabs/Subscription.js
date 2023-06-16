@@ -8,7 +8,7 @@ const Subscription = (props) => {
   const [customer, setCustomer] = useState(props.allData);
   console.log(customer, 'customer');
   return (
-    <Box sx={{ width: '55vw' }}>
+    <Box sx={{ width: {xs: '100%', md: '55vw'} }}>
       <Stack>
         <Typography>
           <b>Current Subscription (1)</b>

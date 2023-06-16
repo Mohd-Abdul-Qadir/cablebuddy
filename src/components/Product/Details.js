@@ -12,7 +12,7 @@ import InfoIcon from '@mui/icons-material/Info';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
-import { Button } from '@mui/material';
+import { Button,Stack } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Calendar } from 'antd';
 import ChangeRate from '../../pages/ChangeRate';
@@ -68,7 +68,11 @@ export default function Details() {
   return (
     <Box sx={{ width: '100%' }}>
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-        <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
+        <Tabs value={value} onChange={handleChange}
+          variant="scrollable"
+          scrollButtons
+          allowScrollButtonsMobile
+        >
           <Tab label="Product Detail" {...a11yProps(0)} icon={<InfoIcon />} />
           <Tab label="Change Rate" {...a11yProps(1)} icon={<SellIcon />} />
           <Tab label="Change Additional Rate" {...a11yProps(2)} icon={<LocalShippingIcon />} />
@@ -85,12 +89,15 @@ export default function Details() {
         <AdditionalRate id={id} />
       </TabPanel>
       <TabPanel value={value} index={3}>
-        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-          <h2>BCN Basic RYP Rs.</h2>
+        <Stack direction={{ xs: 'column', sm: 'row' }} justifyContent='space-between' mb='12px'>
+          <h2>BCN Basic RYP</h2>
           <Button
             variant="outlined"
+            onClick={() => handleDelete(props.id)}
             startIcon={<DeleteIcon />}
             sx={{
+              ml: 'auto',
+              width: 'fit-content',
               height: 'fit-content',
               borderColor: '#ff3333',
               color: '#ff3333',
@@ -103,7 +110,7 @@ export default function Details() {
           >
             Delete
           </Button>
-        </div>
+        </Stack>
         {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
           <DateCalendar />
         </LocalizationProvider> */}
@@ -111,7 +118,7 @@ export default function Details() {
           style={{
             backgroundColor: '#fff',
             height: 'fit-content',
-            width: '90%',
+            width: {xs: '100%', md: '90%'},
             borderRadius: '10px',
             // paddingRight: '10px',
             // paddingLeft: '10px',

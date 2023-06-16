@@ -233,7 +233,7 @@ export default function ProductsPage() {
         </Stack>
 
         <Card>
-          <div style={{ display: 'flex', justifyContent: 'space-between', flexDirection: 'row' }}>
+          <Stack direction={{xs: 'column', sm: 'row'}} justifyContent='space-between'>
             <UserListToolbar value={searchQuery} onChange={handleSearch} onFilterName={handleSearch} />
             <Button
               startIcon={<FileDownloadOutlinedIcon />}
@@ -244,7 +244,7 @@ export default function ProductsPage() {
             >
               Download Excel
             </Button>
-          </div>
+          </Stack>
 
           <Scrollbar>
             <TableContainer sx={{ minWidth: 800 }}>
@@ -315,29 +315,29 @@ export default function ProductsPage() {
                 </TableBody>
 
                 {isNotFound &&
-                  {
-                    /* <TableBody>
-                  <TableRow>
-                    <TableCell align="center" colSpan={6} sx={{ py: 3 }}>
-                      <Paper
-                        sx={{
-                          textAlign: 'center',
-                        }}
-                      >
-                        <Typography variant="h6" paragraph>
-                          Not found
-                        </Typography>
+                {
+                  /* <TableBody>
+                <TableRow>
+                  <TableCell align="center" colSpan={6} sx={{ py: 3 }}>
+                    <Paper
+                      sx={{
+                        textAlign: 'center',
+                      }}
+                    >
+                      <Typography variant="h6" paragraph>
+                        Not found
+                      </Typography>
 
-                        <Typography variant="body2">
-                          No results found for &nbsp;
-                          <strong>&quot;{filterName}&quot;</strong>.
-                          <br /> Try checking for typos or using complete words.
-                        </Typography>
-                      </Paper>
-                    </TableCell>
-                  </TableRow>
-                </TableBody> */
-                  }}
+                      <Typography variant="body2">
+                        No results found for &nbsp;
+                        <strong>&quot;{filterName}&quot;</strong>.
+                        <br /> Try checking for typos or using complete words.
+                      </Typography>
+                    </Paper>
+                  </TableCell>
+                </TableRow>
+              </TableBody> */
+                }}
               </Table>
             </TableContainer>
           </Scrollbar>

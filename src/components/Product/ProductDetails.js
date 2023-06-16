@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { FormControl, MenuItem, Select, TextField, Button, Box } from '@mui/material';
+import { FormControl, MenuItem, Select, TextField, Button, Box, Stack } from '@mui/material';
 import languages from 'language-list';
 import DeleteIcon from '@mui/icons-material/Delete';
 import TelegramIcon from '@mui/icons-material/Telegram';
@@ -122,13 +122,15 @@ const ProductDetails = (props) => {
   };
   return (
     <>
-      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+      <Stack direction={{ xs: 'column', sm: 'row' }} justifyContent='space-between'>
         <h2>BCN Basic RYP</h2>
         <Button
           variant="outlined"
           onClick={() => handleDelete(props.id)}
           startIcon={<DeleteIcon />}
           sx={{
+            ml: 'auto',
+            width: 'fit-content',
             height: 'fit-content',
             borderColor: '#ff3333',
             color: '#ff3333',
@@ -141,16 +143,17 @@ const ProductDetails = (props) => {
         >
           Delete
         </Button>
-      </div>
+      </Stack>
       <div
         style={{ backgroundColor: '#F9FAFB', height: '100%', width: '100%', paddingRight: '10px', paddingLeft: '10px' }}
       >
         <Box
           sx={{
             width: '100%',
-            // height: 00,
+            border: '1px solid rgba(0,0,0,.125)',
             borderRadius: '10px',
             backgroundColor: 'white',
+            mt: '16px'
           }}
         >
           <div
@@ -165,7 +168,7 @@ const ProductDetails = (props) => {
             Product Details
           </div>
           <div style={{ padding: '20px' }}>
-            <FormControl fullWidth sx={{ display: 'flex', flexDirection: 'row', gap: '12px' }}>
+            <FormControl fullWidth sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, gap: '12px' }}>
               <TextField
                 required
                 id="outlined-basic"
@@ -173,7 +176,7 @@ const ProductDetails = (props) => {
                 variant="outlined"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                sx={{ bgcolor: '#F8F8F8', width: '50%' }}
+                sx={{ bgcolor: '#F8F8F8', width: '100%' }}
                 autoComplete="off"
               />
               <TextField
@@ -183,7 +186,7 @@ const ProductDetails = (props) => {
                 label="Product Code"
                 variant="outlined"
                 type="text"
-                sx={{ bgcolor: '#F8F8F8', width: '50%' }}
+                sx={{ bgcolor: '#F8F8F8', width: '100%' }}
               />
               <TextField
                 id="outlined-basic"
@@ -191,10 +194,10 @@ const ProductDetails = (props) => {
                 label="HSN Code"
                 variant="outlined"
                 type="text"
-                sx={{ bgcolor: '#F8F8F8', width: '50%' }}
+                sx={{ bgcolor: '#F8F8F8', width: '100%' }}
               />
             </FormControl>
-            <FormControl fullWidth sx={{ display: 'flex', flexDirection: 'row', gap: '12px', paddingTop: '20px' }}>
+            <FormControl fullWidth sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, gap: '12px', paddingTop: '20px' }}>
               <Select
                 required
                 value={select}
@@ -202,7 +205,7 @@ const ProductDetails = (props) => {
                 displayEmpty
                 inputProps={{ 'aria-label': 'Without label' }}
                 sx={{
-                  width: '50%',
+                  width: '100%',
                   backgroundColor: '#F8F8F8',
                   color: '#A5A4A4',
                   borderColor: '#ccc',
@@ -223,7 +226,7 @@ const ProductDetails = (props) => {
                 label="GST Rate"
                 variant="outlined"
                 defaultValue="18"
-                sx={{ bgcolor: '#F8F8F8', width: '50%' }}
+                sx={{ bgcolor: '#F8F8F8', width: '100%' }}
               />
 
               <Select
@@ -234,7 +237,7 @@ const ProductDetails = (props) => {
                 displayEmpty
                 inputProps={{ 'aria-label': 'Without label' }}
                 sx={{
-                  width: '50%',
+                  width: '100%',
                   backgroundColor: '#F8F8F8',
                   color: '#A5A4A4',
                   borderColor: '#ccc',
@@ -261,7 +264,7 @@ const ProductDetails = (props) => {
                 displayEmpty
                 inputProps={{ 'aria-label': 'Without label' }}
                 sx={{
-                  width: '33%',
+                  width: {xs: '100%', md: '33%'},
                   backgroundColor: '#F8F8F8',
                   color: '#A5A4A4',
                   borderColor: '#ccc',
