@@ -9,9 +9,9 @@ import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
 import { v4 as uuidv4 } from 'uuid';
 
 // @mui
-import { TextField, Card, Table, Stack, Paper, Avatar, Button, Popover, Checkbox, TableRow, MenuItem, TableBody, TableCell, Container, Typography, IconButton, TableContainer, TablePagination, Box, FormControl } from '@mui/material';
-import InputLabel from '@mui/material/InputLabel';
-import Select from '@mui/material/Select';
+import { TextField, Card, Table, Stack, Paper, Avatar, Button, Popover, Checkbox, TableRow, MenuItem, TableBody, TableHead, Container, Typography, IconButton, TableContainer, TablePagination, Box, FormControl } from '@mui/material';
+import TableCell, { tableCellClasses } from '@mui/material/TableCell';
+import { styled } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -73,6 +73,26 @@ function applySortFilter(array, comparator, query) {
   }
   return stabilizedThis.map((el) => el[0]);
 }
+
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+  [`&.${tableCellClasses.head}`]: {
+    backgroundColor: theme.palette.common.black,
+    color: theme.palette.common.white,
+  },
+  [`&.${tableCellClasses.body}`]: {
+    fontSize: 14,
+  },
+}));
+
+const StyledTableRow = styled(TableRow)(({ theme }) => ({
+  '&:nth-of-type(odd)': {
+    backgroundColor: theme.palette.action.hover,
+  },
+  // hide last border
+  '&:last-child td, &:last-child th': {
+    border: 0,
+  },
+}));
 
 // ........................................................Main_Function.......................................................//
 
@@ -357,89 +377,88 @@ export default function CustomersPage() {
           </Card>
 
           <Scrollbar>
-            <TableContainer sx={{ minWidth: 800 }}>
+            <TableContainer component={Paper}>
               <Table>
-                <UserListHead
-                  order={order}
-                  orderBy={orderBy}
-                  headLabel={TABLE_HEAD}
-                  rowCount={USERLIST.length}
-                  numSelected={selected.length}
-                  onRequestSort={handleRequestSort}
-                  onSelectAllClick={handleSelectAllClick}
-                />
+                <TableHead>
+                  <TableRow>
+                    <StyledTableCell></StyledTableCell>
+                    <StyledTableCell>S.Code</StyledTableCell>
+                    <StyledTableCell>Name</StyledTableCell>
+                    <StyledTableCell>Hardware</StyledTableCell>
+                    <StyledTableCell>Balance</StyledTableCell>
+                    <StyledTableCell>Area</StyledTableCell>
+                    <StyledTableCell sx={{ display: 'flex' }}>Last Bill Amount</StyledTableCell>
+                    <StyledTableCell>Expired</StyledTableCell>
+                    <StyledTableCell>Status</StyledTableCell>
+                    <StyledTableCell></StyledTableCell>
+                    <StyledTableCell></StyledTableCell>
+                  </TableRow>
+                </TableHead>
                 <TableBody>
-                  {customers.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row, index) => {
-                    // const isEvenRow = index % 2 === 0;
-                    // const rowBackgroundColor = isEvenRow ? 'grey' : '';
-
-                    return (
-                      <TableRow hover key={uuidv4()} tabIndex={-1} role="checkbox">
-                        <TableCell padding="checkbox">
+                  {
+                    customers.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row, index) => (
+                      <StyledTableRow key={uuidv4()} tabIndex={-1} role="checkbox">
+                        <StyledTableCell>
                           <Checkbox />
-                        </TableCell>
-                        <TableCell component="th" scope="row" padding="none">
-                          <Stack direction="row" alignItems="center" spacing={2}>
-                            <Typography variant="subtitle2" noWrap>
-                              {'1'}
-                            </Typography>
-                          </Stack>
-                        </TableCell>
-                        <TableCell>{row.name}</TableCell>
-                        <TableCell align="left">DSNW20e8c240</TableCell>
-                        <TableCell>{row.subdcriptionAmount}</TableCell>
-                        <TableCell>{row.address}</TableCell>
-                        <TableCell align="center">15</TableCell>
-                        <TableCell align="left">22/05/2022</TableCell>
-                        <TableCell align="left">
+                        </StyledTableCell>
+                        <StyledTableCell>
+                          <Typography variant="subtitle2" noWrap>
+                            {index + 1}
+                          </Typography>
+                        </StyledTableCell>
+                        <StyledTableCell>{row.name}</StyledTableCell>
+                        <StyledTableCell align="left">DSNW20e8c240</StyledTableCell>
+                        <StyledTableCell>{row.subdcriptionAmount}</StyledTableCell>
+                        <StyledTableCell>{row.address}</StyledTableCell>
+                        <StyledTableCell align="center">15</StyledTableCell>
+                        <StyledTableCell align="left">22/05/2022</StyledTableCell>
+                        <StyledTableCell align="left">
                           <Label color={'success'}>
                             {/* {sentenceCase(status)} */}
                             Active
                           </Label>
-                        </TableCell>
-                        <TableCell>
+                        </StyledTableCell>
+                        <StyledTableCell>
                           <Button variant="outlined" onClick={() => handleCustomerDetails(row._id)}>
                             Detail
                           </Button>
-                        </TableCell>
-                        <TableCell align="right">
-                          <IconButton size="large" color="inherit" onClick={handleOpenMenu}>
-                            <Iconify icon={'eva:more-vertical-fill'} />
-                          </IconButton>
-                        </TableCell>
-                      </TableRow>
-                    );
-                  })}
-                  {emptyRows > 0 && (
-                    <TableRow style={{ height: 53 * emptyRows }}>
-                      <TableCell colSpan={6} />
-                    </TableRow>
-                  )}
+                        </StyledTableCell>
+                      </StyledTableRow>
+                    ))
+                  }
+                  {
+                    emptyRows > 0 && (
+                      <StyledTableRow style={{ height: 53 * emptyRows }}>
+                        <StyledTableCell colSpan={6} />
+                      </StyledTableRow>
+                    )
+                  }
                 </TableBody>
+                {
+                  isNotFound && (
+                    <TableBody>
+                      <StyledTableRow>
+                        <StyledTableCell align="center" colSpan={6} sx={{ py: 3 }}>
+                          <Paper
+                            sx={{
+                              textAlign: 'center',
+                            }}
+                          >
+                            <Typography variant="h6" paragraph>
+                              Not found
+                            </Typography>
 
-                {isNotFound && (
-                  <TableBody>
-                    <TableRow>
-                      <TableCell align="center" colSpan={6} sx={{ py: 3 }}>
-                        <Paper
-                          sx={{
-                            textAlign: 'center',
-                          }}
-                        >
-                          <Typography variant="h6" paragraph>
-                            Not found
-                          </Typography>
-
-                          <Typography variant="body2">
-                            No results found for &nbsp;
-                            <strong>&quot;{filterName}&quot;</strong>.
-                            <br /> Try checking for typos or using complete words.
-                          </Typography>
-                        </Paper>
-                      </TableCell>
-                    </TableRow>
-                  </TableBody>
-                )}
+                            <Typography variant="body2">
+                              No results found for &nbsp;
+                              <strong>&quot;{filterName}&quot;</strong>.
+                              <br /> Try checking for typos or using complete words.
+                            </Typography>
+                          </Paper>
+                        </StyledTableCell>
+                      </StyledTableRow>
+                    </TableBody>
+                  )
+                }
               </Table>
             </TableContainer>
           </Scrollbar>

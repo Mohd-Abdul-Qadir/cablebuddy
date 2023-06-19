@@ -1,11 +1,12 @@
 // @mui
 import PropTypes from 'prop-types';
 import { alpha, styled } from '@mui/material/styles';
-import { Card, Typography } from '@mui/material';
+import { Card, Typography ,Box} from '@mui/material';
 // utils
 import { fShortenNumber } from '../../../utils/formatNumber';
 // components
 import Iconify from '../../../components/iconify';
+import { Icon } from '@iconify/react';
 import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
 // ----------------------------------------------------------------------
 
@@ -32,35 +33,38 @@ AppWidgetSummary.propTypes = {
 
 export default function AppWidgetSummary({ title, total, icon, color = 'primary', sx, ...other }) {
   return (
-    <Card
-      sx={{
-        py: 5,
-        boxShadow: 0,
-        textAlign: 'center',
-        color: (theme) => theme.palette[color].darker,
-        bgcolor: (theme) => theme.palette[color].lighter,
-        ...sx,
-      }}
-      {...other}
-    >
-      <StyledIcon
+    <>
+      <Card
         sx={{
-          color: (theme) => theme.palette[color].dark,
-          backgroundImage: (theme) =>
-            `linear-gradient(135deg, ${alpha(theme.palette[color].dark, 0)} 0%, ${alpha(
-              theme.palette[color].dark,
-              0.24
-            )} 100%)`,
+          // border: '1px solid black',
+          py: 5,
+          boxShadow: 0,
+          textAlign: 'center',
+          color: (theme) => theme.palette[color].darker,
+          bgcolor: (theme) => theme.palette[color].lighter,
+          ...sx,
         }}
+        {...other}
       >
-        <Iconify icon={icon} width={28} height={28} />
-      </StyledIcon>
+        <StyledIcon
+          sx={{
+            color: (theme) => theme.palette[color].dark,
+            backgroundImage: (theme) =>
+              `linear-gradient(135deg, ${alpha(theme.palette[color].dark, 0)} 0%, ${alpha(
+                theme.palette[color].dark,
+                0.24
+              )} 100%)`,
+          }}
+        >
+          <Iconify icon={icon} width={28} height={28} />
+        </StyledIcon>
 
-      <Typography variant="h3">{fShortenNumber(total)}</Typography>
+        <Typography variant="h3">{fShortenNumber(total)}</Typography>
 
-      <Typography variant="subtitle2" sx={{ opacity: 0.72 }}>
-        {title}
-      </Typography>
-    </Card>
+        <Typography variant="subtitle2" sx={{ opacity: 0.72 }}>
+          {title}
+        </Typography>
+      </Card>
+    </>
   );
 }
