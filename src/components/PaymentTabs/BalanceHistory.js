@@ -10,7 +10,7 @@ import Paper from '@mui/material/Paper';
 import Pagination from '@mui/material/Pagination';
 import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
 import { BalancehistoryData } from '../../_mock/BalancehistoryData';
-
+import HistoryBill from './HistoryBill';
 import Image from '../Image';
 import moment from 'moment';
 
@@ -18,6 +18,8 @@ const BalanceHistory = (props) => {
   const id = props.allData._id;
   const [allData, setAllData] = useState([]);
   const [page, setPage] = useState(0);
+  const [popup, setPopUp] = useState(false);
+  const [selectedId, setSelectedId] = useState(null);
 
   useEffect(() => {
     if (id) {
@@ -84,7 +86,13 @@ const BalanceHistory = (props) => {
                   />
                 </TableCell>
                 <TableCell>
-                  <Typography sx={{ fontSize: '15px' }}>
+                  <Typography
+                    sx={{ fontSize: '15px' }}
+                    onClick={() => {
+                      setSelectedId(row._id);
+                      setPopUp(true);
+                    }}
+                  >
                     Payment On {moment(row.fromDate).format('DD-MMM-YY')}
                   </Typography>
                   <Typography sx={{ fontSize: '10px' }}>Recoded on:{moment(row.toDate).format('DD-MMM-YY')}</Typography>
@@ -114,6 +122,7 @@ const BalanceHistory = (props) => {
           mr: 2,
         }}
       />
+      {popup ? <HistoryBill id={selectedId} /> : <></>}
     </Box>
   );
 };
