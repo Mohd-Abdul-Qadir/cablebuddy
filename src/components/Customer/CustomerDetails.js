@@ -132,7 +132,7 @@ const CustomerDetails = () => {
   const { id } = useParams();
   const [value, setValue] = useState(0);
   const [allData, setAllData] = useState([]);
-  const [isToggled, setToggle] = useState(true);
+  const [isActive, setIsActive] = useState(false);
   const [unit, setUnit] = useState('c');
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -147,7 +147,13 @@ const CustomerDetails = () => {
         })
         .catch((error) => console.error(error));
     }
-  }, [id]);
+  }, [id, isActive]);
+
+  useEffect(() => {
+    if (allData) {
+      setIsActive(allData.active);
+    }
+  }, [allData]);
 
   const handleDelete = (id) => {
     fetch(`/api/delete-customers/${id}`, {
@@ -170,11 +176,40 @@ const CustomerDetails = () => {
       });
   };
   const toggle = () => {
-    setToggle(!isToggled);
-    isToggled ? setUnit('inactive') : setUnit('active');
+    setIsActive(!isActive);
+    updateCustomer(!isActive);
+  };
+  const updateCustomer = async (status) => {
+    const url = `/api/update-custormer-status/${id}`; // Replace with your API endpoint
+
+    const updatedCustomer = {
+      active: status,
+    };
+
+    try {
+      const response = await fetch(url, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-access-token': localStorage.accessToken,
+        },
+        body: JSON.stringify(updatedCustomer),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message);
+      }
+
+      const data = await response.json();
+      toast.success('Status updated successfully');
+      console.log('Status updated successfully:', data.customer);
+    } catch (error) {
+      console.error('Error updating status:', error.message);
+    }
   };
 
-  console.log(unit, 'this is toggle');
+  console.log(isActive, 'IS ACTIVE');
   return (
     <>
       <Box sx={{ padding: '2%', width: '100%', position: 'relative' }}>
@@ -183,14 +218,14 @@ const CustomerDetails = () => {
             <Typography variant="h2" sx={{ fontWeight: '300' }}>
               {allData.name}
             </Typography>
-            {isToggled ? (
+            {isActive ? (
               <Chip label="Active" sx={{ bgcolor: '#28a745', color: 'white', height: '20px' }} />
             ) : (
               <Chip label="Inactive" sx={{ bgcolor: 'red', color: 'white', height: '20px' }} />
             )}
           </Stack>
           <Stack direction="row" sx={{ ml: 'auto', order: { xs: 1, sm: 2 } }}>
-            <FormControlLabel control={<IOSSwitch sx={{ m: 1 }} defaultChecked />} onClick={toggle} />
+            <FormControlLabel control={<IOSSwitch sx={{ m: 1 }} />} checked={isActive} onClick={toggle} />
             <Button
               variant="outlined"
               startIcon={<DeleteIcon />}
@@ -364,7 +399,11 @@ const CustomerDetails = () => {
             gap="2rem"
             sx={{ width: '100%', border: '1px solid #D8D8D8', bgcolor: 'white', borderRadius: '10px' }}
           >
-            <Stack direction="row" gap="1rem" sx={{ display: { xs: 'none', lg: 'block' }, width: '100%', padding: '1rem' }}>
+            <Stack
+              direction="row"
+              gap="1rem"
+              sx={{ display: { xs: 'none', lg: 'block' }, width: '100%', padding: '1rem' }}
+            >
               <Box sx={{ flexGrow: 1, bgcolor: 'background.paper', display: 'flex', height: 'fit-content' }}>
                 <Tabs
                   orientation="vertical"
@@ -476,15 +515,13 @@ const CustomerDetails = () => {
                 </TabPanel>
               </Box>
             </Stack>
-            <Stack direction="column" gap="1rem" sx={{ display: { xs: 'block', lg: 'none' }, width: '100%', padding: '2%' }}>
+            <Stack
+              direction="column"
+              gap="1rem"
+              sx={{ display: { xs: 'block', lg: 'none' }, width: '100%', padding: '2%' }}
+            >
               <Box sx={{ bgcolor: 'background.paper', height: 'fit-content' }}>
-                <Tabs
-                  variant="scrollable"
-                  scrollButtons
-                  allowScrollButtonsMobile
-                  value={value}
-                  onChange={handleChange}
-                >
+                <Tabs variant="scrollable" scrollButtons allowScrollButtonsMobile value={value} onChange={handleChange}>
                   <Tab
                     label="Collect Payment"
                     icon={<PaymentIcon />}
