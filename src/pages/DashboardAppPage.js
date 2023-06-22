@@ -13,7 +13,7 @@ import { AppWidgetSummary } from '../sections/@dashboard/app';
 import { useEffect, useState } from 'react';
 // ----------------------------------------------------------------------
 
-export default function DashboardAppPage() {  
+export default function DashboardAppPage() {
   const [balanceHistories, setBalanceHistories] = useState([]);
   const [totalTransactionAmount, setTotalTransactionAmount] = useState(0);
   const [balanceHistoriesOnline, setBalanceHistoriesOnline] = useState([balanceHistories.length - 1]);
@@ -387,7 +387,14 @@ export default function DashboardAppPage() {
                 },
               }}
             >
-              <AppWidgetSummary title="Total Customers" total={totalCustomer} icon={'fa:group'} />
+              {/* <AppWidgetSummary title="Total Customers" total={totalCustomer} icon={'fa:group'} /> */}
+              <Box sx={{ display: 'flex', flexDirection: 'column', gap: '1rem', alignItems: 'start', height: '122px', px: '5%', py: '18px', position: 'relative', borderRadius: '12px', border: '0.2px solid #A5A4A4' }}>
+                <Typography sx={{ fontWeight: '400', fontSize: '15px' }}>Total Customers</Typography>
+                <Typography sx={{ fontWeight: '600', fontSize: '20px' }}>20</Typography>
+                <Box sx={{ position: 'absolute', bottom: 12, right: 12 }}>
+                  <Icon icon="akar-icons:person" width='40' />
+                </Box>
+              </Box>
             </Grid>
 
             <Grid
@@ -408,9 +415,16 @@ export default function DashboardAppPage() {
                 },
               }}
             >
-              <AppWidgetSummary title="Total Active Customers" total={'0'}
-                // color="error"
-                icon={'fa:group'} />
+              {/* <AppWidgetSummary title="Total Active Customers" total={'0'}
+                color="error"
+                icon={'fa:group'} /> */}
+              <Box sx={{ display: 'flex', flexDirection: 'column', gap: '1rem', alignItems: 'start', height: '122px', px: '5%', py: '18px', position: 'relative', borderRadius: '12px', border: '0.2px solid #A5A4A4' }}>
+                <Typography sx={{ fontWeight: '400', fontSize: '15px' }}>Total Active Customers</Typography>
+                <Typography sx={{ fontWeight: '600', fontSize: '20px' }}>20</Typography>
+                <Box sx={{ position: 'absolute', bottom: 12, right: 12 }}>
+                  <Icon icon="akar-icons:person" width='40' />
+                </Box>
+              </Box>
             </Grid>
 
             <Grid
@@ -431,9 +445,16 @@ export default function DashboardAppPage() {
                 },
               }}
             >
-              <AppWidgetSummary title="Total Inactive Customers" total={'0'}
-                // color="info" 
-                icon={'fa:group'} />
+              {/* <AppWidgetSummary title="Total Inactive Customers" total={'0'}
+                color="info" 
+                icon={'fa:group'} /> */}
+              <Box sx={{ display: 'flex', flexDirection: 'column', gap: '1rem', alignItems: 'start', height: '122px', px: '5%', py: '18px', position: 'relative', borderRadius: '12px', border: '0.2px solid #A5A4A4' }}>
+                <Typography sx={{ fontWeight: '400', fontSize: '15px' }}>Total Inactive Customers</Typography>
+                <Typography sx={{ fontWeight: '600', fontSize: '20px' }}>20</Typography>
+                <Box sx={{ position: 'absolute', bottom: 12, right: 12 }}>
+                  <Icon icon="akar-icons:person" width='40' />
+                </Box>
+              </Box>
             </Grid>
 
             <Grid
@@ -454,9 +475,16 @@ export default function DashboardAppPage() {
                 },
               }}
             >
-              <AppWidgetSummary title="This Month New Customers" total={1}
-                // color="warning"
-                icon={'fa:group'} />
+              {/* <AppWidgetSummary title="This Month New Customers" total={1}
+                color="warning"
+                icon={'fa:group'} /> */}
+              <Box sx={{ display: 'flex', flexDirection: 'column', gap: '1rem', alignItems: 'start', height: '122px', px: '5%', py: '18px', position: 'relative', borderRadius: '12px', border: '0.2px solid #A5A4A4' }}>
+                <Typography sx={{ fontWeight: '400', fontSize: '15px' }}>This Month New Customers</Typography>
+                <Typography sx={{ fontWeight: '600', fontSize: '20px' }}>20</Typography>
+                <Box sx={{ position: 'absolute', bottom: 12, right: 12 }}>
+                  <Icon icon="akar-icons:person" width='40' />
+                </Box>
+              </Box>
             </Grid>
           </Grid>
 
@@ -479,12 +507,19 @@ export default function DashboardAppPage() {
                 },
               }}
             >
-              <AppWidgetSummary
+              {/* <AppWidgetSummary
                 title="Total Pending Complaints"
                 total={'0'}
-                // color="warning"
+                color="warning"
                 icon={'fluent:chat-bubbles-question-20-filled'}
-              />
+              /> */}
+              <Box sx={{ display: 'flex', flexDirection: 'column', gap: '1rem', alignItems: 'start', height: '122px', px: '5%', py: '18px', position: 'relative', borderRadius: '12px', border: '0.2px solid #A5A4A4' }}>
+                <Typography sx={{ fontWeight: '400', fontSize: '15px' }}>This Month New Customers</Typography>
+                <Typography sx={{ fontWeight: '600', fontSize: '20px' }}>20</Typography>
+                <Box sx={{ position: 'absolute', bottom: 12, right: 12 }}>
+                  <Icon icon="fluent:chat-bubbles-question-20-filled" width='40' />
+                </Box>
+              </Box>
             </Grid>
           </Grid>
         </Grid>

@@ -102,11 +102,12 @@ const AddProduct = () => {
       <Stack
         sx={{ backgroundColor: '#F9FAFB', height: '100%', width: '100%', paddingRight: '10px', paddingLeft: '10px' }}
       >
-        <h2> Add Product</h2>
+        <h2>Add Product</h2>
         <Box
           sx={{
             width: '100%',
             border: '1px solid #D8D8D8',
+            boxShadow: '-1px -1px 8px #D8D8D8,3px 3px 8px #D8D8D8',
             borderRadius: '10px',
             backgroundColor: 'white',
           }}

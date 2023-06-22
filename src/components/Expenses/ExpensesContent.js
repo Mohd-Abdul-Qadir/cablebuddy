@@ -34,6 +34,7 @@ const ExpensesContent = () => {
                     >
                         Add Expenses
                     </Button>
+                   {/* // .................Dialog PopUp below.................... */}
                     <Dialog
                         open={open}
                         onClose={() => { setOpen(false) }}
@@ -84,7 +85,7 @@ const ExpensesContent = () => {
                 </Box>
             </Box>
             <Stack gap='20px' mt='20px'>
-                <Box sx={{ display: 'flex', flexDirection: 'column', gap: '16px', mt: '20px', border: '1px solid #D8D8D8', borderRadius: '10px', padding: '16px', bgcolor: 'white' }}>
+                <Box sx={{ display: 'flex', flexDirection: 'column', gap: '16px', mt: '20px', border: '1px solid #D8D8D8', boxShadow: '-1px -1px 8px #D8D8D8,3px 3px 8px #D8D8D8', borderRadius: '10px', padding: '16px', bgcolor: 'white' }}>
                     <Stack direction='row' alignItems='center' justifyContent='space-between'>
                         <Select
                             sx={{ minWidth: '30%' }}
@@ -118,7 +119,7 @@ const ExpensesContent = () => {
                         </Box>
                     </Stack>
                 </Box>
-                <Stack sx={{ border: '1px solid #D8D8D8', borderRadius: '10px' }}>
+                <Stack sx={{ border: '1px solid #D8D8D8', boxShadow: '-1px -1px 8px #D8D8D8,3px 3px 8px #D8D8D8', borderRadius: '10px' }}>
                     <Stack direction='row' justifyContent='space-between' alignItems='center' sx={{ borderBottom: '1px solid #D8D8D8', bgcolor: '#F5F5F5', padding: '16px', borderRadius: '10px 10px 0 0' }}>
                         <Typography sx={{ fontWeight: '600' }}>List</Typography>
                         <Button

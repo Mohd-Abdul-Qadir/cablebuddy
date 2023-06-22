@@ -135,7 +135,7 @@ const ComplaintsContent = () => {
         </Box>
       </Box>
       <Stack direction="column" justifyContent="center" alignItems="center" width="100%" gap="2rem" mt="30px">
-        <Stack sx={{ border: '1px solid #D8D8D8', borderRadius: '10px', bgcolor: 'white', width: '100%', gap: '10px' }}>
+        <Stack sx={{ border: '1px solid #D8D8D8', boxShadow: '-1px -1px 8px #D8D8D8,3px 3px 8px #D8D8D8', borderRadius: '10px', bgcolor: 'white', width: '100%', gap: '10px' }}>
           <Stack
             direction="row"
             alignItems="center"
@@ -288,7 +288,7 @@ const ComplaintsContent = () => {
             </Stack>
           </Stack>
         </Stack>
-        <Stack sx={{ border: '1px solid #D8D8D8', borderRadius: '10px', bgcolor: 'white', width: '100%' }}>
+        <Stack sx={{ border: '1px solid #D8D8D8', boxShadow: '-1px -1px 8px #D8D8D8,3px 3px 8px #D8D8D8', borderRadius: '10px', bgcolor: 'white', width: '100%' }}>
           <Box
             sx={{
               display: 'flex',
@@ -305,10 +305,10 @@ const ComplaintsContent = () => {
               {active === 'Open'
                 ? 'Complaints queries open'
                 : active === 'InProgress'
-                ? 'Complaints queries working'
-                : active === 'Resolved'
-                ? 'Complaints queries resolved'
-                : null}
+                  ? 'Complaints queries working'
+                  : active === 'Resolved'
+                    ? 'Complaints queries resolved'
+                    : null}
             </Typography>
           </Box>
           <Stack padding="1rem">

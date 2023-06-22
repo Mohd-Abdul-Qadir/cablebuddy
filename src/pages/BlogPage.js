@@ -4,23 +4,9 @@ import { Helmet } from 'react-helmet-async';
 import { filter } from 'lodash';
 
 // @mui
-import {
-  Card,
-  Box,
-  Button,
-  Table,
-  Stack,
-  Paper,
-  Checkbox,
-  Container,
-  TableRow,
-  styled,
-  Typography,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TablePagination,
-} from '@mui/material';
+import { TextField, Card, Table, Stack, Paper, InputLabel, Button, Popover, Checkbox, TableRow, MenuItem, TableBody, TableHead, Container, Typography, Select, TableContainer, TablePagination, Box, FormControl } from '@mui/material';
+import TableCell, { tableCellClasses } from '@mui/material/TableCell';
+import { styled } from '@mui/material/styles';
 // components
 import Scrollbar from '../components/scrollbar';
 import { UserListHead, UserListToolbar } from '../sections/@dashboard/user';
@@ -66,6 +52,27 @@ function getComparator(order, orderBy) {
     ? (a, b) => descendingComparator(a, b, orderBy)
     : (a, b) => -descendingComparator(a, b, orderBy);
 }
+
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+  [`&.${tableCellClasses.head}`]: {
+    backgroundColor: 'rgb(12, 53, 71)',
+    color: theme.palette.common.white,
+  },
+  [`&.${tableCellClasses.body}`]: {
+    fontSize: 14,
+  },
+}));
+
+const StyledTableRow = styled(TableRow)(({ theme }) => ({
+  '&:nth-of-type(odd)': {
+    backgroundColor: theme.palette.action.hover,
+  },
+  // hide last border
+  '&:last-child td, &:last-child th': {
+    border: 0,
+  },
+}));
+
 
 export default function BlogPage() {
   const [open, setOpen] = useState(null);
@@ -207,39 +214,46 @@ export default function BlogPage() {
           </StyledButton> */}
         </Paper>
 
-        <Card>
+        <Card sx={{ border: '1px solid #D8D8D8', boxShadow: '-1px -1px 8px #D8D8D8,3px 3px 8px #D8D8D8' }}>
           <UserListToolbar value={searchQuery} onChange={handleSearch} onFilterName={handleSearch} />
 
           <Scrollbar>
-            <TableContainer sx={{ minWidth: 800 }}>
+            <TableContainer>
               <Table>
-                <UserListHead
-                  headLabel={TABLE_HEAD}
-                  onRequestSort={handleRequestSort}
-                  onSelectAllClick={handleSelectAllClick}
-                />
+                <TableHead>
+                  <TableRow>
+                    <StyledTableCell></StyledTableCell>
+                    <StyledTableCell>S.No</StyledTableCell>
+                    <StyledTableCell>Name</StyledTableCell>
+                    <StyledTableCell>Mobile</StyledTableCell>
+                    <StyledTableCell>Total Collection</StyledTableCell>
+                    <StyledTableCell>Monthly Total Collection</StyledTableCell>
+                    <StyledTableCell>Todays Collection</StyledTableCell>
+                    <StyledTableCell>Action</StyledTableCell>
+                  </TableRow>
+                </TableHead>
                 <TableBody>
-                  {filteredData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row, index) => {
-                    return (
-                      <TableRow hover tabIndex={-1} role="checkbox" key={row._id}>
-                        <TableCell padding="checkbox"></TableCell>
+                  {
+                    filteredData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row, index) => (
+                      <StyledTableRow hover tabIndex={-1} role="checkbox" key={row._id}>
+                        <StyledTableCell padding="checkbox"></StyledTableCell>
 
-                        <TableCell align="left">{index + 1}</TableCell>
+                        <StyledTableCell align="left">{index + 1}</StyledTableCell>
 
-                        <TableCell component="th" scope="row" padding="none">
+                        <StyledTableCell component="th" scope="row" padding="none">
                           <Stack direction="row" alignItems="center" spacing={2}>
                             <Typography variant="subtitle2" noWrap>
                               {row.name}
                             </Typography>
                           </Stack>
-                        </TableCell>
+                        </StyledTableCell>
 
-                        <TableCell align="left">{row.number}</TableCell>
+                        <StyledTableCell align="left">{row.number}</StyledTableCell>
 
-                        <TableCell align="left">₹ 1027455 From 2939 Customer</TableCell>
-                        <TableCell align="left">₹ 3036 From 5 Customer</TableCell>
-                        <TableCell align="left">₹ 0 From 0 Custome</TableCell>
-                        <TableCell align="left">
+                        <StyledTableCell align="left">₹ 1027455 From 2939 Customer</StyledTableCell>
+                        <StyledTableCell align="left">₹ 3036 From 5 Customer</StyledTableCell>
+                        <StyledTableCell align="left">₹ 0 From 0 Custome</StyledTableCell>
+                        <StyledTableCell align="left">
                           <Button variant="outlined" onClick={() => details(row._id)}>
                             Details
                           </Button>
@@ -250,40 +264,11 @@ export default function BlogPage() {
                           >
                             Login
                           </Button>
-                        </TableCell>
-                      </TableRow>
-                    );
-                  })}
-                  {/* {emptyRows > 0 && (
-                    <TableRow style={{ height: 53 * emptyRows }}>
-                      <TableCell colSpan={6} />
-                    </TableRow>
-                  )} */}
+                        </StyledTableCell>
+                      </StyledTableRow>
+                    ))
+                  }
                 </TableBody>
-
-                {/* {isNotFound && (
-                  <TableBody>
-                    <TableRow>
-                      <TableCell align="center" colSpan={6} sx={{ py: 3 }}>
-                        <Paper
-                          sx={{
-                            textAlign: 'center',
-                          }}
-                        >
-                          <Typography variant="h6" paragraph>
-                            Not found
-                          </Typography>
-
-                          <Typography variant="body2">
-                            No results found for &nbsp;
-                            <strong>&quot;{filterName}&quot;</strong>.
-                            <br /> Try checking for typos or using complete words.
-                          </Typography>
-                        </Paper>
-                      </TableCell>
-                    </TableRow>
-                  </TableBody>
-                )} */}
               </Table>
             </TableContainer>
           </Scrollbar>

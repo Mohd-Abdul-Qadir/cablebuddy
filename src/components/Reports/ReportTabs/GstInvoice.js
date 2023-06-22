@@ -32,7 +32,7 @@ const GstInvoice = () => {
     };
 
     return (
-        <Stack width='75%' height='fit-content' sx={{ border: '1px solid #D8D8D8', borderRadius: '10px 10px 10px 10px', bgcolor: '#F5F5F5' }}>
+        <Stack sx={{ border: '1px solid #D8D8D8', borderRadius: '10px 10px 10px 10px', bgcolor: '#F5F5F5',flexGrow: 1,width: '100%' }}>
             <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid #D8D8D8', px: '14px', py: '10px', borderRadius: '10px 10px 0 0', bgcolor: '#F5F5F5' }}>
                 <Typography sx={{ textTransform: 'capitalize', fontWeight: '500', fontSize: '16px' }}>GST Invoice</Typography>
                 <Button // onClick={handleDownload}
@@ -43,9 +43,9 @@ const GstInvoice = () => {
                     Download Bill
                 </Button>
             </Box>
-            <Stack flexDirection='column' gap='1rem' py='5%' px='3%' bgcolor='white'>
+            <Stack direction='column' gap='1rem' py='5%' px='3%' bgcolor='white'>
                 <Stack gap='1rem'>
-                    <Stack direction='row' alignItems='center' gap='2%' justifyContent='space-between' sx={{ display: 'flex' }}>
+                    <Stack direction='row' flexWrap='wrap' alignItems='center' justifyContent='space-between'>
                         <Select
                             displayEmpty
                             value={invoice}
@@ -80,7 +80,7 @@ const GstInvoice = () => {
                             <MenuItem value='EndDate'>End Date</MenuItem>
                         </Select>
                         <LocalizationProvider dateAdapter={AdapterDayjs}>
-                            <DemoContainer components={['SingleInputDateRangeField']}>
+                            <DemoContainer components={['SingleInputDateRangeField']} sx={{padding: 0}}>
                                 <Box sx={{
                                     overflow: 'auto', maxWidth: '100%', mt: '0px'
                                 }}>
@@ -94,7 +94,7 @@ const GstInvoice = () => {
                     </Stack>
                 </Stack>
                 <TableContainer sx={{ border: '1px solid #D8D8D8' }}>
-                    <Table sx={{ width: '110%' }}>
+                    <Table>
                         <TableHead>
                             <TableRow>
                                 <TableCell sx={{ border: '1px solid #D8D8D8' }}>Name</TableCell>

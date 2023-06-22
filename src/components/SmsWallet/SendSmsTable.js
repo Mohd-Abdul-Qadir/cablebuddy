@@ -64,8 +64,8 @@ const SendSmsTable = () => {
     return (
         <ThemeProvider theme={theme}>
             <Stack width='100%' gap='25px'>
-                <Stack sx={{ border: '1px solid #D8D8D8', borderRadius: '10px', bgcolor: 'white', width: '100%' }}>
-                    <Box sx={{ bgcolor: '#F5F5F5', border: '1px solid #D8D8D8', padding: '14px', borderRadius: '10px 10px 0 0' }}>
+                <Stack sx={{ border: '1px solid #D8D8D8', boxShadow: '-1px -1px 8px #D8D8D8,3px 3px 8px #D8D8D8', borderRadius: '10px', bgcolor: 'white', width: '100%' }}>
+                    <Box sx={{ bgcolor: '#F5F5F5', padding: '14px', borderRadius: '10px 10px 0 0' }}>
                         <Typography sx={{ fontWeight: '600', fontSize: '16px' }}>Filters And Option</Typography>
                     </Box>
                     <Stack padding='1rem' gap='10px'>
@@ -165,7 +165,7 @@ const SendSmsTable = () => {
                         </Stack>
                     </Stack>
                 </Stack>
-                <Stack sx={{ border: '1px solid #D8D8D8', borderRadius: '10px', bgcolor: 'white', width: '100%', padding: '1rem' }}>
+                <Stack sx={{ border: '1px solid #D8D8D8', boxShadow: '-1px -1px 8px #D8D8D8,3px 3px 8px #D8D8D8', borderRadius: '10px', bgcolor: 'white', width: '100%', padding: '1rem' }}>
                     <TableContainer sx={{ border: '1px solid #D8D8D8' }}>
                         <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
                             <TableHead>

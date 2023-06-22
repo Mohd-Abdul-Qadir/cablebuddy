@@ -4,27 +4,12 @@ import AddIcon from '@mui/icons-material/Add';
 import SystemUpdateAltOutlinedIcon from '@mui/icons-material/SystemUpdateAltOutlined';
 import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
+import { v4 as uuidv4 } from 'uuid';
+
 // @mui
-import {
-  Avatar,
-  Box,
-  Button,
-  Card,
-  Checkbox,
-  Container,
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select,
-  Stack,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TablePagination,
-  TableRow,
-  Typography,
-} from '@mui/material';
+import { TextField, Card, Table, Stack, Paper, InputLabel, Button, Popover, Checkbox, TableRow, MenuItem, TableBody, TableHead, Container, Typography, Select, TableContainer, TablePagination, Box, FormControl } from '@mui/material';
+import TableCell, { tableCellClasses } from '@mui/material/TableCell';
+import { styled } from '@mui/material/styles';
 // components
 import { filter } from 'lodash';
 import { useNavigate } from 'react-router-dom';
@@ -43,6 +28,7 @@ const TABLE_HEAD = [
   { id: 'status', label: 'Status', alignRight: false },
   { id: 'isVerified', label: 'Action', alignRight: false },
 ];
+
 export default function ProductsPage() {
   const [openFilter, setOpenFilter] = useState(false);
   const [selected, setSelected] = useState([]);
@@ -161,6 +147,26 @@ export default function ProductsPage() {
 
   const filteredData = products.filter((item) => item.name.toLowerCase().includes(searchQuery.toLowerCase()));
 
+  const StyledTableCell = styled(TableCell)(({ theme }) => ({
+    [`&.${tableCellClasses.head}`]: {
+      backgroundColor: 'rgb(12, 53, 71)',
+      color: theme.palette.common.white,
+    },
+    [`&.${tableCellClasses.body}`]: {
+      fontSize: 14,
+    },
+  }));
+
+  const StyledTableRow = styled(TableRow)(({ theme }) => ({
+    '&:nth-of-type(odd)': {
+      backgroundColor: theme.palette.action.hover,
+    },
+    // hide last border
+    '&:last-child td, &:last-child th': {
+      border: 0,
+    },
+  }));
+
   return (
     <>
       <Helmet>
@@ -193,6 +199,7 @@ export default function ProductsPage() {
         <Stack
           sx={{
             border: '1px solid #D8D8D8',
+            boxShadow: '-1px -1px 8px #D8D8D8,3px 3px 8px #D8D8D8',
             borderRadius: '10px',
             bgcolor: 'white',
             width: '100%',
@@ -232,8 +239,8 @@ export default function ProductsPage() {
           </Stack>
         </Stack>
 
-        <Card>
-          <Stack direction={{xs: 'column', sm: 'row'}} justifyContent='space-between'>
+        <Card sx={{ border: '1px solid #D8D8D8', boxShadow: '-1px -1px 8px #D8D8D8,3px 3px 8px #D8D8D8' }}>
+          <Stack direction={{ xs: 'column', sm: 'row' }} justifyContent='space-between'>
             <UserListToolbar value={searchQuery} onChange={handleSearch} onFilterName={handleSearch} />
             <Button
               startIcon={<FileDownloadOutlinedIcon />}
@@ -247,27 +254,27 @@ export default function ProductsPage() {
           </Stack>
 
           <Scrollbar>
-            <TableContainer sx={{ minWidth: 800 }}>
+            <TableContainer>
               <Table>
-                <UserListHead
-                  order={order}
-                  orderBy={orderBy}
-                  headLabel={TABLE_HEAD}
-                  rowCount={USERLIST.length}
-                  numSelected={selected.length}
-                  onRequestSort={handleRequestSort}
-                  onSelectAllClick={handleSelectAllClick}
-                />
+                <TableHead>
+                  <TableRow>
+                    <StyledTableCell></StyledTableCell>
+                    <StyledTableCell>S.No</StyledTableCell>
+                    <StyledTableCell>Name</StyledTableCell>
+                    <StyledTableCell>Rate</StyledTableCell>
+                    <StyledTableCell>Status</StyledTableCell>
+                    <StyledTableCell>Action</StyledTableCell>
+                  </TableRow>
+                </TableHead>
                 <TableBody>
-                  {filteredData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row, index) => {
-                    return (
-                      <TableRow hover tabIndex={-1} role="checkbox" key={row._id}>
-                        <TableCell padding="checkbox">
+                  {
+                    filteredData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row, index) => (
+                      <StyledTableRow key={uuidv4()} tabIndex={-1} role="checkbox">
+                        <StyledTableCell>
                           <Checkbox />
-                        </TableCell>
-                        <TableCell align="left">{index + 2231}</TableCell>
-
-                        <TableCell component="th" scope="row" padding="none">
+                        </StyledTableCell>
+                        <StyledTableCell align="left">{index + 2231}</StyledTableCell>
+                        <StyledTableCell component="th" scope="row" padding="none">
                           <Stack
                             direction="row"
                             alignItems="center"
@@ -284,60 +291,81 @@ export default function ProductsPage() {
                               </Typography>
                             )}
                           </Stack>
-                        </TableCell>
-
-                        <TableCell align="left">{row.price}</TableCell>
-                        <TableCell align="left">
+                        </StyledTableCell>
+                        <StyledTableCell align="left">{row.price}</StyledTableCell>
+                        <StyledTableCell align="left">
                           <Label color={'success'}>
                             {/* {sentenceCase(status)} */}
                             Active
                           </Label>
-                        </TableCell>
+                        </StyledTableCell>
 
-                        <TableCell align="left" sx={{ cursor: 'pointer' }} onClick={() => details(row._id)}>
+                        <StyledTableCell align="left" sx={{ cursor: 'pointer' }} onClick={() => details(row._id)}>
                           {/* <Label>Details</Label> */}
                           <Button variant="outlined">Details</Button>
-                        </TableCell>
-
-                        {/* <TableCell align="right">
-                          <IconButton size="large" color="inherit" onClick={handleOpenMenu}>
-                            <Iconify icon={'eva:more-vertical-fill'} />
-                          </IconButton>
-                        </TableCell> */}
-                      </TableRow>
-                    );
-                  })}
-                  {emptyRows > 0 && (
-                    <TableRow style={{ height: 53 * emptyRows }}>
-                      <TableCell colSpan={6} />
+                        </StyledTableCell>
+                      </StyledTableRow>
+                    ))
+                  }
+                  {
+                    emptyRows > 0 && (
+                      <StyledTableRow style={{ height: 53 * emptyRows }}>
+                        <StyledTableCell colSpan={6} />
+                      </StyledTableRow>
+                    )
+                  }
+                  {
+                    isNotFound &&
+                    {
+                      /* <TableBody>
+                    <TableRow>
+                      <TableCell align="center" colSpan={6} sx={{ py: 3 }}>
+                        <Paper
+                          sx={{
+                            textAlign: 'center',
+                          }}
+                        >
+                          <Typography variant="h6" paragraph>
+                            Not found
+                          </Typography>
+    
+                          <Typography variant="body2">
+                            No results found for &nbsp;
+                            <strong>&quot;{filterName}&quot;</strong>.
+                            <br /> Try checking for typos or using complete words.
+                          </Typography>
+                        </Paper>
+                      </TableCell>
                     </TableRow>
-                  )}
+                  </TableBody> */
+                    }
+                  }
                 </TableBody>
-
-                {isNotFound &&
                 {
-                  /* <TableBody>
-                <TableRow>
-                  <TableCell align="center" colSpan={6} sx={{ py: 3 }}>
-                    <Paper
-                      sx={{
-                        textAlign: 'center',
-                      }}
-                    >
-                      <Typography variant="h6" paragraph>
-                        Not found
-                      </Typography>
+                  isNotFound && (
+                    <TableBody>
+                      <StyledTableRow>
+                        <StyledTableCell align="center" colSpan={6} sx={{ py: 3 }}>
+                          <Paper
+                            sx={{
+                              textAlign: 'center',
+                            }}
+                          >
+                            <Typography variant="h6" paragraph>
+                              Not found
+                            </Typography>
 
-                      <Typography variant="body2">
-                        No results found for &nbsp;
-                        <strong>&quot;{filterName}&quot;</strong>.
-                        <br /> Try checking for typos or using complete words.
-                      </Typography>
-                    </Paper>
-                  </TableCell>
-                </TableRow>
-              </TableBody> */
-                }}
+                            <Typography variant="body2">
+                              No results found for &nbsp;
+                              <strong>&quot;{filterName}&quot;</strong>.
+                              <br /> Try checking for typos or using complete words.
+                            </Typography>
+                          </Paper>
+                        </StyledTableCell>
+                      </StyledTableRow>
+                    </TableBody>
+                  )
+                }
               </Table>
             </TableContainer>
           </Scrollbar>

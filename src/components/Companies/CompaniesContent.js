@@ -36,7 +36,7 @@ const CompaniesContent = () => {
         <Stack sx={{ borderRadius: '10px', width: '100%', gap: '20px' }}>
           <Stack direction={{ xs: 'column', sm: 'row' }} gap="2%" rowGap='12px'>
             <Paper
-              elevation={6}
+              elevation={4}
               sx={{
                 display: 'flex',
                 flexDirection: 'column',
@@ -54,7 +54,7 @@ const CompaniesContent = () => {
               <BusinessIcon sx={{ position: 'absolute', right: 10, top: 30, fontSize: '60px', color: '#0C3547' }} />
             </Paper>
             <Paper
-              elevation={6}
+              elevation={4}
               sx={{
                 display: 'flex',
                 flexDirection: 'column',
@@ -72,7 +72,7 @@ const CompaniesContent = () => {
               <BusinessIcon sx={{ position: 'absolute', right: 10, top: 30, fontSize: '60px', color: '#0C3547' }} />
             </Paper>
             <Paper
-              elevation={6}
+              elevation={4}
               sx={{
                 display: 'flex',
                 justifyContent: 'space-between',
@@ -81,7 +81,7 @@ const CompaniesContent = () => {
                 height: '126px',
                 padding: '20px',
                 flex: 1,
-                bgcolor: '#2065D1',
+                bgcolor: 'rgb(12, 53, 71)',
                 color: 'white',
                 borderRadius: '8px',
                 cursor: 'pointer',
@@ -93,7 +93,7 @@ const CompaniesContent = () => {
             </Paper>
           </Stack>
         </Stack>
-        <Stack sx={{ border: '1px solid #D8D8D8', borderRadius: '10px', bgcolor: 'white', width: '100%' }}>
+        <Stack sx={{ border: '1px solid #D8D8D8', boxShadow: '3px 3px 8px #D8D8D8', borderRadius: '10px', bgcolor: 'white', width: '100%' }}>
           <Box sx={{ bgcolor: '#F5F5F5', border: '1px solid #D8D8D8', padding: '14px', borderRadius: '10px 10px 0 0' }}>
             <Typography sx={{ fontWeight: '600', fontSize: '16px' }}>Filters And Option</Typography>
           </Box>
