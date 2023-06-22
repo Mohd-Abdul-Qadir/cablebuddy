@@ -129,8 +129,8 @@ const CollectionContent = () => {
         <Typography sx={{ color: '#0C3547', fontWeight: '400', fontSize: '48px' }}>Collection</Typography>
       </Box>
       <Stack direction="column" justifyContent="center" alignItems="center" padding="1rem" width="100%" gap="2rem">
-        <Stack sx={{ width: '100%', bgcolor: 'white', border: '1px solid #D8D8D8', borderRadius: '12px' }}>
-          <Box sx={{ border: '1px solid #D8D8D8', padding: '14px', borderRadius: '10px 10px 0 0' }}>
+        <Stack sx={{ width: '100%', bgcolor: 'white', border: '1px solid #D8D8D8', boxShadow: '-1px -1px 8px #D8D8D8,3px 3px 8px #D8D8D8', borderRadius: '12px' }}>
+          <Box sx={{ borderBottom: '1px solid #D8D8D8', padding: '14px', borderRadius: '10px 10px 0 0' }}>
             <Marquee>
               <Typography sx={scrollingText}>Payment will reach to your bank account by 7pm to 7am</Typography>
             </Marquee>

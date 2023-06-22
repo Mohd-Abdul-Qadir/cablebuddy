@@ -53,7 +53,7 @@ const AreaSummary = () => {
     const [openChart, setOpenChart] = useState(false);
 
     return (
-        <Stack width='75%' height='fit-content' sx={{ border: '1px solid #D8D8D8', borderRadius: '10px 10px 10px 10px', bgcolor: '#F5F5F5' }}>
+        <Stack height='fit-content' sx={{ border: '1px solid #D8D8D8', borderRadius: '10px 10px 10px 10px', bgcolor: '#F5F5F5' }}>
             <Box sx={{ borderBottom: '1px solid #D8D8D8', padding: '14px', borderRadius: '10px 10px 0 0', bgcolor: '#F5F5F5' }}>
                 <Typography sx={{ textTransform: 'capitalize', fontWeight: '500', fontSize: '16px' }}>Area Wise Summary</Typography>
             </Box>

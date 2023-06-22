@@ -40,7 +40,7 @@ const AgentCard = (props) => {
         <Stack sx={{ borderRadius: '10px', width: '100%', gap: '20px' }}>
           <Stack direction={{ xs: 'column', sm: 'row' }} gap="2%" rowGap='10px'>
             <Paper
-              elevation={2}
+              elevation={4}
               sx={{
                 display: 'flex',
                 flexDirection: 'column',
@@ -60,7 +60,7 @@ const AgentCard = (props) => {
               />
             </Paper>
             <Paper
-              elevation={2}
+              elevation={4}
               sx={{
                 display: 'flex',
                 flexDirection: 'column',
@@ -80,7 +80,7 @@ const AgentCard = (props) => {
               />
             </Paper>
             <Paper
-              elevation={2}
+              elevation={4}
               sx={{
                 display: 'flex',
                 justifyContent: 'space-between',
@@ -89,7 +89,7 @@ const AgentCard = (props) => {
                 height: '126px',
                 padding: '20px',
                 flex: 1,
-                bgcolor: '#2065D1',
+                bgcolor: 'rgb(12, 53, 71)',
                 color: 'white',
                 borderRadius: '8px',
               }}

@@ -44,7 +44,7 @@ const unactiveStyle = {
 }
 
 const SmsWalletContent = () => {
-    
+
     const [activeTab, setActiveTab] = useState('Send SMS')
     const [status, setStatus] = useState('');
     const [area, setArea] = useState('');
@@ -81,7 +81,7 @@ const SmsWalletContent = () => {
                 </Typography>
             </Box>
             <Stack direction='column' justifyContent='center' alignItems='center' padding='1rem' width='100%' gap='2rem' marginTop='1rem'>
-                <Stack sx={{ width: '100%', bgcolor: 'white', border: '1px solid #D8D8D8', borderRadius: '12px' }}>
+                <Stack sx={{ width: '100%', bgcolor: 'white', border: '1px solid #D8D8D8', boxShadow: '-1px -1px 8px #D8D8D8,3px 3px 8px #D8D8D8', borderRadius: '12px' }}>
                     <Stack direction='row' gap='15px' sx={{ borderBottom: '1px solid #D8D8D8', px: '1rem', py: '10px', borderRadius: '10px 10px 0 0', bgcolor: '#F5F5F5' }}>
                         <Stack direction='row' alignItems='center' gap='10px'>
                             <Button onClick={() => { setActiveTab('Send SMS') }}

@@ -273,14 +273,14 @@ const AddCustomers = () => {
 
   return (
     <Box sx={{ padding: { xs: '4%', md: '1%' }, width: '100%' }}>
-      <Typography variant="h4" sx={{ mb: '5px' }}>Add Customer</Typography>
+      <Typography variant="h4" sx={{ mb: '10px' }}>Add Customer</Typography>
       <Stack gap={5}>
         <Stack
           direction="column"
           justifyContent="center"
           alignItems="center"
           gap="2rem"
-          sx={{ width: '100%', border: '1px solid #D8D8D8', bgcolor: 'white', borderRadius: '10px' }}
+          sx={{ width: '100%', border: '1px solid #D8D8D8', boxShadow: '-1px -1px 8px #D8D8D8,3px 3px 8px #D8D8D8', bgcolor: 'white', borderRadius: '10px' }}
         >
           <Typography
             sx={{
@@ -462,7 +462,7 @@ const AddCustomers = () => {
           justifyContent="center"
           alignItems="center"
           gap="2rem"
-          sx={{ width: '100%', border: '1px solid #D8D8D8', bgcolor: 'white', borderRadius: '10px' }}
+          sx={{ width: '100%', border: '1px solid #D8D8D8', boxShadow: '-1px -1px 8px #D8D8D8,3px 3px 8px #D8D8D8', bgcolor: 'white', borderRadius: '10px' }}
         >
           <Typography
             sx={{
@@ -592,7 +592,7 @@ const AddCustomers = () => {
           justifyContent="center"
           alignItems="center"
           gap="2rem"
-          sx={{ width: '100%', border: '1px solid #D8D8D8', bgcolor: 'white', borderRadius: '10px' }}
+          sx={{ width: '100%', border: '1px solid #D8D8D8', boxShadow: '-1px -1px 8px #D8D8D8,3px 3px 8px #D8D8D8', bgcolor: 'white', borderRadius: '10px' }}
         >
           <Typography
             sx={{
@@ -698,7 +698,7 @@ const AddCustomers = () => {
           justifyContent="center"
           alignItems="center"
           gap="2rem"
-          sx={{ width: '100%', border: '1px solid #D8D8D8', bgcolor: 'white', borderRadius: '10px' }}
+          sx={{ width: '100%', border: '1px solid #D8D8D8', boxShadow: '-1px -1px 8px #D8D8D8,3px 3px 8px #D8D8D8', bgcolor: 'white', borderRadius: '10px' }}
         >
           <Typography
             sx={{

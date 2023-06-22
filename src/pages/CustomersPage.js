@@ -76,7 +76,7 @@ function applySortFilter(array, comparator, query) {
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
-    backgroundColor: theme.palette.common.black,
+    backgroundColor: 'rgb(12, 53, 71)',
     color: theme.palette.common.white,
   },
   [`&.${tableCellClasses.body}`]: {
@@ -262,7 +262,7 @@ export default function CustomersPage() {
           gap="2rem"
         >
           <Stack
-            sx={{ border: '1px solid #D8D8D8', borderRadius: '10px', bgcolor: 'white', width: '100%', mt: '1rem' }}
+            sx={{ border: '1px solid #D8D8D8', boxShadow: '-1px -1px 8px #D8D8D8,3px 3px 8px #D8D8D8', borderRadius: '10px', bgcolor: 'white', width: '100%', mt: '1rem' }}
           >
             <Box
               sx={{ bgcolor: '#F5F5F5', border: '1px solid #D8D8D8', padding: '14px', borderRadius: '10px 10px 0 0' }}
@@ -288,7 +288,7 @@ export default function CustomersPage() {
                   <DemoContainer components={['DatePicker']} sx={{ width: '100%', padding: '0px' }}>
                     <Box fullWidth>
                       <DatePicker
-                        label="Select Date Follow Up"
+                        label="Select Date"
                         value={date}
                         onChange={(newValue) => setValue(newValue)}
                         sx={{ width: '100%' }}
@@ -356,7 +356,8 @@ export default function CustomersPage() {
           </Stack>
         </Stack>
 
-        <Card sx={{ border: '1px solid #D8D8D8' }}>
+        {/* <Card sx={{ border: '1px solid #D8D8D8', boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 4px 8px 0 rgba(0, 0, 0, 0.19)' }}> */}
+        <Card sx={{ border: '1px solid #D8D8D8', boxShadow: '-1px -1px 8px #D8D8D8,3px 3px 8px #D8D8D8' }}>
           <Card>
             <Box sx={{ display: 'flex', justifyContent: 'space-between', flexDirection: { xs: 'column', sm: 'row' } }}>
               <UserListToolbar
@@ -377,7 +378,7 @@ export default function CustomersPage() {
           </Card>
 
           <Scrollbar>
-            <TableContainer component={Paper}>
+            <TableContainer>
               <Table>
                 <TableHead>
                   <TableRow>
@@ -390,7 +391,6 @@ export default function CustomersPage() {
                     <StyledTableCell sx={{ display: 'flex' }}>Last Bill Amount</StyledTableCell>
                     <StyledTableCell>Expired</StyledTableCell>
                     <StyledTableCell>Status</StyledTableCell>
-                    <StyledTableCell></StyledTableCell>
                     <StyledTableCell></StyledTableCell>
                   </TableRow>
                 </TableHead>

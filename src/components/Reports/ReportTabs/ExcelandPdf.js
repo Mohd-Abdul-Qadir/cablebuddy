@@ -64,7 +64,6 @@ const ExcelandPdf = () => {
   //   downloadPDF(productData);
   return (
     <Stack
-      width="75%"
       height="fit-content"
       sx={{ border: '1px solid #D8D8D8', borderRadius: '10px 10px 10px 10px', bgcolor: '#F5F5F5' }}
     >
