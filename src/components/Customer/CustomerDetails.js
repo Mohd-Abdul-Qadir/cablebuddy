@@ -10,7 +10,6 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
 import DeleteIcon from '@mui/icons-material/Delete';
 import PaymentIcon from '@mui/icons-material/Payment';
 import AutorenewIcon from '@mui/icons-material/Autorenew';
@@ -38,7 +37,6 @@ import HardwareDetails from '../PaymentTabs/HardwareDetails';
 import { useParams } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import useMediaQuery from '@mui/material/useMediaQuery';
 
 // .................................switchButton.................................//
 
@@ -127,13 +125,10 @@ function a11yProps(index) {
 // ..................................MainFunction-CustomerDetails......................................//
 
 const CustomerDetails = () => {
-  const isMobile = useMediaQuery('(max-width:600px)');
-
   const { id } = useParams();
   const [value, setValue] = useState(0);
   const [allData, setAllData] = useState([]);
   const [isActive, setIsActive] = useState(false);
-  const [unit, setUnit] = useState('c');
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -162,10 +157,7 @@ const CustomerDetails = () => {
       .then((res) => res.json())
       .then((data) => {
         if (data.message === 'Customer deleted successfully') {
-          // const updatedProducts = products.filter((props) => props.id !== id);
-
           toast.success('Customer deleted successfully');
-          // setProducts(updatedProducts);
         } else {
           toast.error('Error deleting product');
         }
@@ -200,16 +192,13 @@ const CustomerDetails = () => {
         const errorData = await response.json();
         throw new Error(errorData.message);
       }
-
       const data = await response.json();
       toast.success('Status updated successfully');
-      console.log('Status updated successfully:', data.customer);
     } catch (error) {
       console.error('Error updating status:', error.message);
     }
   };
 
-  console.log(isActive, 'IS ACTIVE');
   return (
     <>
       <Box sx={{ padding: '2%', width: '100%', position: 'relative' }}>

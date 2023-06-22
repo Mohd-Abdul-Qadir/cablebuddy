@@ -80,14 +80,6 @@ export default function AgentProfile(props) {
           const agentData = data;
           setName(agentData.name);
           setNumber(agentData.number);
-          // setPrice(productData.price);
-          // setSelect(productData.select);
-          // setGst(productData.gst);
-          // setProduct(productData.product);
-          // setAdditional(productData.additional);
-          // setHsn(productData.hsn);
-          // setGenre(productData.genre);
-          // setType(productData.type);
           console.log(agentData, 'agen Data');
         })
         .catch((error) => console.error(error));
