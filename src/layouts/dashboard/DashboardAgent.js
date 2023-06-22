@@ -34,7 +34,7 @@ const Main = styled('div')(({ theme }) => ({
 
 export default function DashboardAgent() {
   const [open, setOpen] = useState(false);
-
+  
   return (
     <StyledRoot>
       <HeaderAgent onOpenNav={() => setOpen(true)} />

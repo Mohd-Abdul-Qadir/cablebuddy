@@ -1,7 +1,7 @@
 // @mui
 import PropTypes from 'prop-types';
 import { alpha, styled } from '@mui/material/styles';
-import { Card, Typography ,Box} from '@mui/material';
+import { Card, Typography, Box } from '@mui/material';
 // utils
 import { fShortenNumber } from '../../../utils/formatNumber';
 // components
@@ -38,7 +38,7 @@ export default function AppWidgetSummary({ title, total, icon, color = 'primary'
         sx={{
           // border: '1px solid black',
           py: 5,
-          boxShadow: 0,
+          boxShadow: '1px 3px 8px #D8D8D8',
           textAlign: 'center',
           color: (theme) => theme.palette[color].darker,
           bgcolor: (theme) => theme.palette[color].lighter,
