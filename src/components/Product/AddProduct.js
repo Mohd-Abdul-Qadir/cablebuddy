@@ -159,7 +159,7 @@ const AddProduct = () => {
                   color: '#A5A4A4',
                   borderColor: '#ccc',
                   ':active': {
-                    borderColor: 'red', // Set border color to red when clicked
+                    borderColor: 'red',
                   },
                 }}
               >
@@ -170,7 +170,10 @@ const AddProduct = () => {
                 <MenuItem value="Base Pack">Base Pack</MenuItem>
               </Select>
             </FormControl>
-            <FormControl fullWidth sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, gap: '12px', paddingTop: '20px' }}>
+            <FormControl
+              fullWidth
+              sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, gap: '12px', paddingTop: '20px' }}
+            >
               <TextField
                 fullWidth
                 id="outlined-basic"
@@ -179,8 +182,7 @@ const AddProduct = () => {
                 variant="outlined"
                 type="number"
                 defaultValue={gst}
-                sx={{ bgcolor: '#F8F8F8'}}
-              // autoComplete="off"
+                sx={{ bgcolor: '#F8F8F8' }}
               />
               <TextField
                 fullWidth
@@ -190,7 +192,7 @@ const AddProduct = () => {
                 label="Product Code"
                 variant="outlined"
                 type="text"
-                sx={{ bgcolor: '#F8F8F8'}}
+                sx={{ bgcolor: '#F8F8F8' }}
               />
               <TextField
                 fullWidth
@@ -200,7 +202,7 @@ const AddProduct = () => {
                 label="Additional Charge"
                 variant="outlined"
                 type="text"
-                sx={{ bgcolor: '#F8F8F8'}}
+                sx={{ bgcolor: '#F8F8F8' }}
               />
               <TextField
                 fullWidth
@@ -210,7 +212,7 @@ const AddProduct = () => {
                 label="HSN"
                 variant="outlined"
                 type="text"
-                sx={{ bgcolor: '#F8F8F8'}}
+                sx={{ bgcolor: '#F8F8F8' }}
               />
             </FormControl>
 
@@ -227,7 +229,7 @@ const AddProduct = () => {
                     color: '#A5A4A4',
                     borderColor: '#ccc',
                     ':active': {
-                      borderColor: 'red', // Set border color to red when clicked
+                      borderColor: 'red',
                     },
                   }}
                 >
@@ -263,7 +265,6 @@ const AddProduct = () => {
             <Button
               onClick={handleSubmit}
               startIcon={<AddIcon />}
-              // variant="outlined"
               variant="contained"
               sx={{
                 marginTop: '15px',

@@ -9,7 +9,28 @@ import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
 import { v4 as uuidv4 } from 'uuid';
 
 // @mui
-import { TextField, Card, Table, Stack, Paper, Avatar, Button, Popover, Checkbox, TableRow, MenuItem, TableBody, TableHead, Container, Typography, IconButton, TableContainer, TablePagination, Box, FormControl } from '@mui/material';
+import {
+  TextField,
+  Card,
+  Table,
+  Stack,
+  Paper,
+  Avatar,
+  Button,
+  Popover,
+  Checkbox,
+  TableRow,
+  MenuItem,
+  TableBody,
+  TableHead,
+  Container,
+  Typography,
+  IconButton,
+  TableContainer,
+  TablePagination,
+  Box,
+  FormControl,
+} from '@mui/material';
 import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import { styled } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
@@ -269,20 +290,23 @@ export default function CustomersPage() {
             >
               <Typography sx={{ fontWeight: '600', fontSize: '16px' }}>Filters And Option</Typography>
             </Box>
-            <Stack padding='2%' gap="10px">
-              <Stack gap='15px' flexWrap={{ xs: 'wrap', lg: 'nowrap' }} direction={{ xs: 'column', sm: 'row' }} alignItems="center" justifyContent="space-between">
-                <TextField
-                  fullWidth
-                  select
-                  value={action}
-                  onChange={handleChange}
-                >
+            <Stack padding="2%" gap="10px">
+              <Stack
+                gap="15px"
+                flexWrap={{ xs: 'wrap', lg: 'nowrap' }}
+                direction={{ xs: 'column', sm: 'row' }}
+                alignItems="center"
+                justifyContent="space-between"
+              >
+                <TextField fullWidth select value={action} onChange={handleChange}>
                   <MenuItem value={'bulkAction'}>Bulk Action</MenuItem>
                   <MenuItem value={'clearBalance'}>Clear Balance</MenuItem>
                   <MenuItem value={'renew'}>Renew</MenuItem>
                 </TextField>
 
-                <Button fullWidth variant="outlined" sx={{ px: '0px' }}>Apply (0)</Button>
+                <Button fullWidth variant="outlined" sx={{ px: '0px' }}>
+                  Apply (0)
+                </Button>
 
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                   <DemoContainer components={['DatePicker']} sx={{ width: '100%', padding: '0px' }}>
@@ -297,39 +321,22 @@ export default function CustomersPage() {
                   </DemoContainer>
                 </LocalizationProvider>
 
-                <TextField
-                  fullWidth
-                  select
-                  value={status}
-                  onChange={handleStatus}
-                >
-                  <MenuItem value='active'>Active</MenuItem>
-                  <MenuItem value='inActive'>Inactive</MenuItem>
+                <TextField fullWidth select value={status} onChange={handleStatus}>
+                  <MenuItem value="active">Active</MenuItem>
+                  <MenuItem value="inActive">Inactive</MenuItem>
                 </TextField>
 
-                <TextField
-                  fullWidth
-                  select
-                  value={area}
-                  onChange={handleArea}
-                >
-                  <MenuItem value='largeArea'>Large Area</MenuItem>
-                  <MenuItem value='smallArea'>Small Area</MenuItem>
+                <TextField fullWidth select value={area} onChange={handleArea}>
+                  <MenuItem value="largeArea">Large Area</MenuItem>
+                  <MenuItem value="smallArea">Small Area</MenuItem>
                 </TextField>
 
-
-                <TextField
-                  fullWidth
-                  select
-                  value={balance}
-                  onChange={handleBalance}
-                >
-                  <MenuItem value='balance1'>Balance 1</MenuItem>
-                  <MenuItem value='balance2'>Balance 2</MenuItem>
+                <TextField fullWidth select value={balance} onChange={handleBalance}>
+                  <MenuItem value="balance1">Balance 1</MenuItem>
+                  <MenuItem value="balance2">Balance 2</MenuItem>
                 </TextField>
-
               </Stack>
-              <Stack direction={{ xs: 'column', md: 'row' }} alignItems='center' gap='15px' sx={{ width: '100%' }}>
+              <Stack direction={{ xs: 'column', md: 'row' }} alignItems="center" gap="15px" sx={{ width: '100%' }}>
                 <Paper
                   elevation={2}
                   component="form"
@@ -387,7 +394,7 @@ export default function CustomersPage() {
                     <StyledTableCell>Hardware</StyledTableCell>
                     <StyledTableCell>Balance</StyledTableCell>
                     <StyledTableCell>Area</StyledTableCell>
-                    <StyledTableCell sx={{ display: 'flex' }}>Last Bill Amount</StyledTableCell>
+                    <StyledTableCell>Last Bill Amount</StyledTableCell>
                     <StyledTableCell>Expired</StyledTableCell>
                     <StyledTableCell>Status</StyledTableCell>
                     <StyledTableCell></StyledTableCell>
@@ -395,70 +402,66 @@ export default function CustomersPage() {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {
-                    customers.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row, index) => (
-                      <StyledTableRow key={uuidv4()} tabIndex={-1} role="checkbox">
-                        <StyledTableCell>
-                          <Checkbox />
-                        </StyledTableCell>
-                        <StyledTableCell>
-                          <Typography variant="subtitle2" noWrap>
-                            {index + 1}
-                          </Typography>
-                        </StyledTableCell>
-                        <StyledTableCell>{row.name}</StyledTableCell>
-                        <StyledTableCell align="left">DSNW20e8c240</StyledTableCell>
-                        <StyledTableCell>{row.subdcriptionAmount}</StyledTableCell>
-                        <StyledTableCell>{row.address}</StyledTableCell>
-                        <StyledTableCell align="center">15</StyledTableCell>
-                        <StyledTableCell align="left">22/05/2022</StyledTableCell>
-                        <StyledTableCell align="left">
-                          <Label color={'success'}>
-                            {/* {sentenceCase(status)} */}
-                            Active
-                          </Label>
-                        </StyledTableCell>
-                        <StyledTableCell>
-                          <Button variant="outlined" onClick={() => handleCustomerDetails(row._id)}>
-                            Detail
-                          </Button>
-                        </StyledTableCell>
-                      </StyledTableRow>
-                    ))
-                  }
-                  {
-                    emptyRows > 0 && (
-                      <StyledTableRow style={{ height: 53 * emptyRows }}>
-                        <StyledTableCell colSpan={6} />
-                      </StyledTableRow>
-                    )
-                  }
+                  {customers.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row, index) => (
+                    <StyledTableRow key={uuidv4()} tabIndex={-1} role="checkbox">
+                      <StyledTableCell>
+                        <Checkbox />
+                      </StyledTableCell>
+                      <StyledTableCell>
+                        <Typography variant="subtitle2" noWrap>
+                          {index + 1}
+                        </Typography>
+                      </StyledTableCell>
+                      <StyledTableCell>{row.name}</StyledTableCell>
+                      <StyledTableCell align="left">DSNW20e8c240</StyledTableCell>
+                      <StyledTableCell>{row.subdcriptionAmount}</StyledTableCell>
+                      <StyledTableCell>{row.address}</StyledTableCell>
+                      <StyledTableCell align="center">15</StyledTableCell>
+                      <StyledTableCell align="left">22/05/2022</StyledTableCell>
+                      {/* <StyledTableCell align="left">
+                        <Label color={'success'}>Active</Label>
+                      </StyledTableCell> */}
+                      <StyledTableCell align="left">
+                        <Label color={row.active === true ? 'success' : 'error'}>
+                          {row.active === true ? 'Active' : 'Inactive'}
+                        </Label>
+                      </StyledTableCell>
+                      <StyledTableCell>
+                        <Button variant="outlined" onClick={() => handleCustomerDetails(row._id)}>
+                          Detail
+                        </Button>
+                      </StyledTableCell>
+                    </StyledTableRow>
+                  ))}
+                  {emptyRows > 0 && (
+                    <StyledTableRow style={{ height: 53 * emptyRows }}>
+                      <StyledTableCell colSpan={6} />
+                    </StyledTableRow>
+                  )}
                 </TableBody>
-                {
-                  isNotFound && (
-                    <TableBody>
-                      <StyledTableRow>
-                        <StyledTableCell align="center" colSpan={6} sx={{ py: 3 }}>
-                          <Paper
-                            sx={{
-                              textAlign: 'center',
-                            }}
-                          >
-                            <Typography variant="h6" paragraph>
-                              Not found
-                            </Typography>
+                {isNotFound && (
+                  <TableBody>
+                    <StyledTableRow>
+                      <StyledTableCell align="center" colSpan={6} sx={{ py: 3 }}>
+                        <Paper
+                          sx={{
+                            textAlign: 'center',
+                          }}
+                        >
+                          <Typography variant="h6" paragraph>
+                            Not found
+                          </Typography>
 
-                            <Typography variant="body2">
-                              No results found for &nbsp;
-                              <strong>&quot;{filterName}&quot;</strong>.
-                              <br /> Try checking for typos or using complete words.
-                            </Typography>
-                          </Paper>
-                        </StyledTableCell>
-                      </StyledTableRow>
-                    </TableBody>
-                  )
-                }
+                          <Typography variant="body2">
+                            No results found for &nbsp;
+                            <strong>&quot;{filterName}&quot;</strong>.
+                            <br /> Try checking for typos or using complete words.
+                          </Typography>
+                        </Paper>
+                      </StyledTableCell>
+                    </StyledTableRow>
+                  </TableBody>
+                )}
               </Table>
             </TableContainer>
           </Scrollbar>
@@ -473,7 +476,7 @@ export default function CustomersPage() {
             onRowsPerPageChange={handleChangeRowsPerPage}
           />
         </Card>
-      </Container >
+      </Container>
 
       <Popover
         open={Boolean(open)}

@@ -10,12 +10,9 @@ import DialogActions from '@mui/material/DialogActions';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import Typography from '@mui/material/Typography';
-import TelegramIcon from '@mui/icons-material/Telegram';
 import LocalPrintshopOutlinedIcon from '@mui/icons-material/LocalPrintshopOutlined';
-import BorderColorOutlinedIcon from '@mui/icons-material/BorderColorOutlined';
-import { Box, Stack } from '@mui/material';
+import { Box, Stack, TableBody } from '@mui/material';
 import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
@@ -23,7 +20,6 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-// import CollectPopUp from '../Customer/CollectPopUp';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialogContent-root': {
@@ -93,23 +89,13 @@ const invoiceTotal = invoiceTaxes + invoiceSubtotal;
 
 export default function HistoryBill(props) {
   const [open, setOpen] = useState(true);
-  const [name, setName] = useState('');
-  const [number, setNumber] = useState('');
-  const [password, setPassword] = useState('');
   const [user, setUser] = useState('');
-  const { id, allDataId } = props;
+  const [billData, setBillData] = useState('');
+  const [customerData, setCustomerData] = useState('');
+  const { id } = props;
 
-  const [data, setData] = useState();
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
   const handleClose = () => {
     setOpen(false);
-  };
-
-  const handlePassword = (e) => {
-    setPassword(e.target.value);
   };
 
   const componentRef = useRef();
@@ -137,7 +123,29 @@ export default function HistoryBill(props) {
     fetchUser();
   }, []);
 
-  console.log(id, 'this is id for bill');
+  useEffect(() => {
+    if (id) {
+      fetch(`/api/single-bill/${id}`)
+        .then((res) => res.json())
+        .then((data) => {
+          setBillData(data);
+        })
+        .catch((error) => console.error(error));
+    }
+  }, [id]);
+
+  useEffect(() => {
+    if (billData.customerId) {
+      fetch(`/api/single-customer/${billData.customerId}`)
+        .then((res) => res.json())
+        .then((data) => {
+          setCustomerData(data);
+        })
+        .catch((error) => console.error(error));
+    }
+  }, [billData]);
+
+  console.log(billData, 'This is bill Data');
   return (
     <div>
       <BootstrapDialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>
@@ -160,47 +168,53 @@ export default function HistoryBill(props) {
               <Typography sx={{ fontWeight: '600', fontSize: '16px' }}>Invoice Date :</Typography>
             </Box>
             <Stack padding="0.8rem">
-              <Stack>
-                {/* <div style={{ display: 'flex', justifyContent: 'space-between', flexDirection: 'row' }}>
-                  <div style={{ width: '250px' }}>
-                    <h4>From :</h4>
-
-                    <h4>{user.agency}</h4>
-                    <p>{user.city}</p>
-                    <p>{user.address}</p>
-                    <p>Phone{user.number}</p>
-                    <p>GST{user.gstnumber}</p>
-                  </div>
-                  <div style={{ width: '250px' }}>
-                    <h4>To :</h4>
-                    <p>{data.name}</p>
-                    <p>
-                      Customer Code: <span>{data.customerCode}</span>
-                    </p>
-                    <p>
-                      Phone:<span>{data.mobileNo1}</span>
-                    </p>
-                    <p>
-                      GST:<span>{data.gstNo}</span>
-                    </p>
-                    <p>
-                      DATE:<span>10/08/2012</span>
-                    </p>
-                  </div>
-                  <div style={{ width: '250px' }}>
-                    <h4>Hardware Detail:</h4>
-                    <p>
-                      Stb Name : <span>{data.stbName}</span>
-                    </p>
-                    <p>
-                      Stb :<span>{data.stbNumber}</span>{' '}
-                    </p>
-                    <p>
-                      Card :<span>{data.cardNumber}</span>{' '}
-                    </p>
-                  </div>
-                </div> */}
-              </Stack>
+              <div style={{ display: 'flex', justifyContent: 'space-between', flexDirection: 'row' }}>
+                <div style={{ width: '250px', lineHeight: '10px' }}>
+                  <h4>From :</h4>
+                  <h4>{user.agency}</h4>
+                  <p>{user.city}</p>
+                  <p>{user.address}</p>
+                  <p>Phone {user.number}</p>
+                  <p>GST {user.gstnumber}</p>
+                </div>
+                <div style={{ width: '250px', lineHeight: '10px' }}>
+                  <h4>To :</h4>
+                  <h4>{billData.name}</h4>
+                  <p>
+                    Customer Code:
+                    <span> {customerData.customerCode}</span>
+                  </p>
+                  <p>
+                    Phone:
+                    <span> {customerData.mobileNo1}</span>
+                  </p>
+                  <p>
+                    GST:
+                    <span> {customerData.gstNo}</span>
+                  </p>
+                  <p>
+                    Bill Date: <span>10/08/2012</span>
+                  </p>
+                  <h4>
+                    Payment Mode: <span style={{ fontWeight: 'normal' }}>{billData.paymentMode}</span>
+                  </h4>
+                  <h4>
+                    Collected By: <span style={{ fontWeight: 'normal' }}>{billData.collectedBy}</span>
+                  </h4>
+                </div>
+                <div style={{ width: '250px', lineHeight: '10px' }}>
+                  <h4>Hardware Detail:</h4>
+                  <p>
+                    Stb Name :<span>{customerData.stbName}</span>
+                  </p>
+                  <p>
+                    Stb :<span>{customerData.stbNumber}</span>
+                  </p>
+                  <p>
+                    Card :<span>{customerData.cardNumber}</span>{' '}
+                  </p>
+                </div>
+              </div>
             </Stack>
 
             <TableContainer component={Paper}>
@@ -213,46 +227,53 @@ export default function HistoryBill(props) {
                     <TableCell align="right">Price</TableCell>
                   </TableRow> */}
                   <TableRow>
-                    <TableCell>#</TableCell>
-                    <TableCell>Item</TableCell>
-                    <TableCell align="right">Quantity.</TableCell>
-                    <TableCell align="right"> HSN Code</TableCell>
-                    <TableCell align="right">Discount</TableCell>
-                    <TableCell align="right">Additional</TableCell>
-                    <TableCell align="right">Gst</TableCell>
-                    <TableCell align="right">Amount</TableCell>
+                    <TableCell></TableCell>
+                    <TableCell></TableCell>
+                    <TableCell align="right"></TableCell>
+                    <TableCell align="right"></TableCell>
+                    <TableCell align="right"></TableCell>
+                    <TableCell align="right"></TableCell>
+                    <TableCell align="right"></TableCell>
+                    <TableCell align="right"></TableCell>
                   </TableRow>
                 </TableHead>
-                {/* <TableBody>
-                  {rows.map((row) => (
-                    <TableRow key={row.desc}>
-                      <TableCell>{row.desc}</TableCell>
-                      <TableCell align="left">{row.qty}</TableCell>
-                      <TableCell align="right">{row.unit}</TableCell>
-                      <TableCell align="right">{ccyFormat(row.price)}</TableCell>
-                      <TableCell align="right">{row.hsn}</TableCell>
-                      <TableCell align="right">{row.discount}</TableCell>
-                      <TableCell align="right">{row.additional}</TableCell>
-                      <TableCell align="right">{row.subdcriptionAmount}</TableCell>
-                    </TableRow>
-                  ))}
+                <TableBody>
                   <TableRow>
                     <TableCell rowSpan={7} colSpan={5} />
-                    <TableCell colSpan={2}>Product Subtotal</TableCell>
-                    <TableCell align="right">{data.subdcriptionAmount}</TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell>Prev Balance</TableCell>
-                    <TableCell align="right"></TableCell>
-                    <TableCell align="right">{data.balanceAmount}</TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell colSpan={2}>Grand Total</TableCell>
-                    <TableCell align="right">
-                      {parseInt(data.balanceAmount) + parseInt(data.subdcriptionAmount)}
+                    <TableCell colSpan={2} style={{ fontWeight: 'bold' }}>
+                      Prev Balance:
                     </TableCell>
+                    <TableCell align="right">{billData.remainingAmount}</TableCell>
                   </TableRow>
-                </TableBody> */}
+                  <TableRow>
+                    <TableCell style={{ fontWeight: 'bold' }}>Paid Amount :</TableCell>
+                    <TableCell align="right">{billData.transactionAmount}</TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell colSpan={2} style={{ fontWeight: 'bold' }}>
+                      Discount :
+                    </TableCell>
+                    <TableCell align="right"> </TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell colSpan={2} style={{ fontWeight: 'bold' }}>
+                      Net :
+                    </TableCell>
+                    <TableCell align="right">{billData.transactionAmount}</TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell colSpan={2} style={{ fontWeight: 'bold' }}>
+                      Remaining Amount :
+                    </TableCell>
+                    <TableCell align="right">{billData.remainingAmount}</TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell colSpan={2} style={{ fontWeight: 'bold' }}>
+                      Comment :
+                    </TableCell>
+                    <TableCell align="right"></TableCell>
+                  </TableRow>
+                </TableBody>
               </Table>
             </TableContainer>
             <h7>This is a computer generated receipt it does not require any signature/stamp</h7>
@@ -261,8 +282,6 @@ export default function HistoryBill(props) {
         </DialogContent>
         <DialogActions>
           <div style={{ display: 'flex', justifyContent: 'space-between', flexDirection: 'row', width: '100%' }}>
-            {/* <CollectPopUp data={data} /> */}
-
             <ReactToPrint
               trigger={() => (
                 <Button variant="outlined" sx={{ color: '#212B36' }} startIcon={<LocalPrintshopOutlinedIcon />}>

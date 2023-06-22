@@ -59,9 +59,9 @@ export default function Nav({ openNav, onCloseNav }) {
       }}
     >
       <Box sx={{ px: 2.5, py: 3, display: 'inline-flex' }}>
-        <Typography variant="h2" color="White">
-          BillBook
-        </Typography>
+        {/* <Typography variant="h2" color="White"> */}
+        <img src="/assets/images/8.png" alt="logo" />
+        {/* </Typography> */}
       </Box>
 
       {/* <Box sx={{ mb: 5, mx: 2.5 }}>

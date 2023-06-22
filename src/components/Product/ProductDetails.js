@@ -2,15 +2,32 @@ import React, { useEffect, useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { FormControl, MenuItem, Select, TextField, Button, Box, Stack } from '@mui/material';
-import languages from 'language-list';
 import DeleteIcon from '@mui/icons-material/Delete';
 import TelegramIcon from '@mui/icons-material/Telegram';
+
+const languages = [
+  { name: 'Hindi' },
+  { name: 'English' },
+  { name: 'Tamil' },
+  { name: 'Telugu' },
+  { name: 'Assamese' },
+  { name: 'Malayalam' },
+  { name: 'Bhojpuri' },
+  { name: 'Bengali' },
+  { name: 'Gujarati' },
+  { name: 'Kannada' },
+  { name: 'Marathi' },
+  { name: 'Oriya' },
+  { name: 'Urdu' },
+  { name: 'Punjabi' },
+  { name: 'other' },
+];
 
 const ProductDetails = (props) => {
   const [value, setValue] = useState(0);
   const [select, setSelect] = useState('');
   const [genre, setGenre] = useState('');
-  const [selectedLanguage, setSelectedLanguage] = useState('');
+  const [language, setLanguage] = useState('');
 
   const [name, setName] = useState('');
   const [price, setPrice] = useState('');
@@ -43,29 +60,6 @@ const ProductDetails = (props) => {
     }
   }, [props.id]);
 
-  // const handleSubmit = (e) => {
-  //   console.log('update here');
-  //   e.preventDefault();
-
-  //   const productData = { name, price, select, gst, product, additional, hsn, genre, type };
-
-  //   if (props.id) {
-  //     fetch(`/api/update-product/${props.id}`, {
-  //       method: 'PUT',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //       body: JSON.stringify(productData),
-  //     })
-  //       .then((res) => res.json())
-  //       .then((data) => {
-  //         setMessage(data.message);
-  //         props.onUpdate();
-  //       })
-  //       .catch((error) => console.error(error));
-  //   }
-  // };
-
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -93,7 +87,7 @@ const ProductDetails = (props) => {
     setSelect(e.target.value);
   };
   const handleLanguageChange = (event) => {
-    setSelectedLanguage(event.target.value);
+    setLanguage(event.target.value);
   };
 
   const handleGener = (e) => {
@@ -122,7 +116,7 @@ const ProductDetails = (props) => {
   };
   return (
     <>
-      <Stack direction={{ xs: 'column', sm: 'row' }} justifyContent='space-between'>
+      <Stack direction={{ xs: 'column', sm: 'row' }} justifyContent="space-between">
         <h2>BCN Basic RYP</h2>
         <Button
           variant="outlined"
@@ -153,7 +147,7 @@ const ProductDetails = (props) => {
             border: '1px solid rgba(0,0,0,.125)',
             borderRadius: '10px',
             backgroundColor: 'white',
-            mt: '16px'
+            mt: '16px',
           }}
         >
           <div
@@ -197,7 +191,10 @@ const ProductDetails = (props) => {
                 sx={{ bgcolor: '#F8F8F8', width: '100%' }}
               />
             </FormControl>
-            <FormControl fullWidth sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, gap: '12px', paddingTop: '20px' }}>
+            <FormControl
+              fullWidth
+              sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, gap: '12px', paddingTop: '20px' }}
+            >
               <Select
                 required
                 value={select}
@@ -232,7 +229,7 @@ const ProductDetails = (props) => {
               <Select
                 required
                 id="language-select"
-                value={selectedLanguage}
+                value={language}
                 onChange={handleLanguageChange}
                 displayEmpty
                 inputProps={{ 'aria-label': 'Without label' }}
@@ -242,19 +239,25 @@ const ProductDetails = (props) => {
                   color: '#A5A4A4',
                   borderColor: '#ccc',
                   ':active': {
-                    borderColor: 'red', // Set border color to red when clicked
+                    borderColor: 'red',
                   },
                 }}
               >
                 <MenuItem value="">Please Select language</MenuItem>
 
-                {languages()
+                {/* {languages()
                   .getData()
                   .map((language) => (
                     <MenuItem key={language.code} value={language.name}>
                       {language.name}
                     </MenuItem>
-                  ))}
+                  ))} */}
+
+                {languages.map((language, index) => (
+                  <MenuItem key={index} value={language.name}>
+                    {language.name}
+                  </MenuItem>
+                ))}
               </Select>
             </FormControl>
             <FormControl fullWidth sx={{ display: 'flex', flexDirection: 'row', gap: '12px', paddingTop: '20px' }}>
@@ -264,7 +267,7 @@ const ProductDetails = (props) => {
                 displayEmpty
                 inputProps={{ 'aria-label': 'Without label' }}
                 sx={{
-                  width: {xs: '100%', md: '33%'},
+                  width: { xs: '100%', md: '33%' },
                   backgroundColor: '#F8F8F8',
                   color: '#A5A4A4',
                   borderColor: '#ccc',
