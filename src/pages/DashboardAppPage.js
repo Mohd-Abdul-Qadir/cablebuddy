@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { faker } from '@faker-js/faker';
 // @mui
 import { useTheme } from '@mui/material/styles';
-import { Grid, Container, Typography, Box } from '@mui/material';
+import { Grid, Container, Typography, Box, Paper, Card } from '@mui/material';
 // components
 import Iconify from '../components/iconify';
 import { Icon } from '@iconify/react';
@@ -14,7 +14,7 @@ import { useEffect, useState } from 'react';
 // ----------------------------------------------------------------------
 
 export default function DashboardAppPage() {
-  const [balanceHistories, setBalanceHistories] = useState([]);
+  const [balanceHistories, setBalanceHistories] = useState(0);
   const [totalTransactionAmount, setTotalTransactionAmount] = useState(0);
   const [balanceHistoriesOnline, setBalanceHistoriesOnline] = useState([balanceHistories.length - 1]);
   const [totalTransactionAmountOnline, setTotalTransactionAmountOnline] = useState(0);
@@ -215,7 +215,7 @@ export default function DashboardAppPage() {
             >
               <AppWidgetSummary
                 title="Total Pending Amount"
-                total={balanceHistories.remainingAmount}
+                total={'0'}
                 color="info"
                 icon={'ic:outline-currency-rupee'}
               />
@@ -268,13 +268,13 @@ export default function DashboardAppPage() {
               }}
             >
               {/* <AppWidgetSummary title="Todays Renewals" total={1} icon={'bi:router'} sx={{border: '1px solid black'}} /> */}
-              <Box sx={{ display: 'flex', flexDirection: 'column', gap: '1rem', alignItems: 'start', height: '122px', px: '5%', py: '18px', position: 'relative', borderRadius: '12px', border: '0.2px solid #A5A4A4' }}>
+              <Paper elevation={3} sx={{ display: 'flex', flexDirection: 'column', gap: '1rem', alignItems: 'start', height: '122px', px: '5%', py: '18px', position: 'relative', borderRadius: '12px', border: '0.2px solid #EDEDED' }}>
                 <Typography sx={{ fontWeight: '400', fontSize: '15px' }}>Todays Renewals</Typography>
                 <Typography sx={{ fontWeight: '600', fontSize: '20px' }}>5</Typography>
                 <Box sx={{ position: 'absolute', bottom: 12, right: 12 }}>
                   <Icon icon="bi:router" width='40' />
                 </Box>
-              </Box>
+              </Paper>
             </Grid>
 
             <Grid
@@ -298,13 +298,13 @@ export default function DashboardAppPage() {
               {/* <AppWidgetSummary title="Upcoming Renewals" total={'0'}
                 // color="error" 
                 icon={'bi:router'} sx={{ border: '1px solid black' }} /> */}
-              <Box sx={{ display: 'flex', flexDirection: 'column', gap: '1rem', alignItems: 'start', height: '122px', px: '5%', py: '18px', position: 'relative', borderRadius: '12px', border: '0.2px solid #A5A4A4' }}>
+              <Paper elevation={3} sx={{ display: 'flex', flexDirection: 'column', gap: '1rem', alignItems: 'start', height: '122px', px: '5%', py: '18px', position: 'relative', borderRadius: '12px', border: '0.2px solid #EDEDED' }}>
                 <Typography sx={{ fontWeight: '400', fontSize: '15px' }}>Upcoming Renewals</Typography>
                 <Typography sx={{ fontWeight: '600', fontSize: '20px' }}>10</Typography>
                 <Box sx={{ position: 'absolute', bottom: 12, right: 12 }}>
                   <Icon icon="bi:router" width='40' />
                 </Box>
-              </Box>
+              </Paper>
             </Grid>
 
             <Grid
@@ -328,13 +328,13 @@ export default function DashboardAppPage() {
               {/* <AppWidgetSummary title="Expired Renewals" total={'0'}
                 // color="info"
                 icon={'bi:router'} sx={{ border: '1px solid black' }} /> */}
-              <Box sx={{ display: 'flex', flexDirection: 'column', gap: '1rem', alignItems: 'start', height: '122px', px: '5%', py: '18px', position: 'relative', borderRadius: '12px', border: '0.2px solid #A5A4A4' }}>
+              <Paper elevation={3} sx={{ display: 'flex', flexDirection: 'column', gap: '1rem', alignItems: 'start', height: '122px', px: '5%', py: '18px', position: 'relative', borderRadius: '12px', border: '0.2px solid #EDEDED' }}>
                 <Typography sx={{ fontWeight: '400', fontSize: '15px' }}>Expired Renewals</Typography>
                 <Typography sx={{ fontWeight: '600', fontSize: '20px' }}>15</Typography>
                 <Box sx={{ position: 'absolute', bottom: 12, right: 12 }}>
                   <Icon icon="bi:router" width='40' />
                 </Box>
-              </Box>
+              </Paper>
             </Grid>
 
             <Grid
@@ -358,13 +358,13 @@ export default function DashboardAppPage() {
               {/* <AppWidgetSummary title="Recharged / Renewed" total={'0'}
                 // color="warning" 
                 icon={'bi:router'} sx={{ border: '1px solid black' }} /> */}
-              <Box sx={{ display: 'flex', flexDirection: 'column', gap: '1rem', alignItems: 'start', height: '122px', px: '5%', py: '18px', position: 'relative', borderRadius: '12px', border: '0.2px solid #A5A4A4' }}>
+              <Paper elevation={3} sx={{ display: 'flex', flexDirection: 'column', gap: '1rem', alignItems: 'start', height: '122px', px: '5%', py: '18px', position: 'relative', borderRadius: '12px', border: '0.2px solid #EDEDED' }}>
                 <Typography sx={{ fontWeight: '400', fontSize: '15px' }}>Recharged / Renewed</Typography>
                 <Typography sx={{ fontWeight: '600', fontSize: '20px' }}>20</Typography>
                 <Box sx={{ position: 'absolute', bottom: 12, right: 12 }}>
                   <Icon icon="bi:router" width='40' />
                 </Box>
-              </Box>
+              </Paper>
             </Grid>
           </Grid>
 
@@ -388,13 +388,13 @@ export default function DashboardAppPage() {
               }}
             >
               {/* <AppWidgetSummary title="Total Customers" total={totalCustomer} icon={'fa:group'} /> */}
-              <Box sx={{ display: 'flex', flexDirection: 'column', gap: '1rem', alignItems: 'start', height: '122px', px: '5%', py: '18px', position: 'relative', borderRadius: '12px', border: '0.2px solid #A5A4A4' }}>
+              <Paper elevation={3} sx={{ display: 'flex', flexDirection: 'column', gap: '1rem', alignItems: 'start', height: '122px', px: '5%', py: '18px', position: 'relative', borderRadius: '12px', border: '0.2px solid #EDEDED' }}>
                 <Typography sx={{ fontWeight: '400', fontSize: '15px' }}>Total Customers</Typography>
                 <Typography sx={{ fontWeight: '600', fontSize: '20px' }}>20</Typography>
                 <Box sx={{ position: 'absolute', bottom: 12, right: 12 }}>
                   <Icon icon="akar-icons:person" width='40' />
                 </Box>
-              </Box>
+              </Paper>
             </Grid>
 
             <Grid
@@ -418,13 +418,13 @@ export default function DashboardAppPage() {
               {/* <AppWidgetSummary title="Total Active Customers" total={'0'}
                 color="error"
                 icon={'fa:group'} /> */}
-              <Box sx={{ display: 'flex', flexDirection: 'column', gap: '1rem', alignItems: 'start', height: '122px', px: '5%', py: '18px', position: 'relative', borderRadius: '12px', border: '0.2px solid #A5A4A4' }}>
+              <Paper elevation={3} sx={{ display: 'flex', flexDirection: 'column', gap: '1rem', alignItems: 'start', height: '122px', px: '5%', py: '18px', position: 'relative', borderRadius: '12px', border: '0.2px solid #EDEDED' }}>
                 <Typography sx={{ fontWeight: '400', fontSize: '15px' }}>Total Active Customers</Typography>
                 <Typography sx={{ fontWeight: '600', fontSize: '20px' }}>20</Typography>
                 <Box sx={{ position: 'absolute', bottom: 12, right: 12 }}>
                   <Icon icon="akar-icons:person" width='40' />
                 </Box>
-              </Box>
+              </Paper>
             </Grid>
 
             <Grid
@@ -448,13 +448,13 @@ export default function DashboardAppPage() {
               {/* <AppWidgetSummary title="Total Inactive Customers" total={'0'}
                 color="info" 
                 icon={'fa:group'} /> */}
-              <Box sx={{ display: 'flex', flexDirection: 'column', gap: '1rem', alignItems: 'start', height: '122px', px: '5%', py: '18px', position: 'relative', borderRadius: '12px', border: '0.2px solid #A5A4A4' }}>
+              <Paper elevation={3} sx={{ display: 'flex', flexDirection: 'column', gap: '1rem', alignItems: 'start', height: '122px', px: '5%', py: '18px', position: 'relative', borderRadius: '12px', border: '0.2px solid #EDEDED' }}>
                 <Typography sx={{ fontWeight: '400', fontSize: '15px' }}>Total Inactive Customers</Typography>
                 <Typography sx={{ fontWeight: '600', fontSize: '20px' }}>20</Typography>
                 <Box sx={{ position: 'absolute', bottom: 12, right: 12 }}>
                   <Icon icon="akar-icons:person" width='40' />
                 </Box>
-              </Box>
+              </Paper>
             </Grid>
 
             <Grid
@@ -478,13 +478,13 @@ export default function DashboardAppPage() {
               {/* <AppWidgetSummary title="This Month New Customers" total={1}
                 color="warning"
                 icon={'fa:group'} /> */}
-              <Box sx={{ display: 'flex', flexDirection: 'column', gap: '1rem', alignItems: 'start', height: '122px', px: '5%', py: '18px', position: 'relative', borderRadius: '12px', border: '0.2px solid #A5A4A4' }}>
+              <Paper elevation={3} sx={{ display: 'flex', flexDirection: 'column', gap: '1rem', alignItems: 'start', height: '122px', px: '5%', py: '18px', position: 'relative', borderRadius: '12px', border: '0.2px solid #EDEDED' }}>
                 <Typography sx={{ fontWeight: '400', fontSize: '15px' }}>This Month New Customers</Typography>
                 <Typography sx={{ fontWeight: '600', fontSize: '20px' }}>20</Typography>
                 <Box sx={{ position: 'absolute', bottom: 12, right: 12 }}>
                   <Icon icon="akar-icons:person" width='40' />
                 </Box>
-              </Box>
+              </Paper>
             </Grid>
           </Grid>
 
@@ -513,13 +513,13 @@ export default function DashboardAppPage() {
                 color="warning"
                 icon={'fluent:chat-bubbles-question-20-filled'}
               /> */}
-              <Box sx={{ display: 'flex', flexDirection: 'column', gap: '1rem', alignItems: 'start', height: '122px', px: '5%', py: '18px', position: 'relative', borderRadius: '12px', border: '0.2px solid #A5A4A4' }}>
+              <Paper elevation={3} sx={{ display: 'flex', flexDirection: 'column', gap: '1rem', alignItems: 'start', height: '122px', px: '5%', py: '18px', position: 'relative', borderRadius: '12px', border: '0.2px solid #EDEDED' }}>
                 <Typography sx={{ fontWeight: '400', fontSize: '15px' }}>This Month New Customers</Typography>
                 <Typography sx={{ fontWeight: '600', fontSize: '20px' }}>20</Typography>
                 <Box sx={{ position: 'absolute', bottom: 12, right: 12 }}>
                   <Icon icon="fluent:chat-bubbles-question-20-filled" width='40' />
                 </Box>
-              </Box>
+              </Paper>
             </Grid>
           </Grid>
         </Grid>
