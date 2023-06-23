@@ -131,6 +131,7 @@ export default function CustomersPage() {
   const [status, setStatus] = useState('active');
   const [area, setArea] = useState('largeArea');
   const [balance, setBalance] = useState('balance1');
+  const [searchQuery, setSearchQuery] = useState('');
 
   const handleChange = (event) => {
     setAction(event.target.value);
@@ -244,6 +245,10 @@ export default function CustomersPage() {
       .catch((error) => console.error('Error:', error));
   };
 
+  const handleSearch = (event) => {
+    setSearchQuery(event.target.value);
+  };
+  const filteredData = customers.filter((item) => item.name.toLowerCase().includes(searchQuery.toLowerCase()));
   return (
     <>
       <Helmet>
@@ -283,7 +288,14 @@ export default function CustomersPage() {
           gap="2rem"
         >
           <Stack
-            sx={{ border: '1px solid #D8D8D8', boxShadow: '-1px -1px 8px #D8D8D8,3px 3px 8px #D8D8D8', borderRadius: '10px', bgcolor: 'white', width: '100%', mt: '1rem' }}
+            sx={{
+              border: '1px solid #D8D8D8',
+              boxShadow: '-1px -1px 8px #D8D8D8,3px 3px 8px #D8D8D8',
+              borderRadius: '10px',
+              bgcolor: 'white',
+              width: '100%',
+              mt: '1rem',
+            }}
           >
             <Box
               sx={{ bgcolor: '#F5F5F5', border: '1px solid #D8D8D8', padding: '14px', borderRadius: '10px 10px 0 0' }}
@@ -367,11 +379,7 @@ export default function CustomersPage() {
         <Card sx={{ border: '1px solid #D8D8D8', boxShadow: '-1px -1px 8px #D8D8D8,3px 3px 8px #D8D8D8' }}>
           <Card>
             <Box sx={{ display: 'flex', justifyContent: 'space-between', flexDirection: { xs: 'column', sm: 'row' } }}>
-              <UserListToolbar
-                numSelected={selected.length}
-                filterName={filterName}
-                onFilterName={handleFilterByName}
-              />
+              <UserListToolbar value={searchQuery} onChange={handleSearch} onFilterName={handleSearch} />
               <Button
                 startIcon={<FileDownloadOutlinedIcon />}
                 onClick={handleDownload}
@@ -402,7 +410,7 @@ export default function CustomersPage() {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {customers.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row, index) => (
+                  {filteredData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row, index) => (
                     <StyledTableRow key={uuidv4()} tabIndex={-1} role="checkbox">
                       <StyledTableCell>
                         <Checkbox />
@@ -412,15 +420,19 @@ export default function CustomersPage() {
                           {index + 1}
                         </Typography>
                       </StyledTableCell>
-                      <StyledTableCell>{row.name}</StyledTableCell>
-                      <StyledTableCell align="left">DSNW20e8c240</StyledTableCell>
+                      <StyledTableCell sx={{ lineHeight: '5px', color: '#0C3547' }}>
+                        {row.name}
+                        <p style={{ fontSize: '12px', color: 'gray' }}>Mobile: {row.mobileNo1}</p>
+                        <p style={{ fontSize: '12px', color: 'gray' }}>ADD: {row.address.split(' ', 3)}</p>
+                      </StyledTableCell>
+                      <StyledTableCell align="left" sx={{ lineHeight: '5px' }}>
+                        <p style={{ fontSize: '13px', color: 'gray' }}>STB: {row.stbName}</p>
+                        <p style={{ fontSize: '13px', color: 'gray' }}>Card: {row.cardNumber}</p>
+                      </StyledTableCell>
                       <StyledTableCell>{row.subdcriptionAmount}</StyledTableCell>
-                      <StyledTableCell>{row.address}</StyledTableCell>
+                      <StyledTableCell>{row.billingArea}</StyledTableCell>
                       <StyledTableCell align="center">15</StyledTableCell>
                       <StyledTableCell align="left">22/05/2022</StyledTableCell>
-                      {/* <StyledTableCell align="left">
-                        <Label color={'success'}>Active</Label>
-                      </StyledTableCell> */}
                       <StyledTableCell align="left">
                         <Label color={row.active === true ? 'success' : 'error'}>
                           {row.active === true ? 'Active' : 'Inactive'}

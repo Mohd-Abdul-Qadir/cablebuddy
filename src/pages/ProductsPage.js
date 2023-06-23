@@ -7,7 +7,28 @@ import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import { v4 as uuidv4 } from 'uuid';
 
 // @mui
-import { TextField, Card, Table, Stack, Paper, InputLabel, Button, Popover, Checkbox, TableRow, MenuItem, TableBody, TableHead, Container, Typography, Select, TableContainer, TablePagination, Box, FormControl } from '@mui/material';
+import {
+  TextField,
+  Card,
+  Table,
+  Stack,
+  Paper,
+  InputLabel,
+  Button,
+  Popover,
+  Checkbox,
+  TableRow,
+  MenuItem,
+  TableBody,
+  TableHead,
+  Container,
+  Typography,
+  Select,
+  TableContainer,
+  TablePagination,
+  Box,
+  FormControl,
+} from '@mui/material';
 import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import { styled } from '@mui/material/styles';
 // components
@@ -161,7 +182,7 @@ export default function ProductsPage() {
     '&:nth-of-type(odd)': {
       backgroundColor: theme.palette.action.hover,
     },
-    // hide last border
+
     '&:last-child td, &:last-child th': {
       border: 0,
     },
@@ -205,12 +226,11 @@ export default function ProductsPage() {
             width: '100%',
             marginBottom: '20px',
             mt: '25px',
-          }}
-        >
+       
           <Box sx={{ bgcolor: '#F5F5F5', borderBottom: '1px solid #D8D8D8', padding: '14px', borderRadius: '10px 10px 0 0' }}>            
             <Typography sx={{ fontWeight: '600', fontSize: '16px' }}>Filters And Option</Typography>
           </Box>
-          <Stack padding='2%' gap="10px">
+          <Stack padding="2%" gap="10px">
             <Stack>
               <Stack direction="row" alignItems="center">
                 <FormControl sx={{ m: 1, width: '100%' }} size="small">
@@ -240,7 +260,7 @@ export default function ProductsPage() {
         </Stack>
 
         <Card sx={{ border: '1px solid #D8D8D8', boxShadow: '-1px -1px 8px #D8D8D8,3px 3px 8px #D8D8D8' }}>
-          <Stack direction={{ xs: 'column', sm: 'row' }} justifyContent='space-between'>
+          <Stack direction={{ xs: 'column', sm: 'row' }} justifyContent="space-between">
             <UserListToolbar value={searchQuery} onChange={handleSearch} onFilterName={handleSearch} />
             <Button
               startIcon={<FileDownloadOutlinedIcon />}
@@ -267,55 +287,50 @@ export default function ProductsPage() {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {
-                    filteredData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row, index) => (
-                      <StyledTableRow key={uuidv4()} tabIndex={-1} role="checkbox">
-                        <StyledTableCell>
-                          <Checkbox />
-                        </StyledTableCell>
-                        <StyledTableCell align="left">{index + 2231}</StyledTableCell>
-                        <StyledTableCell component="th" scope="row" padding="none">
-                          <Stack
-                            direction="row"
-                            alignItems="center"
-                            spacing={2}
-                            sx={{ display: 'flex', justifyContent: 'space-between', marginLeft: '20px' }}
-                          >
-                            {/* <Avatar alt={name} src={avatarUrl} /> */}
-                            <Typography variant="subtitle2" noWrap>
-                              {row.name}
+                  {filteredData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row, index) => (
+                    <StyledTableRow key={uuidv4()} tabIndex={-1} role="checkbox">
+                      <StyledTableCell>
+                        <Checkbox />
+                      </StyledTableCell>
+                      <StyledTableCell align="left">{index + 2231}</StyledTableCell>
+                      <StyledTableCell component="th" scope="row" padding="none">
+                        <Stack
+                          direction="row"
+                          alignItems="center"
+                          spacing={2}
+                          sx={{ display: 'flex', justifyContent: 'space-between', marginLeft: '20px' }}
+                        >
+                          {/* <Avatar alt={name} src={avatarUrl} /> */}
+                          <Typography variant="subtitle2" noWrap>
+                            {row.name}
+                          </Typography>
+                          {row.select === 'Broadcaster Bouqet' && (
+                            <Typography>
+                              <AddChannels />
                             </Typography>
-                            {row.select === 'Broadcaster Bouqet' && (
-                              <Typography>
-                                <AddChannels />
-                              </Typography>
-                            )}
-                          </Stack>
-                        </StyledTableCell>
-                        <StyledTableCell align="left">{row.price}</StyledTableCell>
-                        <StyledTableCell align="left">
-                          <Label color={'success'}>
-                            {/* {sentenceCase(status)} */}
-                            Active
-                          </Label>
-                        </StyledTableCell>
+                          )}
+                        </Stack>
+                      </StyledTableCell>
+                      <StyledTableCell align="left">{row.price}</StyledTableCell>
+                      <StyledTableCell align="left">
+                        <Label color={'success'}>
+                          {/* {sentenceCase(status)} */}
+                          Active
+                        </Label>
+                      </StyledTableCell>
 
-                        <StyledTableCell align="left" sx={{ cursor: 'pointer' }} onClick={() => details(row._id)}>
-                          {/* <Label>Details</Label> */}
-                          <Button variant="outlined">Details</Button>
-                        </StyledTableCell>
-                      </StyledTableRow>
-                    ))
-                  }
-                  {
-                    emptyRows > 0 && (
-                      <StyledTableRow style={{ height: 53 * emptyRows }}>
-                        <StyledTableCell colSpan={6} />
-                      </StyledTableRow>
-                    )
-                  }
-                  {
-                    isNotFound &&
+                      <StyledTableCell align="left" sx={{ cursor: 'pointer' }} onClick={() => details(row._id)}>
+                        {/* <Label>Details</Label> */}
+                        <Button variant="outlined">Details</Button>
+                      </StyledTableCell>
+                    </StyledTableRow>
+                  ))}
+                  {emptyRows > 0 && (
+                    <StyledTableRow style={{ height: 53 * emptyRows }}>
+                      <StyledTableCell colSpan={6} />
+                    </StyledTableRow>
+                  )}
+                  {isNotFound &&
                     {
                       /* <TableBody>
                     <TableRow>
@@ -338,34 +353,31 @@ export default function ProductsPage() {
                       </TableCell>
                     </TableRow>
                   </TableBody> */
-                    }
-                  }
+                    }}
                 </TableBody>
-                {
-                  isNotFound && (
-                    <TableBody>
-                      <StyledTableRow>
-                        <StyledTableCell align="center" colSpan={6} sx={{ py: 3 }}>
-                          <Paper
-                            sx={{
-                              textAlign: 'center',
-                            }}
-                          >
-                            <Typography variant="h6" paragraph>
-                              Not found
-                            </Typography>
+                {isNotFound && (
+                  <TableBody>
+                    <StyledTableRow>
+                      <StyledTableCell align="center" colSpan={6} sx={{ py: 3 }}>
+                        <Paper
+                          sx={{
+                            textAlign: 'center',
+                          }}
+                        >
+                          <Typography variant="h6" paragraph>
+                            Not found
+                          </Typography>
 
-                            <Typography variant="body2">
-                              No results found for &nbsp;
-                              <strong>&quot;{filterName}&quot;</strong>.
-                              <br /> Try checking for typos or using complete words.
-                            </Typography>
-                          </Paper>
-                        </StyledTableCell>
-                      </StyledTableRow>
-                    </TableBody>
-                  )
-                }
+                          <Typography variant="body2">
+                            No results found for &nbsp;
+                            <strong>&quot;{filterName}&quot;</strong>.
+                            <br /> Try checking for typos or using complete words.
+                          </Typography>
+                        </Paper>
+                      </StyledTableCell>
+                    </StyledTableRow>
+                  </TableBody>
+                )}
               </Table>
             </TableContainer>
           </Scrollbar>

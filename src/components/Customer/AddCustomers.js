@@ -92,10 +92,11 @@ const Months = [
 const AddCustomers = () => {
   const [selectedValue, setSelectedValue] = useState('outstanding');
   const [selectedValue2, setSelectedValue2] = useState('additionalcharge');
+  const [selectedTags, setSelectedTags] = useState([]);
   const [month, setMonth] = useState('Every 1 Month');
   const [showCard, setShowCard] = useState(false);
   const [customer, setCustomers] = useState([]);
-  const [selectedTags, setSelectedTags] = useState('');
+  // const [selectedTags, setSelectedTags] = useState('');
   const [billingArea, setBillingArea] = useState('');
   const [inputData, setInputData] = useState({
     name: '',
@@ -249,38 +250,54 @@ const AddCustomers = () => {
     }
   };
 
-  // useEffect(() => {
-  //   fetch('/api/customers', {
-  //     method: 'GET',
-  //     headers: {
-  //       'x-access-token': `${localStorage.getItem('accessToken')}`,
-  //     },
-  //   })
-  //     .then((response) => response.json())
-  //     .then((data) => setCustomers(data))
-  //     .catch((error) => console.error(error));
-  // }, []);
-
-  // const options = customer.map((customer) => ({
-  //   value: customer.billingArea,
-  //   label: customer.billingArea,
-  // }));
+  useEffect(() => {
+    fetch('/api/customers', {
+      method: 'GET',
+      headers: {
+        'x-access-token': `${localStorage.getItem('accessToken')}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => setCustomers(data))
+      .catch((error) => console.error(error));
+  }, []);
 
   // const handleChange = (value) => {
   //   console.log(`selected ${value}`);
   //   selectedTags(value);
   // };
 
+  const handleChange = (tags) => {
+    setSelectedTags(tags);
+  };
+
+  // const options = BillingArea.map((option) => ({
+  //   label: option.value,
+  //   value: option.value,
+  // }));
+  const options = customer.map((customer) => ({
+    value: customer.selectedTags,
+    label: customer.selectedTags,
+  }));
+
   return (
     <Box sx={{ padding: { xs: '4%', md: '1%' }, width: '100%' }}>
-      <Typography variant="h4" sx={{ mb: '10px' }}>Add Customer</Typography>
+      <Typography variant="h4" sx={{ mb: '10px' }}>
+        Add Customer
+      </Typography>
       <Stack gap={5}>
         <Stack
           direction="column"
           justifyContent="center"
           alignItems="center"
           gap="2rem"
-          sx={{ width: '100%', border: '1px solid #D8D8D8', boxShadow: '-1px -1px 8px #D8D8D8,3px 3px 8px #D8D8D8', bgcolor: 'white', borderRadius: '10px' }}
+          sx={{
+            width: '100%',
+            border: '1px solid #D8D8D8',
+            boxShadow: '-1px -1px 8px #D8D8D8,3px 3px 8px #D8D8D8',
+            bgcolor: 'white',
+            borderRadius: '10px',
+          }}
         >
           <Typography
             sx={{
@@ -322,7 +339,7 @@ const AddCustomers = () => {
               />
             </Stack>
             <Stack fullWidth direction={{ xs: 'column', md: 'row' }} gap="1rem">
-              <TextField
+              {/* <TextField
                 select
                 fullWidth
                 label="Billing Area"
@@ -337,7 +354,15 @@ const AddCustomers = () => {
                     {option.value}
                   </MenuItem>
                 ))}
-              </TextField>
+              </TextField> */}
+              <Select
+                mode="tags"
+                style={{ width: '100%' }}
+                placeholder="Billing Area"
+                onChange={handleChange}
+                value={selectedTags}
+                options={options}
+              />
 
               <TextField
                 fullWidth
@@ -462,7 +487,13 @@ const AddCustomers = () => {
           justifyContent="center"
           alignItems="center"
           gap="2rem"
-          sx={{ width: '100%', border: '1px solid #D8D8D8', boxShadow: '-1px -1px 8px #D8D8D8,3px 3px 8px #D8D8D8', bgcolor: 'white', borderRadius: '10px' }}
+          sx={{
+            width: '100%',
+            border: '1px solid #D8D8D8',
+            boxShadow: '-1px -1px 8px #D8D8D8,3px 3px 8px #D8D8D8',
+            bgcolor: 'white',
+            borderRadius: '10px',
+          }}
         >
           <Typography
             sx={{
@@ -592,7 +623,13 @@ const AddCustomers = () => {
           justifyContent="center"
           alignItems="center"
           gap="2rem"
-          sx={{ width: '100%', border: '1px solid #D8D8D8', boxShadow: '-1px -1px 8px #D8D8D8,3px 3px 8px #D8D8D8', bgcolor: 'white', borderRadius: '10px' }}
+          sx={{
+            width: '100%',
+            border: '1px solid #D8D8D8',
+            boxShadow: '-1px -1px 8px #D8D8D8,3px 3px 8px #D8D8D8',
+            bgcolor: 'white',
+            borderRadius: '10px',
+          }}
         >
           <Typography
             sx={{
@@ -698,7 +735,13 @@ const AddCustomers = () => {
           justifyContent="center"
           alignItems="center"
           gap="2rem"
-          sx={{ width: '100%', border: '1px solid #D8D8D8', boxShadow: '-1px -1px 8px #D8D8D8,3px 3px 8px #D8D8D8', bgcolor: 'white', borderRadius: '10px' }}
+          sx={{
+            width: '100%',
+            border: '1px solid #D8D8D8',
+            boxShadow: '-1px -1px 8px #D8D8D8,3px 3px 8px #D8D8D8',
+            bgcolor: 'white',
+            borderRadius: '10px',
+          }}
         >
           <Typography
             sx={{

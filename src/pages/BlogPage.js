@@ -4,7 +4,21 @@ import { Helmet } from 'react-helmet-async';
 import { filter } from 'lodash';
 
 // @mui
-import { TextField, Card, Table, Stack, Paper, InputLabel, Button, Popover, Checkbox, TableRow, MenuItem, TableBody, TableHead, Container, Typography, Select, TableContainer, TablePagination, Box, FormControl } from '@mui/material';
+import {
+  Card,
+  Table,
+  Stack,
+  Paper,
+  Button,
+  TableRow,
+  TableBody,
+  TableHead,
+  Container,
+  Typography,
+  TableContainer,
+  TablePagination,
+  Box,
+} from '@mui/material';
 import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import { styled } from '@mui/material/styles';
 // components
@@ -15,18 +29,6 @@ import AddAgent from '../components/Agent/AddAgent';
 import USERLIST from '../_mock/user';
 import AgentCard from '../components/Agent/AgentCard';
 
-// ----------------------------------------------------------------------
-
-const TABLE_HEAD = [
-  { id: 'S.No.', label: 'S.No.', alignRight: false },
-  { id: 'name', label: 'Name', alignRight: false },
-  { id: 'company', label: 'Mobile', alignRight: false },
-  { id: 'role', label: 'Total Collection', alignRight: false },
-  { id: 'isVerified', label: 'Monthly Total Collection', alignRight: false },
-  { id: 'status', label: 'Todays Collection', alignRight: false },
-  { id: 'Action', label: 'Action', alignRight: false },
-  { id: '' },
-];
 // ----------------------------------------------------------------------
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -72,7 +74,6 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
     border: 0,
   },
 }));
-
 
 export default function BlogPage() {
   const [open, setOpen] = useState(null);
@@ -233,41 +234,35 @@ export default function BlogPage() {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {
-                    filteredData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row, index) => (
-                      <StyledTableRow hover tabIndex={-1} role="checkbox" key={row._id}>
-                        <StyledTableCell padding="checkbox"></StyledTableCell>
+                  {filteredData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row, index) => (
+                    <StyledTableRow hover tabIndex={-1} role="checkbox" key={row._id}>
+                      <StyledTableCell padding="checkbox"></StyledTableCell>
 
-                        <StyledTableCell align="left">{index + 1}</StyledTableCell>
+                      <StyledTableCell align="left">{index + 1}</StyledTableCell>
 
-                        <StyledTableCell component="th" scope="row" padding="none">
-                          <Stack direction="row" alignItems="center" spacing={2}>
-                            <Typography variant="subtitle2" noWrap>
-                              {row.name}
-                            </Typography>
-                          </Stack>
-                        </StyledTableCell>
+                      <StyledTableCell component="th" scope="row" padding="none">
+                        <Stack direction="row" alignItems="center" spacing={2}>
+                          <Typography variant="subtitle2" noWrap>
+                            {row.name}
+                          </Typography>
+                        </Stack>
+                      </StyledTableCell>
 
-                        <StyledTableCell align="left">{row.number}</StyledTableCell>
+                      <StyledTableCell align="left">{row.number}</StyledTableCell>
 
-                        <StyledTableCell align="left">₹ 1027455 From 2939 Customer</StyledTableCell>
-                        <StyledTableCell align="left">₹ 3036 From 5 Customer</StyledTableCell>
-                        <StyledTableCell align="left">₹ 0 From 0 Custome</StyledTableCell>
-                        <StyledTableCell align="left">
-                          <Button variant="outlined" onClick={() => details(row._id)}>
-                            Details
-                          </Button>
-                          <Button
-                            variant="outlined"
-                            sx={{ marginLeft: '10px' }}
-                            onClick={() => handleLogin(row.number)}
-                          >
-                            Login
-                          </Button>
-                        </StyledTableCell>
-                      </StyledTableRow>
-                    ))
-                  }
+                      <StyledTableCell align="left">₹ 1027455 From 2939 Customer</StyledTableCell>
+                      <StyledTableCell align="left">₹ 3036 From 5 Customer</StyledTableCell>
+                      <StyledTableCell align="left">₹ 0 From 0 Custome</StyledTableCell>
+                      <StyledTableCell align="left">
+                        <Button variant="outlined" onClick={() => details(row._id)}>
+                          Details
+                        </Button>
+                        <Button variant="outlined" sx={{ marginLeft: '10px' }} onClick={() => handleLogin(row.number)}>
+                          Login
+                        </Button>
+                      </StyledTableCell>
+                    </StyledTableRow>
+                  ))}
                 </TableBody>
               </Table>
             </TableContainer>
