@@ -41,7 +41,8 @@ import PRODUCTS from '../../../_mock/products';
 import { UserListHead, UserListToolbar } from '../../../sections/@dashboard/user';
 import USERLIST from '../../../_mock/user';
 import Scrollbar from '../../../components/scrollbar';
-// import AddChannels from '../';
+import AddChannels from '../../../pages/AddChannels';
+
 // ----------------------------------------------------------------------
 const TABLE_HEAD = [
     { id: 'company', label: 'S.No', alignRight: false },
@@ -264,7 +265,7 @@ export default function GymProducts() {
                                                             </Typography>
                                                             {row.select === 'Broadcaster Bouqet' && (
                                                                 <Typography>
-                                                                    <AddChannels />
+                                                                    <AddChannels/>
                                                                 </Typography>
                                                             )}
                                                         </Stack>
