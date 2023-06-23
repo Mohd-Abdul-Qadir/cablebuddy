@@ -82,7 +82,9 @@ const AgentDetails = () => {
   return (
     <>
       <Box sx={{ marginBottom: '20px', padding: '10px' }}>
-        <Typography sx={{ color: '#0C3547', fontWeight: '400', fontSize: { xs: '40px', sm: '48px' } }}>Agent Name</Typography>
+        <Typography sx={{ color: '#0C3547', fontWeight: '400', fontSize: { xs: '40px', sm: '48px' } }}>
+          Agent Name
+        </Typography>
         <Box sx={{ display: 'flex', gap: '1rem' }}>
           <Button
             variant="outlined"
@@ -106,7 +108,7 @@ const AgentDetails = () => {
       </Box>
 
       <Container maxWidth="xl">
-        <Grid container spacing={2} rowGap='16px'>
+        <Grid container spacing={2} rowGap="16px">
           <Grid item xs={12} lg={6}>
             <Box
               sx={{
@@ -122,14 +124,17 @@ const AgentDetails = () => {
                   display: 'flex',
                   flexDirection: { xs: 'column', sm: 'row' },
                   justifyContent: 'space-between',
-                  alignItems: 'center'
+                  alignItems: 'center',
                 }}
               >
                 <h3 style={{ marginRight: 'auto' }}>Transaction Activity</h3>
 
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                   <Box sx={{ overflow: 'hidden', width: '100%', mb: { xs: '10px', sm: '0px' } }}>
-                    <DemoContainer components={['SingleInputDateRangeField']} sx={{ overflow: 'hidden', width: '100%' }}>
+                    <DemoContainer
+                      components={['SingleInputDateRangeField']}
+                      sx={{ overflow: 'hidden', width: '100%' }}
+                    >
                       <DateRangePicker slots={{ field: SingleInputDateRangeField }} />
                     </DemoContainer>
                   </Box>
@@ -184,20 +189,20 @@ const AgentDetails = () => {
                   name: 'Team A',
                   type: 'column',
                   fill: 'solid',
-                  data: [23, 11, 22, 27, 13, 22, 37, 21, 44, 22, 30],
+                  data: [23, 11, 22, 27, 13, 22, 37, 21, 44, 22, 3000],
                 },
-                {
-                  name: 'Team B',
-                  type: 'area',
-                  fill: 'gradient',
-                  data: [44, 55, 41, 67, 22, 43, 21, 41, 56, 27, 43],
-                },
-                {
-                  name: 'Team C',
-                  type: 'line',
-                  fill: 'solid',
-                  data: [30, 25, 36, 30, 45, 35, 64, 52, 59, 36, 39],
-                },
+                // {
+                //   name: 'Team B',
+                //   type: 'area',
+                //   fill: 'gradient',
+                //   data: [44, 55, 41, 67, 22, 43, 21, 41, 56, 27, 43],
+                // },
+                // {
+                //   name: 'Team C',
+                //   type: 'line',
+                //   fill: 'solid',
+                //   data: [30, 25, 36, 30, 45, 35, 64, 52, 59, 36, 39],
+                // },
               ]}
             />
           </Grid>
@@ -354,7 +359,7 @@ const AgentDetails = () => {
             </Box>
           </Grid>
         </Grid>
-      </Container >
+      </Container>
     </>
   );
 };

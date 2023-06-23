@@ -55,6 +55,7 @@ const ProductDetails = (props) => {
           setHsn(productData.hsn);
           setGenre(productData.genre);
           setType(productData.type);
+          setLanguage(productData.language);
         })
         .catch((error) => console.error(error));
     }
@@ -63,7 +64,7 @@ const ProductDetails = (props) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const productData = { name, price, select, gst, product, additional, hsn, genre, type };
+    const productData = { name, price, select, gst, product, additional, hsn, genre, type, language };
 
     if (props.id) {
       fetch(`/api/update-product/${props.id}`, {
@@ -244,15 +245,6 @@ const ProductDetails = (props) => {
                 }}
               >
                 <MenuItem value="">Please Select language</MenuItem>
-
-                {/* {languages()
-                  .getData()
-                  .map((language) => (
-                    <MenuItem key={language.code} value={language.name}>
-                      {language.name}
-                    </MenuItem>
-                  ))} */}
-
                 {languages.map((language, index) => (
                   <MenuItem key={index} value={language.name}>
                     {language.name}
@@ -272,7 +264,7 @@ const ProductDetails = (props) => {
                   color: '#A5A4A4',
                   borderColor: '#ccc',
                   ':active': {
-                    borderColor: 'red', // Set border color to red when clicked
+                    borderColor: 'red',
                   },
                 }}
               >
