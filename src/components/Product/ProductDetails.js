@@ -131,7 +131,7 @@ const ProductDetails = (props) => {
               color: '#fff',
               borderColor: '#fff',
             },
-          }}
+          }}                            
         >
           Delete
         </Button>

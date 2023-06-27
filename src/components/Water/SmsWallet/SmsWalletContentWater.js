@@ -1,15 +1,10 @@
 import { useState } from 'react';
 import { Box, Typography, Button, Stack, InputAdornment, IconButton, TextField, Pagination } from '@mui/material'
-import dayjs from 'dayjs';
-import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import SendSms from './SendSms';
-import SmsTemplates from './SmsTemplates';
-import SmsReport from './SmsReport';
-import SendSmsTable from './SendSmsTable';
-import SmsReportTable from './SmsReportTable';
+import SendSmsWater from './SendSmsWater';
+import SmsTemplatesWater from './SmsTemplatesWater';
+import SmsReportWater from './SmsReportWater';
+import SendSmsTableWater from './SendSmsTableWater';
+import SmsReportTableWater from './SmsReportTableWater';
 
 
 
@@ -34,7 +29,7 @@ const unactiveStyle = {
     }
 }
 
-const SmsWalletContent = () => {
+const SmsWalletContentWater = () => {
 
     const [activeTab, setActiveTab] = useState('Send SMS')
     const [status, setStatus] = useState('');
@@ -84,16 +79,16 @@ const SmsWalletContent = () => {
                         </Stack>
                     </Stack>
                     {
-                        activeTab === 'Send SMS' ? <SendSms /> : activeTab === 'Sms Templates' ? <SmsTemplates /> : activeTab === 'Sms Report' ? <SmsReport /> : null
+                        activeTab === 'Send SMS' ? <SendSmsWater /> : activeTab === 'Sms Templates' ? <SmsTemplatesWater /> : activeTab === 'Sms Report' ? <SmsReportWater /> : null
                     }
                 </Stack>
                 <Stack sx={{ width: '100%' }}>
                     {
-                        activeTab === 'Send SMS' ? <SendSmsTable /> : activeTab === 'Sms Report' ? <SmsReportTable /> : null
+                        activeTab === 'Send SMS' ? <SendSmsTableWater /> : activeTab === 'Sms Report' ? <SmsReportTableWater /> : null
                     }
                 </Stack>
             </Stack>
         </Box >
     )
 }
-export default SmsWalletContent
+export default SmsWalletContentWater

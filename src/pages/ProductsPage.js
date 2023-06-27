@@ -196,15 +196,9 @@ export default function ProductsPage() {
             mt: '25px',
           }}
         >
-          <Box
-            sx={{
-              bgcolor: '#F5F5F5',
-              borderBottom: '1px solid #D8D8D8',
-              padding: '14px',
-              borderRadius: '10px 10px 0 0',
-            }}
-          >
-            <Typography sx={{ fontWeight: '600', fontSize: '16px' }}> Filters And Option </Typography>
+
+          <Box sx={{ bgcolor: '#F5F5F5', borderBottom: '1px solid #D8D8D8', padding: '14px', borderRadius: '10px 10px 0 0' }}>
+            <Typography sx={{ fontWeight: '600', fontSize: '16px' }}>Filters And Option</Typography>
           </Box>
           <Stack padding="2%" gap="10px">
             <Stack>
@@ -323,6 +317,7 @@ export default function ProductsPage() {
                       <StyledTableCell colSpan={6} />
                     </StyledTableRow>
                   )}
+
                 </TableBody>
                 {/* {isNotFound && (
                   <TableBody>
@@ -375,7 +370,7 @@ export default function ProductsPage() {
 
         {/* <ProductList products={PRODUCTS} />
         <ProductCartWidget /> */}
-      </Container>
+      </Container >
     </>
   );
 }

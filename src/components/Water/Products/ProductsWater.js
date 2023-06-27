@@ -122,7 +122,7 @@ export default function ProductsWater() {
   }, []);
 
   const details = (id) => {
-    navigate(`/dashboard/details/${id}`);
+    navigate(`/water/productdetails`);
   };
 
   const handleDownload = () => {
@@ -181,7 +181,7 @@ export default function ProductsWater() {
               variant="outlined"
               startIcon={<AddIcon />}
               sx={{ textTransform: 'capitalize', color: '#0C3547', border: '1px solid #0C3547' }}
-              onClick={() => navigate('/dashboard/add-product')}
+              onClick={() => navigate('/water/addproducts')}
             >
               {' '}
               Add Channel/ Bouquet
