@@ -33,7 +33,7 @@ const navConfigWater = [
     },
     {
         title: 'Agents/Supervisor',
-        path: '/water/blog',
+        path: '/water/agentsupervisor',
         icon: <SupportAgentIcon />,
     },
     // {

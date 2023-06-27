@@ -226,8 +226,9 @@ export default function ProductsPage() {
             width: '100%',
             marginBottom: '20px',
             mt: '25px',
-       
-          <Box sx={{ bgcolor: '#F5F5F5', borderBottom: '1px solid #D8D8D8', padding: '14px', borderRadius: '10px 10px 0 0' }}>            
+          }}
+        >
+          <Box sx={{ bgcolor: '#F5F5F5', borderBottom: '1px solid #D8D8D8', padding: '14px', borderRadius: '10px 10px 0 0' }}>
             <Typography sx={{ fontWeight: '600', fontSize: '16px' }}>Filters And Option</Typography>
           </Box>
           <Stack padding="2%" gap="10px">
@@ -331,29 +332,29 @@ export default function ProductsPage() {
                     </StyledTableRow>
                   )}
                   {isNotFound &&
-                    {
-                      /* <TableBody>
-                    <TableRow>
-                      <TableCell align="center" colSpan={6} sx={{ py: 3 }}>
-                        <Paper
-                          sx={{
-                            textAlign: 'center',
-                          }}
-                        >
-                          <Typography variant="h6" paragraph>
-                            Not found
-                          </Typography>
-    
-                          <Typography variant="body2">
-                            No results found for &nbsp;
-                            <strong>&quot;{filterName}&quot;</strong>.
-                            <br /> Try checking for typos or using complete words.
-                          </Typography>
-                        </Paper>
-                      </TableCell>
-                    </TableRow>
-                  </TableBody> */
-                    }}
+                  {
+                    /* <TableBody>
+                  <TableRow>
+                    <TableCell align="center" colSpan={6} sx={{ py: 3 }}>
+                      <Paper
+                        sx={{
+                          textAlign: 'center',
+                        }}
+                      >
+                        <Typography variant="h6" paragraph>
+                          Not found
+                        </Typography>
+   
+                        <Typography variant="body2">
+                          No results found for &nbsp;
+                          <strong>&quot;{filterName}&quot;</strong>.
+                          <br /> Try checking for typos or using complete words.
+                        </Typography>
+                      </Paper>
+                    </TableCell>
+                  </TableRow>
+                </TableBody> */
+                  }}
                 </TableBody>
                 {isNotFound && (
                   <TableBody>
@@ -406,7 +407,7 @@ export default function ProductsPage() {
 
         {/* <ProductList products={PRODUCTS} />
         <ProductCartWidget /> */}
-      </Container>
+      </Container >
     </>
   );
 }
