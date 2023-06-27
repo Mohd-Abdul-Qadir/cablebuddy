@@ -7,18 +7,11 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import CloseIcon from '@mui/icons-material/Close';
 import { filter } from 'lodash';
-import { sentenceCase } from 'change-case';
 import {
-  Avatar,
-  Box,
   Button,
-  Card,
   Checkbox,
-  Container,
   IconButton,
-  MenuItem,
   Paper,
-  Select,
   Stack,
   Table,
   TableBody,
@@ -32,7 +25,6 @@ import AddIcon from '@mui/icons-material/Add';
 import FolderIcon from '@mui/icons-material/Folder';
 import { useNavigate } from 'react-router-dom';
 import Label from '../../components/label';
-// import Iconify from '../components/iconify';
 import Scrollbar from '../../components/scrollbar';
 import { UserListHead, UserListToolbar } from '../../sections/@dashboard/user';
 import USERLIST from '../../_mock/user';
@@ -40,7 +32,6 @@ import TelegramIcon from '@mui/icons-material/Telegram';
 
 const TABLE_HEAD = [
   { id: 'name', label: 'Name', alignRight: false },
-  // { id: 'company', label: 'Company', alignRight: false },
   { id: 'role', label: 'HD/SD', alignRight: false },
   { id: 'isVerified', label: 'Pay/Fta', alignRight: false },
   { id: 'status', label: 'Genre', alignRight: false },
@@ -105,6 +96,7 @@ export default function SubscriptionPopup(props) {
   const [popup, setPopup] = React.useState(false);
   const [data, setData] = React.useState(props.customer);
   const [subdcriptionAmount, setSubdcriptionAmount] = React.useState();
+  const [searchQuery, setSearchQuery] = useState('');
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -279,6 +271,12 @@ export default function SubscriptionPopup(props) {
     }
   };
 
+  const handleSearch = (event) => {
+    setSearchQuery(event.target.value);
+  };
+
+  const filteredData = products.filter((item) => item.name.toLowerCase().includes(searchQuery.toLowerCase()));
+
   return (
     <div>
       <Button variant="contained" endIcon={<TelegramIcon />} sx={{ ml: 'auto' }} onClick={handleClickOpen}>
@@ -290,11 +288,7 @@ export default function SubscriptionPopup(props) {
           Subscription
         </BootstrapDialogTitle>
 
-        <DialogContent dividers sx={{ '& .MuiDialog-paper': { width: '100%' } }}>
-          <Typography gutterBottom>
-            Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget
-            quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
-          </Typography>
+        <DialogContent dividers sx={{ width: '850px' }}>
           {/* <Select
             // value={genre}
             // onChange={handleGener}
@@ -325,7 +319,7 @@ export default function SubscriptionPopup(props) {
             <MenuItem value="Sports">Sports</MenuItem>
             <MenuItem value="Other">Other</MenuItem>
           </Select> */}
-          <UserListToolbar numSelected={selected.length} filterName={filterName} onFilterName={handleFilterByName} />
+          <UserListToolbar value={searchQuery} onChange={handleSearch} onFilterName={handleSearch} />
 
           <Scrollbar>
             <TableContainer sx={{ minWidth: '100%' }}>
@@ -340,7 +334,7 @@ export default function SubscriptionPopup(props) {
                   onSelectAllClick={handleSelectAllClick}
                 />
                 <TableBody>
-                  {products.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
+                  {filteredData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
                     const { id, name, role, status, company, avatarUrl, isVerified } = row;
                     const selectedUser = selected.indexOf(name) !== -1;
 
@@ -365,7 +359,7 @@ export default function SubscriptionPopup(props) {
                         <TableCell align="left">{row.genre}</TableCell>
 
                         <TableCell align="left">
-                          <Label>Hindi</Label>
+                          <Label>{row.language}</Label>
                         </TableCell>
                         <TableCell align="left">
                           <Label>{row.price}</Label>

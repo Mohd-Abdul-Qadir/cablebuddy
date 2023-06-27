@@ -3,8 +3,6 @@ import { Box, InputAdornment, Stack, Typography } from '@mui/material';
 import PropTypes, { number } from 'prop-types';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
-import IconButton from '@mui/material/IconButton';
-import PhotoCamera from '@mui/icons-material/PhotoCamera';
 import Image from '../components/Image';
 import GeneralDetails from '../components/ProfilePageTabs/GeneralDetails';
 import BillingPreference from '../components/ProfilePageTabs/BillingPreference';
@@ -94,9 +92,6 @@ const ProfilePage = () => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        // Replace 'accessTokenValue' with your actual access token value
-        // const accessToken = 'accessTokenValue';
-
         const response = await fetch(`/api/users`, {
           headers: {
             'x-access-token': `${localStorage.getItem('accessToken')}`,

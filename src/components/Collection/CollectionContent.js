@@ -5,14 +5,11 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import SummarizeOutlinedIcon from '@mui/icons-material/SummarizeOutlined';
 import PaymentsOutlinedIcon from '@mui/icons-material/PaymentsOutlined';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { DateRangePicker } from '@mui/x-date-pickers-pro/DateRangePicker';
-import { SingleInputDateRangeField } from '@mui/x-date-pickers-pro/SingleInputDateRangeField';
-import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import SummaryTable from './SummaryTable';
 import OnlineTransaction from './OnlineTransaction';
 import Marquee from 'react-fast-marquee';
+import { DatePicker, Space } from 'antd';
+const { RangePicker } = DatePicker;
 
 const scrollingText = {
   textTransform: 'capitalize',
@@ -38,22 +35,23 @@ const StyledButton = styled(Button)(({ theme, selected }) => ({
 }));
 
 const CollectionContent = () => {
-  const [agent, setAgent] = useState([]);
+  const [agent, setAgent] = useState('no');
   const [tabs, setTabs] = useState('Summary');
   const [balanceHistories, setBalanceHistories] = useState([]);
   const [totalTransactionAmount, setTotalTransactionAmount] = useState(0);
   const [balanceHistoriesOnline, setBalanceHistoriesOnline] = useState([]);
   const [totalTransactionAmountOnline, setTotalTransactionAmountOnline] = useState(0);
-  //   const [agent, setAgents]=useState('')
+  const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
 
   const handleClick = (tab) => {
     setTabs(tab);
   };
 
-  //   const handleAgent = (event) => {
-  //     setAgent(event.target.value);
-  //     console.log(`e.target ${event.target.value}`);
-  //   };
+  const handleAgent = (event) => {
+    setAgent(event.target.value);
+    console.log(`e.target ${event.target.value}`);
+  };
 
   const handleReset = () => {
     setAgent('');
@@ -65,7 +63,7 @@ const CollectionContent = () => {
 
   const fetchBalanceHistory = async () => {
     try {
-      const response = await fetch('/api/total-paid'); // Replace with your API endpoint URL
+      const response = await fetch('/api/total-paid');
       const data = await response.json();
 
       if (response.ok) {
@@ -115,6 +113,22 @@ const CollectionContent = () => {
     fetchData();
   }, []);
 
+  const handleSelectDate = (dates) => {
+    const [startDate, endDate] = dates;
+    setStartDate(startDate);
+    setEndDate(endDate);
+  };
+
+  const filteredData = balanceHistories.filter((item) => {
+    // const nameMatch = item.name.toLowerCase().includes(searchQuery.toLowerCase());
+    const dateMatch =
+      !startDate || !endDate || (new Date(item.createdAt) >= startDate && new Date(item.createdAt) <= endDate);
+
+    return dateMatch;
+  });
+
+  console.log(filteredData, 'this is filter data');
+
   return (
     <Box
       sx={{
@@ -129,7 +143,15 @@ const CollectionContent = () => {
         <Typography sx={{ color: '#0C3547', fontWeight: '400', fontSize: '48px' }}>Collection</Typography>
       </Box>
       <Stack direction="column" justifyContent="center" alignItems="center" padding="1rem" width="100%" gap="2rem">
-        <Stack sx={{ width: '100%', bgcolor: 'white', border: '1px solid #D8D8D8', boxShadow: '-1px -1px 8px #D8D8D8,3px 3px 8px #D8D8D8', borderRadius: '12px' }}>
+        <Stack
+          sx={{
+            width: '100%',
+            bgcolor: 'white',
+            border: '1px solid #D8D8D8',
+            boxShadow: '-1px -1px 8px #D8D8D8,3px 3px 8px #D8D8D8',
+            borderRadius: '12px',
+          }}
+        >
           <Box sx={{ borderBottom: '1px solid #D8D8D8', padding: '14px', borderRadius: '10px 10px 0 0' }}>
             <Marquee>
               <Typography sx={scrollingText}>Payment will reach to your bank account by 7pm to 7am</Typography>
@@ -143,21 +165,17 @@ const CollectionContent = () => {
                 <Typography sx={{ fontWeight: '500', fontSize: '16px' }}>Filters And Option</Typography>
               </Box>
               <Stack padding="1rem" gap="10px">
-                <LocalizationProvider dateAdapter={AdapterDayjs}>
-                  <Box sx={{ overflow: 'hidden', width: '100%', mb: { xs: '10px', sm: '0px' } }}>
-                    <DemoContainer components={['SingleInputDateRangeField']} sx={{ overflow: 'hidden', width: '100%' }}>
-                      <DateRangePicker slots={{ field: SingleInputDateRangeField }} />
-                    </DemoContainer>
-                  </Box>
-                </LocalizationProvider>
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: '1rem', mt: '5px' }}>
+                  <RangePicker style={{ width: '50%', height: '40px' }} onChange={handleSelectDate} />
                   <TextField
                     fullWidth
                     select
-                    size='small'
+                    size="small"
                     value={agent}
-                  // onChange={handleAgent}
+                    onChange={handleAgent}
+                    // sx={{ height: '55px' }}
                   >
+                    <MenuItem value={'no'}>Setect Agent</MenuItem>
                     <MenuItem value={'agent1'}>Agent 1</MenuItem>
                     <MenuItem value={'agent2'}>Agent 2</MenuItem>
                     <MenuItem value={'agent3'}>Agent 3</MenuItem>
@@ -214,24 +232,36 @@ const CollectionContent = () => {
                   alignItems="center"
                   sx={{ height: '200px', flex: 1, border: '1px solid #D8D8D8', borderRadius: '8px' }}
                 >
-                  <Typography sx={{ fontWeight: '400', fontSize: { xs: '25px', sm: '30px', md: '40px' }, color: '#F7941D' }}>
+                  <Typography
+                    sx={{ fontWeight: '400', fontSize: { xs: '25px', sm: '30px', md: '40px' }, color: '#F7941D' }}
+                  >
                     ₹ {totalTransactionAmount}
                   </Typography>
-                  <Typography sx={{ fontWeight: '400', fontSize: { xs: '25px', sm: '30px', md: '40px' }, color: '#0C3547' }}>Total Paid</Typography>
+                  <Typography
+                    sx={{ fontWeight: '400', fontSize: { xs: '25px', sm: '30px', md: '40px' }, color: '#0C3547' }}
+                  >
+                    Total Paid
+                  </Typography>
                 </Stack>
                 <Stack
                   justifyContent="center"
                   alignItems="center"
                   sx={{ height: '200px', flex: 1, border: '1px solid #D8D8D8', borderRadius: '8px' }}
                 >
-                  <Typography sx={{ fontWeight: '400', fontSize: { xs: '25px', sm: '30px', md: '40px' }, color: '#F7941D' }}>
+                  <Typography
+                    sx={{ fontWeight: '400', fontSize: { xs: '25px', sm: '30px', md: '40px' }, color: '#F7941D' }}
+                  >
                     ₹ {totalTransactionAmount}
                   </Typography>
-                  <Typography sx={{ fontWeight: '400', fontSize: { xs: '25px', sm: '30px', md: '40px' }, color: '#0C3547' }}>Total Payments</Typography>
+                  <Typography
+                    sx={{ fontWeight: '400', fontSize: { xs: '25px', sm: '30px', md: '40px' }, color: '#0C3547' }}
+                  >
+                    Total Payments
+                  </Typography>
                 </Stack>
               </Stack>
               <Stack sx={{ overflowX: 'auto', whiteSpace: 'nowrap' }}>
-                <SummaryTable balanceHistories={balanceHistories} />
+                <SummaryTable filteredData={filteredData} />
               </Stack>
             </Stack>
           </Stack>
@@ -270,7 +300,7 @@ const CollectionContent = () => {
                 </Stack>
               </Stack>
               <Stack>
-                <OnlineTransaction balanceHistoriesOnline={balanceHistoriesOnline} />
+                <OnlineTransaction filteredData={filteredData} />
               </Stack>
             </Stack>
           </Stack>

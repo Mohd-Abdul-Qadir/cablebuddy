@@ -155,10 +155,12 @@ export default function Router() {
         { path: 'addcustomers', element: <AddCustomersWater /> },
         { path: 'customerdetails', element: <CustomerDetailsWater /> },
         { path: 'products', element: <ProductsWater /> },
+
         { path: 'addproducts', element: <AddProductWater /> },
         { path: 'productdetails', element: <ProductDetailsWater /> },
         { path: 'agentsupervisor', element: <AgentSupervisorWater /> },
         { path: 'agentdetails', element: <AgentSupervisorDetails /> },
+
         { path: 'profile', element: <GymProfilePage /> },
         { path: 'collection', element: <CollectionWater /> },
         { path: 'reports', element: <ReportsContentWater /> },

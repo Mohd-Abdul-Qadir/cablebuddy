@@ -205,7 +205,7 @@ export default function AddChannels() {
       .then((response) => response.json())
       .then((data) => {
         // Filter the data based on select value of "Chanel"
-        const filteredData = data.filter((product) => product.select === 'Chanel');
+        const filteredData = data.filter((product) => product.select === 'Channel');
         const productMap = filteredData.map((product) => {
           return {
             ...product,
@@ -267,7 +267,7 @@ export default function AddChannels() {
                         <TableCell align="left">{row.genre}</TableCell>
 
                         <TableCell align="left">
-                          <Label>Hindi</Label>
+                          <Label>{row.language}</Label>
                         </TableCell>
                         <TableCell align="left">
                           <Label>{row.price}</Label>

@@ -10,8 +10,9 @@ import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useParams } from 'react-router-dom';
 import { Calendar } from 'antd';
-
+import moment from 'moment';
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialogContent-root': {
     padding: theme.spacing(2),
@@ -55,6 +56,8 @@ BootstrapDialogTitle.propTypes = {
 
 export default function ActiveInactivePopup() {
   const [open, setOpen] = useState(false);
+  const { id } = useParams();
+  const [selectedDate, setSelectedDate] = useState();
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -62,14 +65,42 @@ export default function ActiveInactivePopup() {
   const handleClose = () => {
     setOpen(false);
   };
-  // const onSelectDate = (newValue: Dayjs) => {
-  //   setValue(newValue);
-  // };
 
-  const onSelectDate = (date) => {
-    console.log('this is date', date);
+  const handleMarkInactive = async () => {
+    const url = `/api/update-customer-status-by-date/${id}`;
+    const updatedCustomer = {
+      active: false,
+      date: selectedDate.startOf('day').toDate(),
+    };
+
+    try {
+      const response = await fetch(url, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-access-token': localStorage.accessToken,
+        },
+        body: JSON.stringify(updatedCustomer),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message);
+      }
+      const data = await response.json();
+      toast.success('Change status is scheduled successfully.');
+    } catch (error) {
+      console.error('Error updating status:', error.message);
+    }
+  };
+  const disabledDate = (current) => {
+    // Disable dates before today
+    return current && current < moment().endOf('day');
   };
 
+  const onPanelChange = (value, mode) => {
+    console.log(value.format('YYYY-MM-DD'), mode);
+  };
   return (
     <div>
       <Button onClick={handleClickOpen} variant="contained">
@@ -81,39 +112,11 @@ export default function ActiveInactivePopup() {
           Active/Inactive
         </BootstrapDialogTitle>
         <DialogContent dividers>
-          {/* <Calendar
-            onSelect={onSelectDate}
-            monthCellRender={(date) => {
-              if (new Date(date).getMonth() === new Date().getMonth()) {
-                return <h5> This is Holiday</h5>;
-              }
-            }}
-          /> */}
           <Calendar
             onSelect={(date) => {
-              console.log('this is date', date);
+              setSelectedDate(date);
             }}
-            dateCellRender={(date) => {
-              if (new Date(date).getDate() === new Date()) {
-                return <h5> This is Holiday</h5>;
-              }
-            }}
-            monthCellRender={(date) => {
-              if (new Date(date).getDate() === new Date()) {
-                return <h5> This is Holiday</h5>;
-              }
-            }}
-
-            // monthCellRender={(date) => {
-            //   const currentDate = new Date();
-            //   const cellDate = new Date(date);
-
-            //   if (cellDate.getMonth() === currentDate.getMonth()) {
-            //     return <h5>This is a Holiday</h5>;
-            //   }
-
-            //   return null;
-            // }}
+            disabledDate={disabledDate}
           />
         </DialogContent>
         <DialogActions>
@@ -130,6 +133,8 @@ export default function ActiveInactivePopup() {
           >
             <Button
               variant="contained"
+              onClick={handleMarkInactive}
+              disabled={!selectedDate}
               sx={{
                 height: 'fit-content',
                 backgroundColor: '#ff3333',
@@ -142,7 +147,7 @@ export default function ActiveInactivePopup() {
                 },
               }}
             >
-              Mark Inctive
+              Mark Inactive
             </Button>
             <Button
               variant="contained"
