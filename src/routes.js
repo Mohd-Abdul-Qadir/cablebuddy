@@ -53,11 +53,19 @@ import GymProfilePage from './components/Gym/GymProfile/GymProfilePage';
 import GymExpensesContent from './components/Gym/GymExpenses/GymExpensesContent';
 import DashboardWater from './layouts/dashboard/DashboardWater';
 import WaterDashboard from './components/Water/DashboardHome/WaterDashboard';
-import WaterCustomers from './components/Water/Customers/CustomersWater';
 import CustomersWater from './components/Water/Customers/CustomersWater';
 import AddCustomersWater from './components/Water/Customers/AddCustomersWater';
 import CustomerDetailsWater from './components/Water/Customers/CustomerDetailsWater';
 import ProductsWater from './components/Water/Products/ProductsWater';
+import ProductDetailsWater from './components/Water/Products/ProductDetailsWater';
+import AddProductWater from './components/Water/Products/AddProductWater';
+import AgentSupervisorWater from './components/Water/AgentSupervisor/AgentSupervisorWater';
+import AgentSupervisorDetails from './components/Water/AgentSupervisor/AgentSupervisorDetails';
+import CollectionWater from './components/Water/Collection/CollectionWater';
+import ReportsContentWater from './components/Water/Reports/ReportsContentWater';
+import ComplaintsContentWater from './components/Water/Complaints/ComplaintsContentWater';
+import SmsWalletContentWater from './components/Water/SmsWallet/SmsWalletContentWater';
+import ExpensesContentWater from './components/Water/Expenses/ExpensesContentWater';
 
 // ----------------------------------------------------------------------
 
@@ -143,18 +151,20 @@ export default function Router() {
       element: <DashboardWater />,
       children: [
         { path: 'waterdashboard', element: <WaterDashboard /> },
-        { path: 'customers', element: <CustomersWater/> },
-        { path: 'addcustomers', element: <AddCustomersWater/> },
-        { path: 'customerdetails', element: <CustomerDetailsWater/> },
-        { path: 'products', element: <ProductsWater/> },
-        { path: 'addproducts', element: <GymAddProducts /> },
-        { path: 'details/:id', element: <Details /> },
+        { path: 'customers', element: <CustomersWater /> },
+        { path: 'addcustomers', element: <AddCustomersWater /> },
+        { path: 'customerdetails', element: <CustomerDetailsWater /> },
+        { path: 'products', element: <ProductsWater /> },
+        { path: 'addproducts', element: <AddProductWater /> },
+        { path: 'productdetails', element: <ProductDetailsWater /> },
+        { path: 'agentsupervisor', element: <AgentSupervisorWater /> },
+        { path: 'agentdetails', element: <AgentSupervisorDetails /> },
         { path: 'profile', element: <GymProfilePage /> },
-        { path: 'collection', element: <GymCollectionContent /> },
-        { path: 'agent-details', element: <AgentDetails /> },
-        { path: 'smswallet', element: <GymSmsWallet /> },
-        { path: 'expenses', element: <GymExpensesContent /> },
-        { path: 'rechargeRenew', element: <RechargeRenew /> },
+        { path: 'collection', element: <CollectionWater /> },
+        { path: 'reports', element: <ReportsContentWater /> },
+        { path: 'complaints', element: <ComplaintsContentWater /> },
+        { path: 'smswallet', element: <SmsWalletContentWater /> },
+        { path: 'expenses', element: <ExpensesContentWater /> },
       ],
     },
 
