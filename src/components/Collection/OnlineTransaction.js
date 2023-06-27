@@ -1,21 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import {
-  Box,
-  Typography,
-  Paper,
-  Stack,
-  Table,
-  TableHead,
-  TableRow,
-  TableCell,
-  TableBody,
-  TableContainer,
-} from '@mui/material';
+import { Table, TableHead, TableRow, TableCell, TableBody, TableContainer } from '@mui/material';
 import Chip from '@mui/material/Chip';
 import { OnlineTransactionData } from '../../_mock/OnlineTransactionData';
 
 const OnlineTransaction = (props) => {
-  const data = props.balanceHistoriesOnline;
+  const data = props.filteredData;
   return (
     <TableContainer sx={{ border: '1px solid #D8D8D8', width: '100%', overflowX: 'auto', whiteSpace: 'nowrap' }}>
       <Table sx={{ borderRadius: '10px' }}>

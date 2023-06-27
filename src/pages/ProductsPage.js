@@ -8,14 +8,11 @@ import { v4 as uuidv4 } from 'uuid';
 
 // @mui
 import {
-  TextField,
   Card,
   Table,
   Stack,
   Paper,
-  InputLabel,
   Button,
-  Popover,
   Checkbox,
   TableRow,
   MenuItem,
@@ -37,57 +34,23 @@ import { useNavigate } from 'react-router-dom';
 
 import Label from '../components/label';
 // mock
-import { UserListHead, UserListToolbar } from '../sections/@dashboard/user';
+import { UserListToolbar } from '../sections/@dashboard/user';
 import USERLIST from '../_mock/user';
 import Scrollbar from '../components/scrollbar';
 import AddChannels from './AddChannels';
 // ----------------------------------------------------------------------
-const TABLE_HEAD = [
-  { id: 'company', label: 'S.No', alignRight: false },
-  { id: 'name', label: 'Name', alignRight: false },
-  { id: 'role', label: 'Rate', alignRight: false },
-  { id: 'status', label: 'Status', alignRight: false },
-  { id: 'isVerified', label: 'Action', alignRight: false },
-];
 
 export default function ProductsPage() {
   const [openFilter, setOpenFilter] = useState(false);
   const [selected, setSelected] = useState([]);
-  const [open, setOpen] = useState(null);
   const [filterName, setFilterName] = useState('');
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [orderBy, setOrderBy] = useState('name');
   const [order, setOrder] = useState('asc');
   const [products, setProducts] = useState([]);
-  const [popup, setPopup] = useState(false);
-  const [filterPackage, setFilterPackage] = useState('');
+  const [filterPackage, setFilterPackage] = useState('Select');
   const [searchQuery, setSearchQuery] = useState('');
-
-  const handleOpenMenu = (event) => {
-    setOpen(event.currentTarget);
-  };
-
-  const handleRequestSort = (event, property) => {
-    const isAsc = orderBy === property && order === 'asc';
-    setOrder(isAsc ? 'desc' : 'asc');
-    setOrderBy(property);
-  };
-  const handleOpenFilter = () => {
-    setOpenFilter(true);
-  };
-
-  const handleCloseFilter = () => {
-    setOpenFilter(false);
-  };
-  const handleSelectAllClick = (event) => {
-    if (event.target.checked) {
-      const newSelecteds = USERLIST.map((n) => n.name);
-      setSelected(newSelecteds);
-      return;
-    }
-    setSelected([]);
-  };
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -106,11 +69,7 @@ export default function ProductsPage() {
     }
     return 0;
   }
-  function getComparator(order, orderBy) {
-    return order === 'desc'
-      ? (a, b) => descendingComparator(a, b, orderBy)
-      : (a, b) => -descendingComparator(a, b, orderBy);
-  }
+
   function applySortFilter(array, comparator, query) {
     const stabilizedThis = array.map((el, index) => [el, index]);
     stabilizedThis.sort((a, b) => {
@@ -125,9 +84,9 @@ export default function ProductsPage() {
   }
   const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - USERLIST.length) : 0;
 
-  const filteredUsers = applySortFilter(USERLIST, getComparator(order, orderBy), filterName);
+  // const filteredUsers = applySortFilter(USERLIST, getComparator(order, orderBy), filterName);
 
-  const isNotFound = !filteredUsers.length && !!filterName;
+  // const isNotFound = !filteredUsers.length && !!filterName;
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -166,7 +125,17 @@ export default function ProductsPage() {
     setSearchQuery(event.target.value);
   };
 
-  const filteredData = products.filter((item) => item.name.toLowerCase().includes(searchQuery.toLowerCase()));
+  const filteredData = products.filter((item) => {
+    if (filterPackage === 'Select') {
+      return true;
+    } else {
+      return item.name.toLowerCase().includes(searchQuery.toLowerCase()) && item.select === filterPackage;
+    }
+  });
+  const handleFilterChange = (e) => {
+    const selectedValue = e.target.value;
+    setFilterPackage(selectedValue);
+  };
 
   const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -204,7 +173,6 @@ export default function ProductsPage() {
               sx={{ textTransform: 'capitalize', color: '#0C3547', border: '1px solid #0C3547' }}
               onClick={() => navigate('/dashboard/add-product')}
             >
-              {' '}
               Add Channel/ Bouquet
             </Button>
             <Button
@@ -226,25 +194,40 @@ export default function ProductsPage() {
             width: '100%',
             marginBottom: '20px',
             mt: '25px',
-       
-          <Box sx={{ bgcolor: '#F5F5F5', borderBottom: '1px solid #D8D8D8', padding: '14px', borderRadius: '10px 10px 0 0' }}>            
-            <Typography sx={{ fontWeight: '600', fontSize: '16px' }}>Filters And Option</Typography>
+          }}
+        >
+          <Box
+            sx={{
+              bgcolor: '#F5F5F5',
+              borderBottom: '1px solid #D8D8D8',
+              padding: '14px',
+              borderRadius: '10px 10px 0 0',
+            }}
+          >
+            <Typography sx={{ fontWeight: '600', fontSize: '16px' }}> Filters And Option </Typography>
           </Box>
           <Stack padding="2%" gap="10px">
             <Stack>
               <Stack direction="row" alignItems="center">
                 <FormControl sx={{ m: 1, width: '100%' }} size="small">
-                  <InputLabel id="demo-select-small" sx={{ color: 'black', fontWeight: '400', fontSize: '15px' }}>
+                  {/* <InputLabel id="demo-select-small" sx={{ color: 'black', fontWeight: '400', fontSize: '15px' }}>
                     Select Date Follow Up
-                  </InputLabel>
-                  <Select
-                    labelId="demo-select-small"
+                  </InputLabel> */}
+                  {/* <Select
+                    // labelId="demo-select-small"
                     value={filterPackage}
                     onChange={(e) => setFilterPackage(e.target.value)}
-                    id="demo-select-small"
+                    // id="demo-select-small"
                     label="Select Package Type"
+                  > */}
+
+                  <Select
+                    fullWidth
+                    value={filterPackage}
+                    onChange={handleFilterChange}
+                    inputProps={{ 'aria-label': 'Without label' }}
                   >
-                    <MenuItem value="">Please Select One</MenuItem>
+                    <MenuItem value="Select">Select Package Type</MenuItem>
                     <MenuItem value="Channel">Channel</MenuItem>
                     <MenuItem value="Broadcaster Bouqet">Broadcaster Bouqet</MenuItem>
                     <MenuItem value="My Package">My Package</MenuItem>
@@ -311,16 +294,26 @@ export default function ProductsPage() {
                           )}
                         </Stack>
                       </StyledTableCell>
-                      <StyledTableCell align="left">{row.price}</StyledTableCell>
                       <StyledTableCell align="left">
-                        <Label color={'success'}>
-                          {/* {sentenceCase(status)} */}
-                          Active
-                        </Label>
+                        <p
+                          style={{
+                            backgroundColor: '#212B36',
+                            color: 'white',
+                            paddingLeft: '5px',
+                            borderRadius: '5px',
+                            textAlign: 'center',
+                            width: 'min-content',
+                            paddingRight: '5px',
+                          }}
+                        >
+                          {row.price}+{row.gst}%
+                        </p>
+                      </StyledTableCell>
+                      <StyledTableCell align="left">
+                        <Label color={'success'}>Active</Label>
                       </StyledTableCell>
 
                       <StyledTableCell align="left" sx={{ cursor: 'pointer' }} onClick={() => details(row._id)}>
-                        {/* <Label>Details</Label> */}
                         <Button variant="outlined">Details</Button>
                       </StyledTableCell>
                     </StyledTableRow>
@@ -330,32 +323,8 @@ export default function ProductsPage() {
                       <StyledTableCell colSpan={6} />
                     </StyledTableRow>
                   )}
-                  {isNotFound &&
-                    {
-                      /* <TableBody>
-                    <TableRow>
-                      <TableCell align="center" colSpan={6} sx={{ py: 3 }}>
-                        <Paper
-                          sx={{
-                            textAlign: 'center',
-                          }}
-                        >
-                          <Typography variant="h6" paragraph>
-                            Not found
-                          </Typography>
-    
-                          <Typography variant="body2">
-                            No results found for &nbsp;
-                            <strong>&quot;{filterName}&quot;</strong>.
-                            <br /> Try checking for typos or using complete words.
-                          </Typography>
-                        </Paper>
-                      </TableCell>
-                    </TableRow>
-                  </TableBody> */
-                    }}
                 </TableBody>
-                {isNotFound && (
+                {/* {isNotFound && (
                   <TableBody>
                     <StyledTableRow>
                       <StyledTableCell align="center" colSpan={6} sx={{ py: 3 }}>
@@ -377,7 +346,7 @@ export default function ProductsPage() {
                       </StyledTableCell>
                     </StyledTableRow>
                   </TableBody>
-                )}
+                )} */}
               </Table>
             </TableContainer>
           </Scrollbar>

@@ -165,7 +165,7 @@ const AddProduct = () => {
                 }}
               >
                 <MenuItem value="">Please Select One</MenuItem>
-                <MenuItem value="Chanel">Chanel</MenuItem>
+                <MenuItem value="Channel">Channel</MenuItem>
                 <MenuItem value="Broadcaster Bouqet">Broadcaster Bouqet</MenuItem>
                 <MenuItem value="My Package">My Package</MenuItem>
                 <MenuItem value="Base Pack">Base Pack</MenuItem>

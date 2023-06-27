@@ -12,7 +12,7 @@ import {
 } from '@mui/material';
 
 const SummaryTable = (props) => {
-  const data = props.balanceHistories;
+  const data = props.filteredData;
   return (
     <Stack sx={{ display: 'flex', border: '1px solid #D8D8D8', borderRadius: '10px', width: 'fit-content' }}>
       <Box sx={{ border: '1px solid #D8D8D8', padding: '14px', borderRadius: '10px 10px 0 0', bgcolor: '#D8D8D8' }}>

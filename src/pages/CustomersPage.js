@@ -1,13 +1,11 @@
 import { Helmet } from 'react-helmet-async';
 import { filter } from 'lodash';
-import { sentenceCase } from 'change-case';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import PersonAddAltOutlinedIcon from '@mui/icons-material/PersonAddAltOutlined';
 import SystemUpdateAltOutlinedIcon from '@mui/icons-material/SystemUpdateAltOutlined';
 import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
 import { v4 as uuidv4 } from 'uuid';
-
 // @mui
 import {
   TextField,
@@ -15,7 +13,6 @@ import {
   Table,
   Stack,
   Paper,
-  Avatar,
   Button,
   Popover,
   Checkbox,
@@ -25,11 +22,9 @@ import {
   TableHead,
   Container,
   Typography,
-  IconButton,
   TableContainer,
   TablePagination,
   Box,
-  FormControl,
 } from '@mui/material';
 import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import { styled } from '@mui/material/styles';
@@ -37,7 +32,7 @@ import InputBase from '@mui/material/InputBase';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+// import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 
 // components
@@ -48,21 +43,8 @@ import Scrollbar from '../components/scrollbar';
 import { UserListHead, UserListToolbar } from '../sections/@dashboard/user';
 // mock
 import USERLIST from '../_mock/user';
-
-// ----------------------------------------------------------------------
-
-const TABLE_HEAD = [
-  { id: 'scode', label: 'S.Code', alignRight: false },
-  { id: 'name', label: 'Name', alignRight: false },
-  { id: 'hardware', label: 'Hardware', alignRight: false },
-  { id: 'balance', label: 'Balance', alignRight: false },
-  { id: 'area', label: 'Area', alignRight: false },
-  { id: 'lastbillamount', label: 'Last Bill Amount', alignRight: false },
-  { id: 'expired', label: 'Expired', alignRight: false },
-  { id: 'status', label: 'Status', alignRight: false },
-  { id: '' },
-  { id: '' },
-];
+import { DatePicker, Space } from 'antd';
+const { RangePicker } = DatePicker;
 
 // ----------------------------------------------------------------------
 
@@ -126,12 +108,14 @@ export default function CustomersPage() {
   const [filterName, setFilterName] = useState('');
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [customers, setCustomers] = useState([]);
-  const [action, setAction] = useState('bulkAction');
+  const [action, setAction] = useState('no');
   const [date, setDate] = useState(null);
   const [status, setStatus] = useState('active');
   const [area, setArea] = useState('largeArea');
   const [balance, setBalance] = useState('balance1');
   const [searchQuery, setSearchQuery] = useState('');
+  const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
 
   const handleChange = (event) => {
     setAction(event.target.value);
@@ -157,36 +141,6 @@ export default function CustomersPage() {
     setOpen(null);
   };
 
-  const handleRequestSort = (event, property) => {
-    const isAsc = orderBy === property && order === 'asc';
-    setOrder(isAsc ? 'desc' : 'asc');
-    setOrderBy(property);
-  };
-
-  const handleSelectAllClick = (event) => {
-    if (event.target.checked) {
-      const newSelecteds = USERLIST.map((n) => n.name);
-      setSelected(newSelecteds);
-      return;
-    }
-    setSelected([]);
-  };
-
-  const handleClick = (event, name) => {
-    const selectedIndex = selected.indexOf(name);
-    let newSelected = [];
-    if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, name);
-    } else if (selectedIndex === 0) {
-      newSelected = newSelected.concat(selected.slice(1));
-    } else if (selectedIndex === selected.length - 1) {
-      newSelected = newSelected.concat(selected.slice(0, -1));
-    } else if (selectedIndex > 0) {
-      newSelected = newSelected.concat(selected.slice(0, selectedIndex), selected.slice(selectedIndex + 1));
-    }
-    setSelected(newSelected);
-  };
-
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -194,11 +148,6 @@ export default function CustomersPage() {
   const handleChangeRowsPerPage = (event) => {
     setPage(0);
     setRowsPerPage(parseInt(event.target.value, 10));
-  };
-
-  const handleFilterByName = (event) => {
-    setPage(0);
-    setFilterName(event.target.value);
   };
 
   const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - USERLIST.length) : 0;
@@ -248,7 +197,28 @@ export default function CustomersPage() {
   const handleSearch = (event) => {
     setSearchQuery(event.target.value);
   };
-  const filteredData = customers.filter((item) => item.name.toLowerCase().includes(searchQuery.toLowerCase()));
+
+  const handleSelectDate = (dates) => {
+    const [startDate, endDate] = dates;
+    setStartDate(startDate);
+    setEndDate(endDate);
+  };
+
+  const filteredData = customers.filter((item) => {
+    const nameMatch = item.name.toLowerCase().includes(searchQuery.toLowerCase());
+    const dateMatch =
+      !startDate || !endDate || (new Date(item.createdAt) >= startDate && new Date(item.createdAt) <= endDate);
+    let actionMatch = true;
+
+    if (action === 'true') {
+      actionMatch = item.active === true;
+    } else if (action === 'false') {
+      actionMatch = item.active === false;
+    }
+
+    return nameMatch && dateMatch && actionMatch;
+  });
+
   return (
     <>
       <Helmet>
@@ -310,32 +280,35 @@ export default function CustomersPage() {
                 alignItems="center"
                 justifyContent="space-between"
               >
-                <TextField fullWidth select value={action} onChange={handleChange}>
+                {/* <TextField fullWidth select>
                   <MenuItem value={'bulkAction'}>Bulk Action</MenuItem>
                   <MenuItem value={'clearBalance'}>Clear Balance</MenuItem>
                   <MenuItem value={'renew'}>Renew</MenuItem>
-                </TextField>
+                </TextField> */}
 
-                <Button fullWidth variant="outlined" sx={{ px: '0px' }}>
+                {/* <Button
+                  fullWidth
+                  variant="outlined"
+                  sx={{
+                    px: '0px',
+                    height: '55px',
+                    '&:hover': {
+                      background: '#212B36',
+                      color: 'white',
+                      border: 'none',
+                    },
+                  }}
+                >
                   Apply (0)
-                </Button>
+                </Button> */}
+                <Box fullWidth>
+                  <RangePicker onChange={handleSelectDate} style={{ width: '300px', height: '55px' }} />
+                </Box>
 
-                <LocalizationProvider dateAdapter={AdapterDayjs}>
-                  <DemoContainer components={['DatePicker']} sx={{ width: '100%', padding: '0px' }}>
-                    <Box fullWidth>
-                      <DatePicker
-                        label="Select Date"
-                        value={date}
-                        onChange={(newValue) => setValue(newValue)}
-                        sx={{ width: '100%' }}
-                      />
-                    </Box>
-                  </DemoContainer>
-                </LocalizationProvider>
-
-                <TextField fullWidth select value={status} onChange={handleStatus}>
-                  <MenuItem value="active">Active</MenuItem>
-                  <MenuItem value="inActive">Inactive</MenuItem>
+                <TextField fullWidth select value={action} onChange={handleChange}>
+                  <MenuItem value="no">Select Action</MenuItem>
+                  <MenuItem value="true">Active</MenuItem>
+                  <MenuItem value="false">Inactive</MenuItem>
                 </TextField>
 
                 <TextField fullWidth select value={area} onChange={handleArea}>

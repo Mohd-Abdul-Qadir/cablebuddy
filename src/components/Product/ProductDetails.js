@@ -25,18 +25,15 @@ const languages = [
 
 const ProductDetails = (props) => {
   const [value, setValue] = useState(0);
-  const [select, setSelect] = useState('');
+  const [select, setSelect] = useState('select');
   const [genre, setGenre] = useState('');
-  const [language, setLanguage] = useState('');
-
+  const [language, setLanguage] = useState('no');
   const [name, setName] = useState('');
   const [price, setPrice] = useState('');
-  // const [select, setSelect] = useState('');
   const [gst, setGst] = useState('18');
   const [product, setProduct] = useState('');
   const [additional, setAdditional] = useState('');
   const [hsn, setHsn] = useState('');
-  // const [genre, setGenre] = useState('');
   const [type, setType] = useState('');
   const [message, setMessage] = useState('');
 
@@ -212,7 +209,7 @@ const ProductDetails = (props) => {
                   },
                 }}
               >
-                <MenuItem value="">Please Select One</MenuItem>
+                <MenuItem value="select">Please Select One</MenuItem>
                 <MenuItem value="Chanel">Chanel</MenuItem>
                 <MenuItem value="Broadcaster Bouqet">Broadcaster Bouqet</MenuItem>
                 <MenuItem value="My Package">My Package</MenuItem>
@@ -237,14 +234,14 @@ const ProductDetails = (props) => {
                 sx={{
                   width: '100%',
                   backgroundColor: '#F8F8F8',
-                  color: '#A5A4A4',
+                  color: 'black',
                   borderColor: '#ccc',
                   ':active': {
                     borderColor: 'red',
                   },
                 }}
               >
-                <MenuItem value="">Please Select language</MenuItem>
+                <MenuItem value="no">Please Select language</MenuItem>
                 {languages.map((language, index) => (
                   <MenuItem key={index} value={language.name}>
                     {language.name}
@@ -261,7 +258,7 @@ const ProductDetails = (props) => {
                 sx={{
                   width: { xs: '100%', md: '33%' },
                   backgroundColor: '#F8F8F8',
-                  color: '#A5A4A4',
+                  color: 'black',
                   borderColor: '#ccc',
                   ':active': {
                     borderColor: 'red',
